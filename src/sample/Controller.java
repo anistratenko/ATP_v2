@@ -18,20 +18,21 @@ public class Controller {
         pendulumView = new PendulumView(1,1,1,1);
         gravityView = new GravityView(20);
         PanePendulum.widthProperty().addListener((obs, oldVal, newVal) -> {
-            pendulumView.setPaneSize(PanePendulum.getWidth(),PanePendulum.getHeight(), 2, 2);
+            pendulumView.setPaneSize(PanePendulum.getWidth(),PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
         });
         PanePendulum.heightProperty().addListener((obs, oldVal, newVal) -> {
-            pendulumView.setPaneSize(PanePendulum.getWidth(),PanePendulum.getHeight(), 2, 2);
+            pendulumView.setPaneSize(PanePendulum.getWidth(),PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
         });
         PendulumAnimation = new AnimationTimer() {
             long lastUpdate = 0;
             public void handle(long now) {
                 if (now - lastUpdate >= 16_666_666) {
-                    if (pendulumView.performSimulationStep())
-                    {
-                        PanePendulum.getChildren().clear();
-                        for (Node i : pendulumView.getNodes())
-                            PanePendulum.getChildren().add(i);
+                    if (PDS.running) {
+                        if (pendulumView.performSimulationStep()) {
+                            PanePendulum.getChildren().clear();
+                            for (Node i : pendulumView.getNodes())
+                                PanePendulum.getChildren().add(i);
+                        }
                     }
                     lastUpdate = now;
                 }
@@ -87,8 +88,9 @@ public class Controller {
                 FXMLLoader pendulumLoader = new FXMLLoader(getClass().getResource("pendulumGui.fxml"));
                 if (ContentPane != null) ContentPane.getChildren().clear();
                 if (ContentPane != null) ContentPane.getChildren().add(pendulumLoader.load());
-                pendulumView = new PendulumView(1, 1, 1, 1);
-                pendulumView.setPaneSize(PanePendulum.getWidth(), PanePendulum.getHeight(), 2, 2);
+                if (PDS.doublependulum) pendulumView = new PendulumView(PDS.l1*1., PDS.m1*1., PDS.l2*1, PDS.m2*1);
+                else pendulumView = new PendulumView(PDS.l1*1., PDS.m1*1);
+                pendulumView.setPaneSize(PanePendulum.getWidth(), PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
                 for (Node i : pendulumView.getNodes())
                     PanePendulum.getChildren().add(i);
                 PendulumAnimation.start();

@@ -10,15 +10,12 @@ import javafx.scene.control.Button;
  */
 public class GravityGuiController {
 
-
     @FXML
     private Button gravityButton;
-
 
     @FXML
     private void onClickGravity(Event event) throws Exception{
         System.out.println("CLICK GRAVITY");
     }
-
 
 }

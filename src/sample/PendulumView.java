@@ -28,17 +28,13 @@ public class PendulumView implements SimulationView {
 
     public PendulumView(double length1, double mass1) {
         pendulum = new Pendulum(length1, mass1);
+        pendulum.setLMF(PDS.l1, PDS.m1, PDS.phi);
         firstBob = new Circle(300., 270., 10.);
         secondBob = firstBob;
         elements.add(firstBob);
         firstCord = new Line(250, 250, firstBob.getCenterX(), firstBob.getCenterY());
         secondCord = new Line (250, 250, 250, 250);
         elements.add(firstCord);
-        xsize = 100;
-        ysize = 100;
-        xreal = 1;
-        yreal = 1;
-
     }
 
     @Override
@@ -56,14 +52,15 @@ public class PendulumView implements SimulationView {
      */
     public PendulumView(double length1, double mass1, double length2, double mass2) {
         pendulum = new Pendulum(length1, mass1, length2, mass2);
+        pendulum.setLMF(PDS.l1, PDS.m1, PDS.phi, PDS.l2, PDS.m2, PDS.theta);
         firstBob = new Circle(300., 270., 10.);
         secondBob = new Circle(400., 270., 5.);
         elements.add(firstBob);
         elements.add(secondBob);
-        pendulum.setXY((firstBob.getCenterX() - 250.) / 250.,
-                (firstBob.getCenterY() - 250.) / 250.,
-                (secondBob.getCenterX() - 250.) / 250.,
-                (secondBob.getCenterY() - 250.) / 250.);
+//        pendulum.setXY((firstBob.getCenterX() - 250.) / 250.,
+//                (firstBob.getCenterY() - 250.) / 250.,
+//                (secondBob.getCenterX() - 250.) / 250.,
+//                (secondBob.getCenterY() - 250.) / 250.);
         firstCord = new Line(offset[0], offset[1], firstBob.getCenterX(), firstBob.getCenterY());
         secondCord = new Line(firstBob.getCenterX(), firstBob.getCenterY(), secondBob.getCenterX(), secondBob.getCenterY());
         elements.add(firstCord);
@@ -74,7 +71,7 @@ public class PendulumView implements SimulationView {
      * Run simulation and move positions of pendulums
      */
     public boolean performSimulationStep() {
-        pendulum.simulate(FRAMETIME);
+        pendulum.simulate(GDS.FrameTime, PDS.fx, PDS.c);
         double xcenter = xsize/2;
         double ycenter = ysize/2;
         double xscale = xsize/xreal;
@@ -130,23 +127,6 @@ public class PendulumView implements SimulationView {
     @Override
     public ArrayList<Node> getNodes() {
         return elements;
-    }
-
-    /**
-     * Set where the first pendulum is attached
-     *
-     * @param x - horizontal distance from left edge of window
-     * @param y - vertical distance from top of widow
-     */
-    public void setOffset(int x, int y) {
-        offset[0] = x;
-        offset[1] = y;
-    }
-    public static void setOffsetWidth(int x) {
-        offset[0] = x;
-    }
-    public static void setOffsetHeight(int y) {
-        offset[1] = y;
     }
 
     @Override

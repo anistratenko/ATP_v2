@@ -34,6 +34,25 @@ public class Pendulum {
     public void setXY(double X1, double Y1){
         setXY(X1, Y1, X1, Y1);
     }
+    public void setLMF(double L1, double M1, double PHI) { setLMF(L1, M1, PHI, L1, 0, 0 );}
+    public void setLMF(double L1, double M1, double PHI, double L2, double M2, double THETA)
+    {
+        l1 = L1;
+        m1 = M1;
+        phi = PHI;
+
+        l2 = L2;
+        m2 = M2;
+        theta = THETA;
+
+        d_phi = 0.;
+        d2_phi = 0.;
+        d_theta = 0.;
+        d2_theta = 0.;
+
+        real_t = 0.;
+        t = 0.;
+    }
 
     public double getTheta() {
         return theta;
@@ -121,7 +140,7 @@ public class Pendulum {
     //function for simulation with additional horizontal force, works only for single pendulum, time >= 0, force [m/s^2] in (-inf;inf)
     public void simulate(double time, double force, double dragCooefficient) {
         //internal time-step for computations
-        double dt = 1e-5;
+        double dt = 5e-6;
         //time measuring
         real_t += time;
         if (DP) {
@@ -185,12 +204,13 @@ public class Pendulum {
         }
     }
 
-   /* public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Pendulum p = new Pendulum(0.25, 1, 0.3, 2);
 
         Long start = System.nanoTime();
         for (int i = 0; i < 600; i++) p.simulate(1. / 60.);
         Long end = System.nanoTime();
+
         System.out.println("Computation time per 1 second simulated: " + ((end - start) * 1e-9 / 10.));
         System.out.println("Computation time of 1/60 sec: 			 " + ((end - start) * 1e-9 / 600.));
     }*/
