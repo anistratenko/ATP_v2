@@ -2,6 +2,7 @@ package sample;
 
 public class PDS {
     private PDS() {}
+    public static double FrameTime = 1./60;//s
 
     static public double g = -9.81;
 

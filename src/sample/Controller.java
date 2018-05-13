@@ -23,6 +23,13 @@ public class Controller {
         PanePendulum.heightProperty().addListener((obs, oldVal, newVal) -> {
             pendulumView.setPaneSize(PanePendulum.getWidth(),PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
         });
+        PaneGravity.widthProperty().addListener((obs, oldVal, newVal) -> {
+            gravityView.setPaneSize(PaneGravity.getWidth(),PaneGravity.getHeight(), GDS.xreal, GDS.yreal);
+        });
+        PaneGravity.heightProperty().addListener((obs, oldVal, newVal) -> {
+            gravityView.setPaneSize(PaneGravity.getWidth(),PaneGravity.getHeight(), GDS.xreal, GDS.yreal);
+        });
+
         PendulumAnimation = new AnimationTimer() {
             long lastUpdate = 0;
             public void handle(long now) {
@@ -103,6 +110,7 @@ public class Controller {
                 gravityView = new GravityView(GDS.num_of_bodies);
                 for (Node i : gravityView.getNodes())
                     PaneGravity.getChildren().add(i);
+                gravityView.setPaneSize(500, 500, GDS.xreal, GDS.yreal);
                 GravityAnimation.start();
             }
         }

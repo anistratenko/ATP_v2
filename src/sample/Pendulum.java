@@ -2,19 +2,19 @@ package sample;
 
 public class Pendulum {
     //variables for simulation
-    private double phi = Math.PI / 2;
-    private double theta = 0.;
-    private double d_phi = 0.;
-    private double d_theta = 0.;
-    private double d2_phi = 0.;
-    private double d2_theta = 0.;
-    private double l1 = 0.;
-    private double l2 = 0.;
-    private double m1 = 0.;
-    private double m2 = 0.;
-    private double g = -9.81;
-    private double real_t = 0.;
-    private double t = 0.;
+    private double phi = Math.PI / 2;   //rad
+    private double theta = 0.;          //rad
+    private double d_phi = 0.;          //rad/s
+    private double d_theta = 0.;        //rad/s
+    private double d2_phi = 0.;         //rad/s^2
+    private double d2_theta = 0.;       //rad/s^2
+    private double l1 = 0.;             //m
+    private double l2 = 0.;             //m
+    private double m1 = 0.;             //kg
+    private double m2 = 0.;             //kg
+    private double g = -9.81;           //m/s^2
+    private double real_t = 0.;         //s
+    private double t = 0.;              //s
 
     //flag for double/single pendulum distinction
     private boolean DP;

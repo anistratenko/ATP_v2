@@ -71,7 +71,7 @@ public class PendulumView implements SimulationView {
      * Run simulation and move positions of pendulums
      */
     public boolean performSimulationStep() {
-        pendulum.simulate(GDS.FrameTime, PDS.fx, PDS.c);
+        pendulum.simulate(PDS.FrameTime, PDS.fx, PDS.c);
         double xcenter = xsize/2;
         double ycenter = ysize/2;
         double xscale = xsize/xreal;
@@ -95,6 +95,7 @@ public class PendulumView implements SimulationView {
     @Override
     public void setPaneSize(double px_x, double px_y, double re_x, double re_y)
     {
+        System.out.println(xsize + " " + ysize);
         xsize = px_x;
         ysize = px_y;
         xreal = re_x;

@@ -45,16 +45,21 @@ public class GravityView implements SimulationView{
 
     @Override
     public void setParams(TreeMap<String, Double> TM) {
-        gravity.setParams(10);
     }
 
     @Override
     public boolean performSimulationStep() {
         gravity.simulate(GDS.FrameTime);
+        double xcenter = xsize/2;
+        double ycenter = ysize/2;
+        double xscale = xsize/xreal;
+        double yscale = ysize/yreal;
+        double scale = Math.min(xscale, yscale);
         if (elements.size() != gravity.getNumOfBodies()){
             elements.clear();
             for (int i = 0; i < gravity.getNumOfBodies(); i++){
-                Circle newCircle =  new Circle(gravity.getBody(i).getX() + offset[0],offset[1] +  gravity.getBody(i).getY(), gravity.getBody(i).getR());
+
+                Circle newCircle =  new Circle(gravity.getBody(i).getX()*scale +xcenter ,  gravity.getBody(i).getY()*scale - xcenter, gravity.getBody(i).getR()*scale);
                 newCircle.setFill(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
                 elements.add(newCircle);
 
@@ -62,18 +67,10 @@ public class GravityView implements SimulationView{
             return true;
         } else
         for (int i = 0; i < elements.size(); i++){
-            ((Circle)elements.get(i)).setCenterX(offset[0]  + gravity.getBody(i).getX());
-            ((Circle)elements.get(i)).setCenterY(offset[1]  + gravity.getBody(i).getY());
-            ((Circle)elements.get(i)).setRadius(gravity.getBody(i).getR());
+            ((Circle)elements.get(i)).setCenterX(xcenter  + gravity.getBody(i).getX()*scale);
+            ((Circle)elements.get(i)).setCenterY(ycenter  + gravity.getBody(i).getY()*scale);
+            ((Circle)elements.get(i)).setRadius(gravity.getBody(i).getR()*scale);
         }
         return false;
     }
-
-    public static void setOffsetWidth(int x) {
-        offset[0] = x/2;
-    }
-    public static void setOffsetHeight(int y) {
-        offset[1] = y/2;
-    }
-
 }
