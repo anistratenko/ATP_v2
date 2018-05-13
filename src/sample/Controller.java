@@ -5,8 +5,15 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 public class Controller {
@@ -120,8 +127,36 @@ public class Controller {
     }
 
 
-//    public static void infoGravity(){
-//        System.out.println(gravityView)
-//    }
+    @FXML
+    private MenuItem langSelectEN;
+    @FXML
+    private MenuItem langSelectPL;
+
+    @FXML
+    private void changeLanguageEN(Event event) throws Exception{
+        Locale currLocale = new Locale("en");
+
+        Main.fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        Main.fxmlLoader.setResources(ResourceBundle.getBundle("sample.Locale", currLocale));
+
+        GridPane newNode = Main.fxmlLoader.load();
+        Main.controller = Main.fxmlLoader.getController();
+        Main.primaryStage.setTitle(Main.fxmlLoader.getResources().getString("window_title"));
+        Main.root.getChildren().setAll(newNode.getChildren());
+    }
+    @FXML
+    private void changeLanguagePL(Event event) throws Exception{
+        Locale currLocale = new Locale("pl");
+
+        Main.fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        Main.fxmlLoader.setResources(ResourceBundle.getBundle("sample.Locale", currLocale));
+
+        GridPane newNode = Main.fxmlLoader.load();
+        Main.controller = Main.fxmlLoader.getController();
+        Main.primaryStage.setTitle(Main.fxmlLoader.getResources().getString("window_title"));
+        Main.root.getChildren().setAll(newNode.getChildren());
+    }
+
+
 }
 

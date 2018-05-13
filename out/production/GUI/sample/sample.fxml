@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<?import javafx.scene.layout.StackPane?>
-<GridPane alignment="center" hgap="0" vgap="0" gridLinesVisible="true"
-          xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="center" gridLinesVisible="true" hgap="0" vgap="0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints prefWidth="277.0" />
         <ColumnConstraints prefWidth="197.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints />
+      <RowConstraints />
     </rowConstraints>
     <children>
-      <TabPane prefHeight="343.0" prefWidth="374.0" tabClosingPolicy="UNAVAILABLE"
-               GridPane.hgrow="ALWAYS"  GridPane.vgrow="ALWAYS"
-               GridPane.fillHeight="True" GridPane.fillWidth="True"
-               GridPane.halignment="LEFT" GridPane.valignment="TOP"
-               GridPane.columnIndex="0"
-      >
+      <TabPane prefHeight="343.0" prefWidth="374.0" tabClosingPolicy="UNAVAILABLE" GridPane.fillHeight="True" GridPane.fillWidth="True" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
         <tabs>
-            <Tab fx:id="TabPendulum" onSelectionChanged="#ChangeGui" text="Pendulum">
+            <Tab fx:id="TabPendulum" onSelectionChanged="#ChangeGui" text="%paneTitle_pendulum">
                 <content>
                   <Pane fx:id="PanePendulum" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                 </content>
             </Tab>
-            <Tab fx:id="TabGravity" onSelectionChanged="#ChangeGui" text="Gravity">
+            <Tab fx:id="TabGravity" onSelectionChanged="#ChangeGui" text="%paneTitle_gravity">
                 <content>
-                  <Pane fx:id="PaneGravity"  minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <Pane fx:id="PaneGravity" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                 </content>
             </Tab>
-            <Tab fx:id="TabStructure" onSelectionChanged="#ChangeGui" text="Structure">
+            <Tab fx:id="TabStructure" onSelectionChanged="#ChangeGui" text="%paneTitle_structure">
                <content>
                   <Pane fx:id="PaneGravity1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
         </tabs>
       </TabPane>
-      <Pane fx:id="ContentPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+      <Pane fx:id="ContentPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <!--<Button layoutX="69.0" layoutY="75.0" mnemonicParsing="false" text="Pendulum" />-->
          </children>
       </Pane>
+      <MenuBar GridPane.columnSpan="2">
+        <menus>
+          <Menu mnemonicParsing="false" text="Actions">
+            <items>
+              <MenuItem fx:id="langSelectEN" mnemonicParsing="false" onAction="#changeLanguageEN" text="EN" />
+                  <MenuItem fx:id="langSelectPL" mnemonicParsing="false" onAction="#changeLanguagePL" text="PL" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
     </children>
 </GridPane>
