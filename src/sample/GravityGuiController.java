@@ -14,8 +14,19 @@ public class GravityGuiController {
     private Button gravityButton;
 
     @FXML
+    private Button Start;
+
+    @FXML
     private void onClickGravity(Event event) throws Exception{
         System.out.println("CLICK GRAVITY");
+    }
+
+    @FXML
+    private void onClickStart(Event event) throws Exception
+    {
+        GDS.running = !GDS.running;
+        if ( GDS.running )Start.setText("Stop");
+        else Start.setText("Start");
     }
 
 }

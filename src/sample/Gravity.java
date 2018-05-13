@@ -170,8 +170,8 @@ public class Gravity {
 
 //        bodies.get(cur).ax = 0.0;
 //        bodies.get(cur).ay = 0.0; // probably the momentum preserving law will be added.
-//        bodies.get(cur).vx = 0.0;
-//        bodies.get(cur).vy = 0.0;
+        bodies.get(cur).vx = 0.0;
+        bodies.get(cur).vy = 0.0;
 //        bodies.get(i).active = false;
 //        bodies.get(i).r = 0;
 //        bodies.get(i).m = 0;

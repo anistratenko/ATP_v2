@@ -43,11 +43,12 @@ public class Controller {
             long lastUpdate = 0;
             public void handle(long now) {
                 if (now - lastUpdate >= 16_666_666) {
-                    if (gravityView.performSimulationStep())
-                    {
-                        PaneGravity.getChildren().clear();
-                        for (Node i : gravityView.getNodes())
-                            PaneGravity.getChildren().add(i);
+                    if (GDS.running) {
+                    if (gravityView.performSimulationStep()){
+                            PaneGravity.getChildren().clear();
+                            for (Node i : gravityView.getNodes())
+                                PaneGravity.getChildren().add(i);
+                        }
                     }
                     lastUpdate = now;
                 }
@@ -99,7 +100,7 @@ public class Controller {
                 FXMLLoader gravityLoader = new FXMLLoader(getClass().getResource("gravityGui.fxml"));
                 if (ContentPane != null) ContentPane.getChildren().clear();
                 if (ContentPane != null) ContentPane.getChildren().add(gravityLoader.load());
-                gravityView = new GravityView(20);
+                gravityView = new GravityView(GDS.num_of_bodies);
                 for (Node i : gravityView.getNodes())
                     PaneGravity.getChildren().add(i);
                 GravityAnimation.start();
