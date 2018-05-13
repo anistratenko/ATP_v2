@@ -9,15 +9,20 @@ import java.util.TreeMap;
 
 
 public class GravityView implements SimulationView{
+    public int getNumElements() {
+        return elements.size();
+    }
+
     private ArrayList<Node> elements = new ArrayList<>();
     private Node body;
     private Gravity gravity;
     int k = 0;
     private static int[] offset = {250, 250};
-    private double xsize;
-    private double ysize;
-    private double xreal;
-    private double yreal;
+    public static double xsize ;
+    public static double ysize;
+    public static double xreal;
+    public static double yreal;
+    public static double scale;
     private static Random rnd = new Random();
 
     public GravityView(int numOfBodies){
@@ -50,11 +55,20 @@ public class GravityView implements SimulationView{
 
     @Override
     public boolean performSimulationStep() {
+
         gravity.simulate(GDS.FrameTime);
+        double xcenter = xsize/2.;
+        double ycenter = ysize/2.;
+        double xscale = xsize/xreal;
+        double yscale = ysize/yreal;
+        scale = xscale;
+        double scale = Math.min(xscale, yscale);
         if (elements.size() != gravity.getNumOfBodies()){
             elements.clear();
             for (int i = 0; i < gravity.getNumOfBodies(); i++){
-                Circle newCircle =  new Circle(gravity.getBody(i).getX() + offset[0],offset[1] +  gravity.getBody(i).getY(), gravity.getBody(i).getR());
+                Circle newCircle =  new Circle(xcenter + gravity.getBody(i).getX() * scale,
+                                               ycenter + gravity.getBody(i).getY() * scale,
+                                                                 gravity.getBody(i).getR());
                 newCircle.setFill(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
                 elements.add(newCircle);
 
@@ -62,8 +76,8 @@ public class GravityView implements SimulationView{
             return true;
         } else
         for (int i = 0; i < elements.size(); i++){
-            ((Circle)elements.get(i)).setCenterX(offset[0]  + gravity.getBody(i).getX());
-            ((Circle)elements.get(i)).setCenterY(offset[1]  + gravity.getBody(i).getY());
+            ((Circle)elements.get(i)).setCenterX(xcenter  + gravity.getBody(i).getX() * scale);
+            ((Circle)elements.get(i)).setCenterY(ycenter  + gravity.getBody(i).getY() * scale);
             ((Circle)elements.get(i)).setRadius(gravity.getBody(i).getR());
         }
         return false;

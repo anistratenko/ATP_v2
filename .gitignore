@@ -52,3 +52,7 @@ fabric.properties
 
 #macOs
 .DS_Store
+#.idea
+.idea/
+#classes
+*.class

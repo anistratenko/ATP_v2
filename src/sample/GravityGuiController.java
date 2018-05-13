@@ -18,7 +18,8 @@ public class GravityGuiController {
 
     @FXML
     private void onClickGravity(Event event) throws Exception{
-        System.out.println("CLICK GRAVITY");
+        System.out.println(GravityView.scale);
+//        System.out.println("CLICK GRAVITY");
     }
 
     @FXML

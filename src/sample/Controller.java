@@ -12,6 +12,26 @@ import javafx.scene.layout.Pane;
 public class Controller {
     private boolean initEvent = false;
 
+    AnimationTimer PendulumAnimation;
+    static PendulumView pendulumView;
+    AnimationTimer GravityAnimation;
+    static GravityView gravityView;
+
+    @FXML
+    private Pane PanePendulum;
+
+    @FXML
+    private Pane PaneGravity;
+
+    @FXML
+    private Pane ContentPane;
+
+    @FXML
+    private Tab TabGravity;
+
+    @FXML
+    private Tab TabPendulum;
+
     @FXML
     public void initialize()
     {
@@ -23,6 +43,14 @@ public class Controller {
         PanePendulum.heightProperty().addListener((obs, oldVal, newVal) -> {
             pendulumView.setPaneSize(PanePendulum.getWidth(),PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
         });
+
+        PaneGravity.widthProperty().addListener((obs, oldVal, newVal) -> {
+            gravityView.setPaneSize(newVal.doubleValue(),PaneGravity.getHeight(), GDS.xreal, GDS.yreal);
+        });
+        PaneGravity.heightProperty().addListener((obs, oldVal, newVal) -> {
+            gravityView.setPaneSize(PaneGravity.getWidth(),newVal.doubleValue(), GDS.xreal, GDS.yreal);
+        });
+
         PendulumAnimation = new AnimationTimer() {
             long lastUpdate = 0;
             public void handle(long now) {
@@ -56,25 +84,7 @@ public class Controller {
         };
     }
 
-    @FXML
-    private Pane PanePendulum;
-    AnimationTimer PendulumAnimation;
-    PendulumView pendulumView;
 
-
-    @FXML
-    private Pane PaneGravity;
-    AnimationTimer GravityAnimation;
-    GravityView gravityView;
-
-    @FXML
-    private Pane ContentPane;
-
-    @FXML
-    private Tab TabGravity;
-
-    @FXML
-    private Tab TabPendulum;
 
     @FXML
     private void ChangeGui(Event event) throws Exception{
@@ -108,5 +118,10 @@ public class Controller {
         }
         else initEvent = true;
     }
+
+
+//    public static void infoGravity(){
+//        System.out.println(gravityView)
+//    }
 }
 

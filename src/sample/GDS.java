@@ -10,4 +10,8 @@ public class GDS {
     public static double m;
 
 
+    public static double xreal = 900.;
+    public static double yreal = 900.;
+
+
 }
