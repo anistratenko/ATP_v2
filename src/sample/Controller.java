@@ -96,13 +96,11 @@ public class Controller {
     @FXML
     private void ChangeGui(Event event) throws Exception{
         if (initEvent) {
-            System.out.println("ACTION");
             GravityAnimation.stop();
             PendulumAnimation.stop();
             if (PanePendulum != null) PanePendulum.getChildren().clear();
             if (PaneGravity != null) PaneGravity.getChildren().clear();
             if (TabPendulum.isSelected()) {
-                System.out.println("ACTION Pendulum " + ContentPane);
                 FXMLLoader pendulumLoader = new FXMLLoader(getClass().getResource("pendulumGui.fxml"));
                 if (ContentPane != null) ContentPane.getChildren().clear();
                 if (ContentPane != null) ContentPane.getChildren().add(pendulumLoader.load());
@@ -113,7 +111,6 @@ public class Controller {
                     PanePendulum.getChildren().add(i);
                 PendulumAnimation.start();
             } else if (TabGravity.isSelected()) {
-                System.out.println("ACTION GRAVITY");
                 FXMLLoader gravityLoader = new FXMLLoader(getClass().getResource("gravityGui.fxml"));
                 if (ContentPane != null) ContentPane.getChildren().clear();
                 if (ContentPane != null) ContentPane.getChildren().add(gravityLoader.load());
@@ -129,27 +126,25 @@ public class Controller {
 
     @FXML
     private MenuItem langSelectEN;
+
     @FXML
     private MenuItem langSelectPL;
 
     @FXML
     private void changeLanguageEN(Event event) throws Exception{
         Locale currLocale = new Locale("en");
-
-        Main.fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
-        Main.fxmlLoader.setResources(ResourceBundle.getBundle("sample.Locale", currLocale));
-
-        GridPane newNode = Main.fxmlLoader.load();
-        Main.controller = Main.fxmlLoader.getController();
-        Main.primaryStage.setTitle(Main.fxmlLoader.getResources().getString("window_title"));
-        Main.root.getChildren().setAll(newNode.getChildren());
+        changeLocale(currLocale);
     }
+
     @FXML
     private void changeLanguagePL(Event event) throws Exception{
         Locale currLocale = new Locale("pl");
+        changeLocale(currLocale);
+    }
 
+    private void changeLocale(Locale locale) throws Exception{
         Main.fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
-        Main.fxmlLoader.setResources(ResourceBundle.getBundle("sample.Locale", currLocale));
+        Main.fxmlLoader.setResources(ResourceBundle.getBundle("sample.Locale", locale));
 
         GridPane newNode = Main.fxmlLoader.load();
         Main.controller = Main.fxmlLoader.getController();
