@@ -53,6 +53,8 @@ public class GravityView implements SimulationView{
         gravity.setParams(10);
     }
 
+    
+
     @Override
     public boolean performSimulationStep() {
 
