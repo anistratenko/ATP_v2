@@ -11,8 +11,6 @@ public interface SimulationView {
      */
     ArrayList<Node> getNodes();
 
-    void setParams(TreeMap<String, Double> TM);
-
     void setPaneSize(double px_x, double px_y, double re_x, double re_y);
 
     /**

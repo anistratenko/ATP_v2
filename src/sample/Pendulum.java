@@ -1,28 +1,7 @@
 package sample;
 
 public class Pendulum {
-//    //variables for simulation
-//    private double phi = Math.PI / 2;
-//    private double theta = 0.;
-//    private double PDS.d_phi = 0.;
-//    private double PDS.d_theta = 0.;
-//    private double PDS.d2_phi = 0.;
-//    private double PDS.d2_theta = 0.;
-//    private double PDS.l1 = 0.;
-//    private double PDS.l2 = 0.;
-//    private double PDS.m1 = 0.;
-//    private double PDS.m2 = 0.;
-//    private double g = -9.81;
-//    private double PDS.real_t = 0.;
-//    private double t = 0.;
-//
-//    //public variables x1, y1 - coordinates of 1st pendulum end, x2, y2 - 2nd pendulum or x2==x1, y2==y1 if DP equals false
-//    //coordinate system origin is located in pendulum pivot
-//    //modification of these values won't affect simulate function
-//    public double x1;
-//    public double y1;
-//    public double x2;
-//    public double y2;
+
 
     public void setXY(double X1, double Y1){
         setXY(X1, Y1, X1, Y1);
@@ -45,10 +24,6 @@ public class Pendulum {
 
         PDS.real_t = 0.;
         PDS.t = 0.;
-    }
-
-    public double getTheta() {
-        return PDS.theta;
     }
 
     public void setXY(double X1, double Y1, double X2, double Y2) {
@@ -78,23 +53,6 @@ public class Pendulum {
             PDS.d2_theta = 0;
         }
 
-        PDS.d_phi = 0;
-        PDS.d2_phi = 0;
-        PDS.d_theta = 0;
-        PDS.d2_theta = 0;
-        PDS.real_t = 0.;
-        PDS.t = 0.;
-    }
-
-    public void setParams(double L1, double Phi, double L2, double Theta, double M1, double M2, double G)
-    {
-        PDS.l1 = L1;
-        PDS.l2 = L2;
-        PDS.phi = Phi*Math.PI/180;
-        PDS.theta = Theta*Math.PI/180;
-        PDS.m1 = 1;
-        PDS.m2 = 2;
-        PDS.g = G;
         PDS.d_phi = 0;
         PDS.d2_phi = 0;
         PDS.d_theta = 0;

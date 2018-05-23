@@ -37,11 +37,6 @@ public class PendulumView implements SimulationView {
 //        elements.add(firstCord);
 //    }
 
-    @Override
-    public void setParams(TreeMap<String,Double> TM) {
-        pendulum.setParams( TM.get("L1"), TM.get("Phi"), TM.get("L2"), TM.get("Theta"), 1,1, TM.get("G") );
-    }
-
     /**
      * Double pendulum
      *
