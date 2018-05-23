@@ -26,16 +26,16 @@ public class PendulumView implements SimulationView {
      * @param mass1   - mass of the pendulum
      */
 
-    public PendulumView(double length1, double mass1) {
-        pendulum = new Pendulum(length1, mass1);
-        pendulum.setLMF(PDS.l1, PDS.m1, PDS.phi);
-        firstBob = new Circle(300., 270., 10.);
-        secondBob = firstBob;
-        elements.add(firstBob);
-        firstCord = new Line(250, 250, firstBob.getCenterX(), firstBob.getCenterY());
-        secondCord = new Line (250, 250, 250, 250);
-        elements.add(firstCord);
-    }
+//    public PendulumView(double length1, double mass1) {
+//        pendulum = new Pendulum(length1, mass1);
+//        pendulum.setLMF(PDS.l1, PDS.m1, PDS.phi);
+//        firstBob = new Circle(300., 270., 10.);
+//        secondBob = firstBob;
+//        elements.add(firstBob);
+//        firstCord = new Line(250, 250, firstBob.getCenterX(), firstBob.getCenterY());
+//        secondCord = new Line (250, 250, 250, 250);
+//        elements.add(firstCord);
+//    }
 
     @Override
     public void setParams(TreeMap<String,Double> TM) {
@@ -72,24 +72,29 @@ public class PendulumView implements SimulationView {
      */
     public boolean performSimulationStep() {
         pendulum.simulate(GDS.FrameTime, PDS.fx, PDS.c);
+        refresh();
+        return false;
+    }
+
+    public void refresh()
+    {
         double xcenter = xsize/2;
         double ycenter = ysize/2;
         double xscale = xsize/xreal;
         double yscale = ysize/yreal;
         double scale = Math.min(xscale, yscale);
-        firstBob.setCenterX(xcenter + pendulum.x1 * scale);
-        firstBob.setCenterY(ycenter - pendulum.y1 * scale);
-        secondBob.setCenterX(xcenter + pendulum.x2 * scale);
-        secondBob.setCenterY(ycenter - pendulum.y2 * scale);
+        firstBob.setCenterX(xcenter + PDS.x1 * scale);
+        firstBob.setCenterY(ycenter - PDS.y1 * scale);
+        secondBob.setCenterX(xcenter + PDS.x2 * scale);
+        secondBob.setCenterY(ycenter - PDS.y2 * scale);
         firstCord.setStartX(xcenter);
         firstCord.setStartY(ycenter);
-        firstCord.setEndX(xcenter + pendulum.x1 * scale);
-        firstCord.setEndY(ycenter - pendulum.y1 * scale);
-        secondCord.setStartX(xcenter + pendulum.x1 * scale);
-        secondCord.setStartY(ycenter - pendulum.y1 * scale);
-        secondCord.setEndX(xcenter + pendulum.x2 * scale);
-        secondCord.setEndY(ycenter - pendulum.y2 * scale);
-        return false;
+        firstCord.setEndX(xcenter + PDS.x1 * scale);
+        firstCord.setEndY(ycenter - PDS.y1 * scale);
+        secondCord.setStartX(xcenter + PDS.x1 * scale);
+        secondCord.setStartY(ycenter - PDS.y1 * scale);
+        secondCord.setEndX(xcenter + PDS.x2 * scale);
+        secondCord.setEndY(ycenter - PDS.y2 * scale);
     }
 
     @Override

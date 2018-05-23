@@ -24,9 +24,9 @@ public class Main extends Application {
     public void start(Stage primaryStage_arg) throws Exception{
         primaryStage = primaryStage_arg;
 
-//        fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
         Locale currLocale = new Locale("pl");
-//        fxmlLoader.setResources(ResourceBundle.getBundle("sample.Locale", currLocale));
+        fxmlLoader.setResources(ResourceBundle.getBundle("sample.Locale", currLocale));
 
 //        root = fxmlLoader.load();
         root = loadFXML(currLocale);
