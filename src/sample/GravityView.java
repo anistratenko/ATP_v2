@@ -35,8 +35,7 @@ public class GravityView implements SimulationView{
     }
 
     @Override
-    public void setPaneSize(double px_x, double px_y, double re_x, double re_y)
-    {
+    public void setPaneSize(double px_x, double px_y, double re_x, double re_y) {
         xsize = px_x;
         ysize = px_y;
         xreal = re_x;
@@ -48,17 +47,7 @@ public class GravityView implements SimulationView{
         return elements;
     }
 
-    @Override
-    public void setParams(TreeMap<String, Double> TM) {
-        gravity.setParams(10);
-    }
-
-    
-
-    @Override
-    public boolean performSimulationStep() {
-
-        gravity.simulate(GDS.FrameTime);
+    public boolean refresh(){
         double xcenter = xsize/2.;
         double ycenter = ysize/2.;
         double xscale = xsize/xreal;
@@ -69,20 +58,26 @@ public class GravityView implements SimulationView{
             elements.clear();
             for (int i = 0; i < gravity.getNumOfBodies(); i++){
                 Circle newCircle =  new Circle(xcenter + gravity.getBody(i).getX() * scale,
-                                               ycenter + gravity.getBody(i).getY() * scale,
-                                                                 gravity.getBody(i).getR());
+                        ycenter + gravity.getBody(i).getY() * scale,
+                        gravity.getBody(i).getR());
                 newCircle.setFill(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
                 elements.add(newCircle);
 
             }
             return true;
         } else
-        for (int i = 0; i < elements.size(); i++){
-            ((Circle)elements.get(i)).setCenterX(xcenter  + gravity.getBody(i).getX() * scale);
-            ((Circle)elements.get(i)).setCenterY(ycenter  + gravity.getBody(i).getY() * scale);
-            ((Circle)elements.get(i)).setRadius(gravity.getBody(i).getR());
-        }
+            for (int i = 0; i < elements.size(); i++){
+                ((Circle)elements.get(i)).setCenterX(xcenter  + gravity.getBody(i).getX() * scale);
+                ((Circle)elements.get(i)).setCenterY(ycenter  + gravity.getBody(i).getY() * scale);
+                ((Circle)elements.get(i)).setRadius(gravity.getBody(i).getR());
+            }
         return false;
+    }
+
+    @Override
+    public boolean performSimulationStep() {
+        gravity.simulate(GDS.FrameTime);
+        return refresh();
     }
 
     public static void setOffsetWidth(int x) {

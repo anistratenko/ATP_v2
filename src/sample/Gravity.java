@@ -1,5 +1,9 @@
 package sample;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.lang.Math;
@@ -90,12 +94,15 @@ public class Gravity {
     }
 
     public void simulate(double time) {
+
         double dt = 1e-3;
         real_t += time;
         while (t < real_t) {
+//            System.out.println(bodies.get(0).vx);
             calculateAccelerations();
             for (Body i : bodies) {
                 i.updatePosition(dt);
+
             }
             t += dt;
         }
@@ -125,6 +132,8 @@ public class Gravity {
                         if (dist > (bodies.get(cur).r + bodies.get(i).r) ) {
                             calcNewAcceleration(cur, i, dist); // calculate new acceleration
                         } else {
+                            System.out.println(bodies.size());
+                            playSound();
                             removeBodyOnCollision(cur, i);    // removes body with i index (!) if collision detected
                         }
                     }
@@ -133,6 +142,7 @@ public class Gravity {
     }
 
     double calcDistance(int cur, int i) {
+
         double first = (bodies.get(i).x - bodies.get(cur).x) * (bodies.get(i).x - bodies.get(cur).x);
         double second = (bodies.get(i).y - bodies.get(cur).y) * (bodies.get(i).y - bodies.get(cur).y);
         return Math.sqrt(first + second);
@@ -157,5 +167,12 @@ public class Gravity {
         bodies.get(cur).x = (bodies.get(cur).x + bodies.get(i).x)/2.;
         bodies.get(cur).y = (bodies.get(cur).y + bodies.get(i).y)/2.;
         bodies.remove(i);
+    }
+    void playSound(){
+//        String file = "peww.mp3";     // For example
+//        Media sound = new Media(new File(file).toURI().toString());
+//        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+//        mediaPlayer.play();
+
     }
 }

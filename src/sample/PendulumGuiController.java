@@ -5,7 +5,6 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
@@ -14,7 +13,7 @@ import javafx.scene.layout.Pane;
  */
 public class PendulumGuiController {
 
-    private AnimationTimer PendulumAnimation;
+    private AnimationTimer pendulumAnimation;
     private PendulumView pendulumView = new PendulumView(0.15,0.2,0.2,0.1);;
 
     @FXML
@@ -23,6 +22,9 @@ public class PendulumGuiController {
     private Button Type;
 	@FXML
 	private Button Load;
+
+	@FXML
+    public Pane GUIPane;
 
 	@FXML
 	private TextField L1_input;
@@ -35,7 +37,7 @@ public class PendulumGuiController {
 
 
     private Pane drawPane;
-    public PendulumGuiController(){};
+    public PendulumGuiController(){}
 
     public void initialize(Pane p)
     {
@@ -48,7 +50,7 @@ public class PendulumGuiController {
             if (!PDS.running)pendulumView.refresh();
         });
 
-        PendulumAnimation = new AnimationTimer() {
+        pendulumAnimation = new AnimationTimer() {
             long lastUpdate = 0;
             public void handle(long now) {
                 if (now - lastUpdate >= 16_666_666) {
@@ -63,7 +65,7 @@ public class PendulumGuiController {
                 }
             }
         };
-        if (PDS.running) PendulumAnimation.start();
+        if (PDS.running) pendulumAnimation.start();
     }
 
     @FXML
@@ -94,7 +96,6 @@ public class PendulumGuiController {
 	private void onClickLoad(Event event) throws Exception
 	{
 
-
 	}
 
     private void setPane(Pane p)
@@ -114,11 +115,11 @@ public class PendulumGuiController {
 
     public void startAnimation()
     {
-        PendulumAnimation.start();
+        pendulumAnimation.start();
     }
 
     public void stopAnimation() {
-        PendulumAnimation.stop();
+        pendulumAnimation.stop();
     }
 
     public void setPaneSize(double x1, double y1, double x2, double y2)
