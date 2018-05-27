@@ -58,11 +58,10 @@ public class GravityView implements SimulationView{
             elements.clear();
             for (int i = 0; i < gravity.getNumOfBodies(); i++){
                 Circle newCircle =  new Circle(xcenter + gravity.getBody(i).getX() * scale,
-                        ycenter + gravity.getBody(i).getY() * scale,
-                        gravity.getBody(i).getR());
+                                                ycenter + gravity.getBody(i).getY() * scale,
+                        						gravity.getBody(i).getR());
                 newCircle.setFill(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
                 elements.add(newCircle);
-
             }
             return true;
         } else

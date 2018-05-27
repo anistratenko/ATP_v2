@@ -22,9 +22,6 @@ public class Controller {
 
     private boolean initEvent = false;
 
-//    AnimationTimer GravityAnimation;
-//    static GravityView gravityView;
-//
     @FXML
     private Pane PanePendulum;
 
@@ -60,7 +57,7 @@ public class Controller {
 
         });
 
-        if (PaneGravity != null) {gravityController.initialize(PaneGravity);  System.out.println("Initialized Gravity");}
+        if (PaneGravity != null) {gravityController.initialize(PaneGravity);  System.out.println("Initialized Gravity"); }
 
         assert PaneGravity != null;
         PaneGravity.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -76,7 +73,7 @@ public class Controller {
     @FXML
     private void ChangeGui(Event event) throws Exception
     {
-    /*    if (initEvent) {
+        if (initEvent) {
             if (TabPendulum.isSelected()) {
                 pendulumController.GUIPane.setVisible(true);
                 pendulumController.GUIPane.setManaged(true);
@@ -94,26 +91,31 @@ public class Controller {
             }
         }
         else initEvent = true;
-    }*/
-        if (initEvent) {
-            if (TabPendulum.isSelected()) {
-                FXMLLoader pendulumLoader = new FXMLLoader(getClass().getResource("pendulumGui.fxml"));
-                ContentPane.getChildren().clear();
-                ContentPane.getChildren().add(pendulumLoader.load());
-                pendulumController.startAnimation();
-            } else if (TabGravity.isSelected()) {
-                FXMLLoader gravityLoader = new FXMLLoader(getClass().getResource("gravityGui.fxml"));
-                ContentPane.getChildren().clear();
-                ContentPane.getChildren().add(gravityLoader.load());
-                gravityController.gravityView = new GravityView(GDS.num_of_bodies);
-                for (Node i : gravityController.gravityView.getNodes())
-                    PaneGravity.getChildren().add(i);
-
-                gravityController.startAnimation();
-            }
-        }
-        else initEvent = true;
     }
+//        if (initEvent) {
+//        	gravityController.checkAnimation();
+//        	pendulumController.checkAnimation();
+//            if (TabPendulum.isSelected()) {
+//                gravityController.stopAnimation();
+//                FXMLLoader pendulumLoader = new FXMLLoader(getClass().getResource("pendulumGui.fxml"));
+//                ContentPane.getChildren().clear();
+//                ContentPane.getChildren().add(pendulumLoader.load());
+////                pendulumController.startAnimation();
+//            } else if (TabGravity.isSelected()) {
+//                pendulumController.stopAnimation();
+//                FXMLLoader gravityLoader = new FXMLLoader(getClass().getResource("gravityGui.fxml"));
+//                ContentPane.getChildren().clear();
+//                ContentPane.getChildren().add(gravityLoader.load());
+////                //To nie miejsce na takie rzeczy, od tego jest przycisk reset, wewnątrz GUIcontroller
+////                gravityController.gravityView = new GravityView(GDS.num_of_bodies);
+////                for (Node i : gravityController.gravityView.getNodes())
+////                    PaneGravity.getChildren().add(i);
+////				//Od tego przycisk start, ja dałem takie coś wyżej(w pendulum)?
+////                gravityController.startAnimation();
+//            }
+//        }
+//        else initEvent = true;
+//    }
 //
 //
     @FXML

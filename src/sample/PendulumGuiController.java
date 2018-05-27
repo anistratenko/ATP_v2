@@ -71,6 +71,7 @@ public class PendulumGuiController {
     @FXML
     private void onClickStart(Event event) throws Exception
     {
+    	checkAnimation();
         PDS.running = !PDS.running;
         if ( PDS.running )
         {
@@ -81,6 +82,13 @@ public class PendulumGuiController {
             Start.setText("Start");
             stopAnimation();
         }
+    }
+
+    public void checkAnimation()
+    {
+        System.out.println("Pendulum: " + this);
+        if(pendulumAnimation != null ) System.out.println("All OK");
+        else System.out.println("Not too good");
     }
 
     @FXML

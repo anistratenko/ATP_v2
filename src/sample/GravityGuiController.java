@@ -13,8 +13,8 @@ import javafx.scene.layout.Pane;
  * Created by yevhenii on 5/8/18.
  */
 public class GravityGuiController {
-    public AnimationTimer gravityAnimation;
-    public GravityView gravityView = new GravityView(GDS.num_of_bodies);
+    private AnimationTimer gravityAnimation;
+    private GravityView gravityView = new GravityView(GDS.num_of_bodies);
 
     @FXML
     private Button gravityButton;
@@ -22,7 +22,10 @@ public class GravityGuiController {
     @FXML
     private Button Start;
 
-    public Pane drawPane;
+	@FXML
+	public Pane GUIPane;
+
+    private Pane drawPane;
 
     public GravityGuiController(){}
 
@@ -53,21 +56,35 @@ public class GravityGuiController {
                 }
             }
         };
-        if (GDS.running) gravityAnimation.start();
+        checkAnimation();
     }
 
     @FXML
     private void onClickGravity(Event event) throws Exception{
-        System.out.println("CLICK GRAVITY");
+        System.out.println("CLICK ");
+        checkAnimation();
     }
 
     @FXML
     private void onClickStart(Event event) throws Exception
     {
         GDS.running = !GDS.running;
-        if ( GDS.running )Start.setText("Stop");
-        else Start.setText("Start");
+        if ( GDS.running )        {
+            Start.setText("Stop");
+            startAnimation();
+        }
+        else {
+            Start.setText("Start");
+            stopAnimation();
+        }
     }
+
+    public void checkAnimation()
+	{
+		System.out.println("Gravity: " + this);
+		if(gravityAnimation != null ) System.out.println("All OK");
+		else System.out.println("Not too good");
+	}
 
     public void setPane(Pane p)
     {
@@ -86,11 +103,12 @@ public class GravityGuiController {
 
     public void startAnimation()
     {
-        gravityAnimation.start();
+
+		if(gravityAnimation != null ) gravityAnimation.start();
     }
 
     public void stopAnimation() {
-        gravityAnimation.stop();
+		if(gravityAnimation != null ) gravityAnimation.stop();
     }
 
     public void setPaneSize(double x1, double y1, double x2, double y2)

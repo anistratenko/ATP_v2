@@ -2,12 +2,12 @@ package sample;
 
 public class GDS {
     private GDS(){}
-    static public boolean running = true;
+    static public boolean running = false;
     public static double FrameTime = 1./60.;
 
-    public static double G;
+    public static double G=1e3;
     public static int num_of_bodies = 20;
-    public static double m;
+    public static double m=1000.;
 
 
 
