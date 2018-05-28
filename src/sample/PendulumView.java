@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class PendulumView implements SimulationView {
-    public static final double FRAMETIME = 1. / 60.;
     private ArrayList<Node> elements = new ArrayList<>();
     private Circle firstBob, secondBob;
     private Line firstCord, secondCord;
@@ -16,9 +15,6 @@ public class PendulumView implements SimulationView {
     private static int[] offset = {250, 250};
     private double xsize;
     private double ysize;
-    private double xreal;
-    private double yreal;
-
     /**
      * Constructor for single pendulum
      *
@@ -66,7 +62,7 @@ public class PendulumView implements SimulationView {
      * Run simulation and move positions of pendulums
      */
     public boolean performSimulationStep() {
-        pendulum.simulate(GDS.FrameTime, PDS.fx, PDS.c);
+        pendulum.simulate(PDS.FrameTime, PDS.fx, PDS.c);
         refresh();
         return false;
     }
@@ -75,8 +71,8 @@ public class PendulumView implements SimulationView {
     {
         double xcenter = xsize/2;
         double ycenter = ysize/2;
-        double xscale = xsize/xreal;
-        double yscale = ysize/yreal;
+        double xscale = xsize/PDS.xreal;
+        double yscale = ysize/PDS.yreal;
         double scale = Math.min(xscale, yscale);
         firstBob.setCenterX(xcenter + PDS.x1 * scale);
         firstBob.setCenterY(ycenter - PDS.y1 * scale);
@@ -97,8 +93,8 @@ public class PendulumView implements SimulationView {
     {
         xsize = px_x;
         ysize = px_y;
-        xreal = re_x;
-        yreal = re_y;
+        PDS.xreal = re_x;
+        PDS.yreal = re_y;
     }
 
     public Circle getFirstBob() {

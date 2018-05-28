@@ -1,10 +1,13 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
@@ -34,6 +37,12 @@ public class PendulumGuiController {
 	private TextField M1_input;
 	@FXML
 	private TextField L2_input;
+	@FXML
+	private TextField THETA_input;
+	@FXML
+	private TextField M2_input;
+	@FXML
+	private Slider Speed;
 
 
     private Pane drawPane;
@@ -50,23 +59,54 @@ public class PendulumGuiController {
             if (!PDS.running)pendulumView.refresh();
         });
 
-        pendulumAnimation = new AnimationTimer() {
-            long lastUpdate = 0;
-            public void handle(long now) {
-                if (now - lastUpdate >= 16_666_666) {
-                    if (PDS.running) {
-                        if (pendulumView.performSimulationStep()) {
-                            drawPane.getChildren().clear();
-                            for (Node i : pendulumView.getNodes())
-                                drawPane.getChildren().add(i);
-                        }
-                    }
-                    lastUpdate = now;
-                }
-            }
-        };
+		Speed.valueProperty().addListener(new ChangeListener<Number>() {
+											  @Override
+											  public void changed(ObservableValue<? extends Number> observableValue, Number old_val, Number new_val)
+											  {
+											  	PDS.FrameTime = new_val.doubleValue()/60.;
+											  }
+										  });
+
+				pendulumAnimation = new AnimationTimer() {
+					long lastUpdate = 0;
+
+					public void handle(long now)
+					{
+						if (now - lastUpdate >= 16_666_666)
+						{
+							if (PDS.running)
+							{
+								fitPendulum(1.,1.);
+								if (pendulumView.performSimulationStep())
+								{
+									drawPane.getChildren().clear();
+									for (Node i : pendulumView.getNodes())
+										drawPane.getChildren().add(i);
+								}
+							}
+							lastUpdate = now;
+						}
+					}
+				};
         if (PDS.running) pendulumAnimation.start();
     }
+
+    private void fitPendulum(Double xmin, Double ymin)
+	{
+
+		Double temp = (PDS.l1 + PDS.l2)*2.;
+		if (temp > PDS.xreal || temp > PDS.yreal)
+		{
+			PDS.xreal = temp*2;
+			PDS.yreal = temp*2;
+
+		}
+		else if (temp < PDS.xreal/2. || temp < PDS.yreal/2.)
+		{
+			PDS.xreal = temp < xmin ? xmin : temp;
+			PDS.yreal = temp < xmin ? xmin : temp;
+		}
+	}
 
     @FXML
     private void onClickStart(Event event) throws Exception
@@ -103,7 +143,36 @@ public class PendulumGuiController {
     @FXML
 	private void onClickLoad(Event event) throws Exception
 	{
+		Double tempL1, tempL2, tempM1, tempM2, tempPHI, tempTHETA;
+		try
+		{
+			tempL1 = parseInput(L1_input, PDS.l1);
+			tempL2 = parseInput(L2_input,  PDS.l2);
+			tempM1 = parseInput(M1_input, PDS.m1);
+			tempM2 = parseInput(M2_input, PDS.m2);
+			tempPHI= parseInput(PHI_input, PDS.phi);
+			tempTHETA= parseInput(THETA_input, PDS.theta);
 
+			if (tempL1 <= 0 || tempL2 <= 0 || tempM1 <= 0 || tempM2 <= 0)
+				throw new IllegalArgumentException("Lengths and masses have to be greater than 0");
+
+
+			PDS.l1 = tempL1;
+			PDS.l2 = tempL2;
+			PDS.m1 = tempM1;
+			PDS.m2 = tempM2;
+			PDS.phi = tempPHI;
+			PDS.theta = tempTHETA;
+		}
+		catch (NumberFormatException e) {}
+		catch (NullPointerException e) {}
+		catch (IllegalArgumentException e) {}
+	}
+
+	private Double parseInput(TextField inputText,  Double defaultInput  ) throws NumberFormatException, NullPointerException
+	{
+		if (!inputText.getText().trim().isEmpty()) return Double.parseDouble(inputText.getText());
+		else return defaultInput;
 	}
 
     private void setPane(Pane p)

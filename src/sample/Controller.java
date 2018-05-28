@@ -75,19 +75,22 @@ public class Controller {
     {
         if (initEvent) {
             if (TabPendulum.isSelected()) {
+				gravityController.stopAnimation();
+				gravityController.GUIPane.setVisible(false);
+				gravityController.GUIPane.setManaged(false);
                 pendulumController.GUIPane.setVisible(true);
                 pendulumController.GUIPane.setManaged(true);
-                gravityController.setVisible(false);
-				gravityController.stopAnimation();
-                pendulumController.setVisible(true);
-                pendulumController.startAnimation();
+
+
+//                pendulumController.startAnimation();
             } else if (TabGravity.isSelected()) {
+				pendulumController.stopAnimation();
                 pendulumController.GUIPane.setVisible(false);
                 pendulumController.GUIPane.setManaged(false);
-                pendulumController.setVisible(false);
-                gravityController.setVisible(true);
-				pendulumController.stopAnimation();
-                gravityController.startAnimation();
+                gravityController.GUIPane.setVisible(true);
+                gravityController.GUIPane.setManaged(true);
+
+//                gravityController.startAnimation();
             }
         }
         else initEvent = true;
@@ -100,12 +103,18 @@ public class Controller {
 //                FXMLLoader pendulumLoader = new FXMLLoader(getClass().getResource("pendulumGui.fxml"));
 //                ContentPane.getChildren().clear();
 //                ContentPane.getChildren().add(pendulumLoader.load());
+//                pendulumController = pendulumLoader.getController();
+//                PanePendulum.getChildren().clear();
+//                pendulumController.initialize(PanePendulum);
 ////                pendulumController.startAnimation();
 //            } else if (TabGravity.isSelected()) {
 //                pendulumController.stopAnimation();
 //                FXMLLoader gravityLoader = new FXMLLoader(getClass().getResource("gravityGui.fxml"));
 //                ContentPane.getChildren().clear();
 //                ContentPane.getChildren().add(gravityLoader.load());
+//				gravityController = gravityLoader.getController();
+//				PaneGravity.getChildren().clear();
+//				gravityController.initialize(PaneGravity);
 ////                //To nie miejsce na takie rzeczy, od tego jest przycisk reset, wewnątrz GUIcontroller
 ////                gravityController.gravityView = new GravityView(GDS.num_of_bodies);
 ////                for (Node i : gravityController.gravityView.getNodes())
