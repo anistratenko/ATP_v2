@@ -86,4 +86,8 @@ public class GravityView implements SimulationView{
         offset[1] = y/2;
     }
 
+    public void resetGravityView(int numOfBodies){
+        gravity.resetGravity(numOfBodies);
+    }
+
 }

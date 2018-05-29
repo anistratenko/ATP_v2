@@ -116,7 +116,7 @@ public class Controller {
 //				PaneGravity.getChildren().clear();
 //				gravityController.initialize(PaneGravity);
 ////                //To nie miejsce na takie rzeczy, od tego jest przycisk reset, wewnątrz GUIcontroller
-////                gravityController.gravityView = new GravityView(GDS.num_of_bodies);
+////                gravityController.gravityView = new GravityView(GDS.numOfBodies);
 ////                for (Node i : gravityController.gravityView.getNodes())
 ////                    PaneGravity.getChildren().add(i);
 ////				//Od tego przycisk start, ja dałem takie coś wyżej(w pendulum)?
