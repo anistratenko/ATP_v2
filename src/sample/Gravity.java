@@ -4,8 +4,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Random;
 import java.lang.Math;
 
 
@@ -24,13 +22,25 @@ public class Gravity {
     }
 
     public Gravity(int numOfBodies) {
-        for (int i = 0; i < numOfBodies; i++){
+        GDS.numOfBodies = numOfBodies;
+        for (int i = 0; i < GDS.numOfBodies; i++){
             GDS.bodies.add(new Body(GDS.rnd.nextDouble()*1000. - 500., GDS.rnd.nextDouble()*1000. - 500.,
                                 10, GDS.m,
                                    GDS.rnd.nextDouble()*500 - 250, GDS.rnd.nextDouble()*500 - 250));
         }
     }
 
+    public void resetGravity(int numOfBodies){
+        GDS.numOfBodies = numOfBodies;
+        GDS.bodies.clear();
+        for (int i = 0; i < GDS.numOfBodies; i++){
+            GDS.bodies.add(new Body(GDS.rnd.nextDouble()*1000. - 500., GDS.rnd.nextDouble()*1000. - 500.,
+                    10, GDS.m,
+                    GDS.rnd.nextDouble()*500 - 250, GDS.rnd.nextDouble()*500 - 250));
+        }
+
+
+    }
     public void simulate(double time) {
         double dt = 1e-3;
         GDS.real_t += time;
@@ -43,7 +53,6 @@ public class Gravity {
             GDS.t += dt;
         }
     }
-    
 
 
     private void calculateAccelerations() {
