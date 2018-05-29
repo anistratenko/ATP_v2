@@ -59,9 +59,43 @@ public class GravityGuiController {
         checkAnimation();
     }
 
+
+    public void reinitialize()
+    {
+        drawPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            if (!GDS.running) gravityView.refresh();
+        });
+
+        drawPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            if (!GDS.running) gravityView.refresh();
+
+        });
+
+        for (Node i : gravityView.getNodes())
+            drawPane.getChildren().add(i);
+
+//        gravityAnimation = new AnimationTimer() {
+//            long lastUpdate = 0;
+//            public void handle(long now) {
+//                if (now - lastUpdate >= 16_666_666) {
+//                    if (GDS.running) {
+//                        if (gravityView.performSimulationStep()) {
+//                            drawPane.getChildren().clear();
+//                            for (Node i : gravityView.getNodes())
+//                                drawPane.getChildren().add(i);
+//                        }
+//                    }
+//                    lastUpdate = now;
+//                }
+//            }
+//        };
+        checkAnimation();
+    }
+
     @FXML
     private void onClickGravity(Event event) throws Exception{
         System.out.println("CLICK ");
+        resetAnimation();
         checkAnimation();
     }
 
@@ -103,12 +137,18 @@ public class GravityGuiController {
 
     public void startAnimation()
     {
-
 		if(gravityAnimation != null ) gravityAnimation.start();
     }
 
     public void stopAnimation() {
 		if(gravityAnimation != null ) gravityAnimation.stop();
+    }
+
+    public void resetAnimation(){
+        System.out.println("RESET");
+        if(gravityAnimation != null) gravityAnimation.stop();
+        reinitialize();
+        if(gravityAnimation != null) gravityAnimation.start();
     }
 
     public void setPaneSize(double x1, double y1, double x2, double y2)
