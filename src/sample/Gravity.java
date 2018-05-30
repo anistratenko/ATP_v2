@@ -12,6 +12,9 @@ public class Gravity {
     public Body getBody(int index) {
         return GDS.bodies.get(index);
     }
+    String file = "peww.mp3";
+    Media sound = new Media(new File(file).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
     public int getNumOfBodies() {
         return GDS.bodies.size();
@@ -111,8 +114,6 @@ public class Gravity {
         GDS.bodies.remove(i);
     }
     void playSound(){
-        String file = "peww.mp3";
-        Media sound = new Media(new File(file).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
