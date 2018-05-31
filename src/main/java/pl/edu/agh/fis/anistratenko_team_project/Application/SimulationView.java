@@ -1,9 +1,8 @@
-package sample;
+package pl.edu.agh.fis.anistratenko_team_project.Application;
 
 import javafx.scene.Node;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 public interface SimulationView {
     /**

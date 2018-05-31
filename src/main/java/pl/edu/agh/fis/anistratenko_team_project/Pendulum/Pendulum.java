@@ -1,4 +1,4 @@
-package sample;
+package pl.edu.agh.fis.anistratenko_team_project.Pendulum;
 
 public class Pendulum {
 

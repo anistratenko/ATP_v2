@@ -1,4 +1,4 @@
-package sample;
+package pl.edu.agh.fis.anistratenko_team_project.Pendulum;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;

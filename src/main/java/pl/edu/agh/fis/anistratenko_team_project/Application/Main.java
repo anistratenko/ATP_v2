@@ -1,11 +1,9 @@
-package sample;
+package pl.edu.agh.fis.anistratenko_team_project.Application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,9 +22,9 @@ public class Main extends Application {
     public void start(Stage primaryStage_arg) throws Exception{
         primaryStage = primaryStage_arg;
 
-        fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/application.fxml"));
         Locale currLocale = new Locale("pl");
-        fxmlLoader.setResources(ResourceBundle.getBundle("sample.Locale", currLocale));
+        fxmlLoader.setResources(ResourceBundle.getBundle("language.Locale", currLocale));
 
 //        root = fxmlLoader.load();
         root = loadFXML(currLocale);
@@ -47,10 +45,10 @@ public class Main extends Application {
 
 
     public  GridPane loadFXML(Locale locale) {
-        fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        fxmlLoader = new FXMLLoader(getClass().getResource("/resources/fxml/application.fxml"));
 
 //        fxmlLoader.setLocation();
-        fxmlLoader.setResources(ResourceBundle.getBundle("sample.Locale", locale));
+        fxmlLoader.setResources(ResourceBundle.getBundle("language.Locale", locale));
 
         GridPane node = null;
 

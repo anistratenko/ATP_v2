@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="GUIPane" prefHeight="450.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PendulumGuiController">
+<Pane fx:id="GUIPane" prefHeight="450.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.Anistratenko_team_project.Pendulum.PendulumGuiController">
     <Button fx:id="Start" layoutX="70.0" layoutY="75.0" mnemonicParsing="false" onAction="#onClickStart" prefHeight="26.0" prefWidth="64.0" text="Start" />
     <Button fx:id="Type" layoutX="70.0" layoutY="114.0" mnemonicParsing="false" onAction="#onClickType" text="Double" />
    <Slider fx:id="Speed" blockIncrement="0.1" layoutX="32.0" layoutY="37.0" majorTickUnit="1.0" max="2.0" min="0.2" minorTickCount="4" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />

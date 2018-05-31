@@ -1,14 +1,15 @@
-package sample;
+package pl.edu.agh.fis.anistratenko_team_project.Gravity;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import pl.edu.agh.fis.anistratenko_team_project.Application.SimulationView;
+
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.TreeMap;
 
 
-public class GravityView implements SimulationView{
+public class GravityView implements SimulationView {
     public int getNumElements() {
         return elements.size();
     }

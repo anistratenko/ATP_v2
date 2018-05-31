@@ -1,11 +1,11 @@
-package sample;
+package pl.edu.agh.fis.anistratenko_team_project.Pendulum;
 
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import pl.edu.agh.fis.anistratenko_team_project.Application.SimulationView;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 public class PendulumView implements SimulationView {
     private ArrayList<Node> elements = new ArrayList<>();

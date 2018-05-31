@@ -1,16 +1,16 @@
-package sample;
+package pl.edu.agh.fis.anistratenko_team_project.Application;
 
-import javafx.animation.AnimationTimer;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import pl.edu.agh.fis.anistratenko_team_project.Gravity.GDS;
+import pl.edu.agh.fis.anistratenko_team_project.Gravity.GravityGuiController;
+import pl.edu.agh.fis.anistratenko_team_project.Pendulum.PDS;
+import pl.edu.agh.fis.anistratenko_team_project.Pendulum.PendulumGuiController;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -146,8 +146,8 @@ public class Controller {
     }
 
     private void changeLocale(Locale locale) throws Exception{
-        Main.fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
-        Main.fxmlLoader.setResources(ResourceBundle.getBundle("sample.Locale", locale));
+        Main.fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/application.fxml"));
+        Main.fxmlLoader.setResources(ResourceBundle.getBundle("resources.language.Locale", locale));
 
         GridPane newNode = Main.fxmlLoader.load();
         Main.controller = Main.fxmlLoader.getController();
