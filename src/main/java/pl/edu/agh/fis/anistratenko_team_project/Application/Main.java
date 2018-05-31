@@ -22,9 +22,7 @@ public class Main extends Application {
     public void start(Stage primaryStage_arg) throws Exception{
         primaryStage = primaryStage_arg;
 
-        fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/application.fxml"));
         Locale currLocale = new Locale("pl");
-        fxmlLoader.setResources(ResourceBundle.getBundle("language.Locale", currLocale));
 
 //        root = fxmlLoader.load();
         root = loadFXML(currLocale);

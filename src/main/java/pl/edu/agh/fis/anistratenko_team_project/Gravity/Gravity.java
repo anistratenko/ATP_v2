@@ -12,9 +12,9 @@ public class Gravity {
     public Body getBody(int index) {
         return GDS.bodies.get(index);
     }
-  //  String file = "/sound/peww.mp3";
- //   Media sound = new Media(new File(file).toURI().toString());
-  //  MediaPlayer mediaPlayer = new MediaPlayer(sound);
+    String file = getClass().getResource("/sound/peww.mp3").getFile();
+    Media sound = new Media(new File(file).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
     public int getNumOfBodies() {
         return GDS.bodies.size();
@@ -114,7 +114,7 @@ public class Gravity {
         GDS.bodies.remove(i);
     }
     void playSound(){
-     //   MediaPlayer mediaPlayer = new MediaPlayer(sound);
-      //  mediaPlayer.play();
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 }
