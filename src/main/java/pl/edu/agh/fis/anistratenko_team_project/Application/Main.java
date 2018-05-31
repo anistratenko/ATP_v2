@@ -45,7 +45,7 @@ public class Main extends Application {
 
 
     public  GridPane loadFXML(Locale locale) {
-        fxmlLoader = new FXMLLoader(getClass().getResource("/resources/fxml/application.fxml"));
+        fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/application.fxml"));
 
 //        fxmlLoader.setLocation();
         fxmlLoader.setResources(ResourceBundle.getBundle("language.Locale", locale));

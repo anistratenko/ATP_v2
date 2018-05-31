@@ -147,7 +147,7 @@ public class Controller {
 
     private void changeLocale(Locale locale) throws Exception{
         Main.fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/application.fxml"));
-        Main.fxmlLoader.setResources(ResourceBundle.getBundle("resources.language.Locale", locale));
+        Main.fxmlLoader.setResources(ResourceBundle.getBundle("language.Locale", locale));
 
         GridPane newNode = Main.fxmlLoader.load();
         Main.controller = Main.fxmlLoader.getController();
