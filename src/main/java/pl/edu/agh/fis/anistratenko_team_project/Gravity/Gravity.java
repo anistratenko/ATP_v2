@@ -3,17 +3,14 @@ package pl.edu.agh.fis.anistratenko_team_project.Gravity;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
 import java.lang.Math;
-
-
 
 public class Gravity {
     public Body getBody(int index) {
         return GDS.bodies.get(index);
     }
-    String file = getClass().getResource("/sound/peww.mp3").getFile();
-    Media sound = new Media(new File(file).toURI().toString());
+    String externalForm = getClass().getResource("/sound/peww.mp3").toExternalForm();
+    Media sound = new Media(externalForm);
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
     public int getNumOfBodies() {
