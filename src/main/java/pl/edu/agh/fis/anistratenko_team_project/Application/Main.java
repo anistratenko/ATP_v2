@@ -39,13 +39,13 @@ public class Main extends Application {
         primaryStage.setMinWidth(600.);
         primaryStage.setHeight(600.);
         primaryStage.setMinHeight(500.);
-        primaryStage.initStyle(StageStyle.DECORATED);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
 //        primaryStage.setFullScreen(true); // may be useful
         primaryStage.show();
     }
 
 
-    public  GridPane loadFXML(Locale locale) {
+    private GridPane loadFXML(Locale locale) {
         fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/application.fxml"));
 
 //        fxmlLoader.setLocation();
@@ -66,9 +66,6 @@ public class Main extends Application {
 
         return node;
     }
-
-
-
 
     public static void main(String[] args) {
         launch(args);
