@@ -1,0 +1,57 @@
+
+/* colors aliases */
+*{
+    /* -fx-SpaceGrey: lightgrey; */
+    -fx-ButtonLight: rgb(181, 181, 181);
+    -fx-ButtonLightText: rgb(200,200,200);
+}
+
+.button {
+    -fx-background-color: -fx-ButtonLight;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-padding: 1 10 1 10;
+}
+.button:hover{
+    -fx-background-color: -fx-ButtonLight;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-color: #a9a9a9 , white , white;
+}
+
+.text-field:focused {
+    -fx-background-color: #a9a9a9 , white , white;
+}
+
+.background{
+    -fx-background-color: lightgrey;
+}
+
+.tab-pane *.tab-header-background {
+    -fx-background-color: lightgrey;
+}
+
+.tab{
+    -fx-background-color: -fx-ButtonLight;
+}
+
+.tab-label{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.background {
+    -fx-background-color:  lightgrey;
+}
+
+.slider .thumb {
+    -fx-background-color: -fx-ButtonLight;
+    -fx-pref-height: 10;
+    -fx-pref-width: 10;
+}
+
+
+

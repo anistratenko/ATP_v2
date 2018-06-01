@@ -1,10 +1,13 @@
 package pl.edu.agh.fis.anistratenko_team_project.Application;
 
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import pl.edu.agh.fis.anistratenko_team_project.Gravity.GDS;
@@ -17,10 +20,12 @@ import java.util.ResourceBundle;
 
 
 public class Controller {
-
-
+    boolean darkMode = false;
 
     private boolean initEvent = false;
+    private double xOffset = 0;
+    private double yOffset = 0; // for dragging
+
 
     @FXML
     private Pane PanePendulum;
@@ -38,6 +43,9 @@ public class Controller {
     private Tab TabPendulum;
 
     @FXML
+    private MenuBar menuBar;
+
+    @FXML
     private GravityGuiController gravityController;
 
     @FXML
@@ -46,6 +54,22 @@ public class Controller {
     @FXML
     public void initialize()
     {
+
+        menuBar.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        menuBar.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Main.primaryStage.setX(event.getScreenX() - xOffset);
+                Main.primaryStage.setY(event.getScreenY() - yOffset);
+            }
+        });
+
         if (PanePendulum != null) {pendulumController.initialize(PanePendulum);  System.out.println("Initialized");}
         else {System.out.println("Not initialized");}
 
@@ -145,6 +169,23 @@ public class Controller {
         changeLocale(currLocale);
     }
 
+
+
+
+    @FXML
+    private void changeModeDark(Event event) throws Exception{
+        Main.root.getStylesheets().clear();
+        Main.root.getStylesheets().add("/stylesheets/nightStyle.css");
+        darkMode = false;
+    }
+
+    @FXML
+    private void changeModeLight(Event event) throws Exception{
+        Main.root.getStylesheets().clear();
+        Main.root.getStylesheets().add("/stylesheets/dayStyle.css");
+        darkMode = true;
+    }
+
     private void changeLocale(Locale locale) throws Exception{
         Main.fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/application.fxml"));
         Main.fxmlLoader.setResources(ResourceBundle.getBundle("language.Locale", locale));
@@ -154,7 +195,5 @@ public class Controller {
         Main.primaryStage.setTitle(Main.fxmlLoader.getResources().getString("window_title"));
         Main.root.getChildren().setAll(newNode.getChildren());
     }
-
-
 }
 

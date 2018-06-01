@@ -7,7 +7,7 @@
 
 <Pane fx:id="GUIPane" prefHeight="400.0" prefWidth="600.0" visible="false" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Gravity.GravityGuiController">
     <Button fx:id="gravityButton" layoutX="60.0" layoutY="63.0" mnemonicParsing="false" onAction="#onClickGravity" text="Gravity" />
-    <Button fx:id="Start" layoutX="67.0" layoutY="172.0" mnemonicParsing="false" onAction="#onClickStart" text="Stop" />
+    <Button fx:id="Start" layoutX="67.0" layoutY="172.0" mnemonicParsing="false" onAction="#onClickStart" text="Start" />
     <TextField fx:id="numOfBodiesInput" layoutX="47.0" layoutY="120.0" prefHeight="26.0" prefWidth="99.0" promptText="Number of Bodies">
       <font>
          <Font size="10.0" />
