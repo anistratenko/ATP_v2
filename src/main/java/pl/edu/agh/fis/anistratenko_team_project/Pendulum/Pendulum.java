@@ -3,12 +3,15 @@ package pl.edu.agh.fis.anistratenko_team_project.Pendulum;
 public class Pendulum {
 
 
-    public void setXY(double X1, double Y1){
+    public void setXY(double X1, double Y1) {
         setXY(X1, Y1, X1, Y1);
     }
-    public void setLMF(double L1, double M1, double PHI) { setLMF(L1, M1, PHI, L1, 0, 0 );}
-    public void setLMF(double L1, double M1, double PHI, double L2, double M2, double THETA)
-    {
+
+    public void setLMF(double L1, double M1, double PHI) {
+        setLMF(L1, M1, PHI, L1, 0, 0);
+    }
+
+    public void setLMF(double L1, double M1, double PHI, double L2, double M2, double THETA) {
         PDS.l1 = L1;
         PDS.m1 = M1;
         PDS.phi = PHI;
@@ -38,10 +41,10 @@ public class Pendulum {
 
         if (PDS.doublependulum) {
             PDS.l2 = Math.sqrt(((X2 - X1) * (X2 - X1)) + ((Y2 - Y1) * (Y2 - Y1)));
-            double arg = (X2-X1)/PDS.l2;
-            if(arg > 1)
+            double arg = (X2 - X1) / PDS.l2;
+            if (arg > 1)
                 arg = 1.0;
-            if(arg < -1)
+            if (arg < -1)
                 arg = -1.0;
             PDS.theta = Math.acos(arg);
             if (Y2 >= Y1) {
@@ -65,13 +68,10 @@ public class Pendulum {
     public Pendulum(double l_1, double m_1, double l_2, double m_2) {
         PDS.l1 = l_1;
         PDS.m1 = m_1;
-        if (PDS.doublependulum)
-        {
+        if (PDS.doublependulum) {
             PDS.l2 = l_2;
             PDS.m2 = m_2;
-        }
-        else
-        {
+        } else {
             PDS.l2 = 10;
             PDS.m2 = 0;
         }
@@ -117,17 +117,14 @@ public class Pendulum {
                 PDS.theta += PDS.d_theta * dt;
                 PDS.t += dt;
             }
-        }
-        else
-        {
+        } else {
             double ro = 1000; //[kg/m^3] - water density
-            double r = Math.cbrt( (PDS.m1/(Math.PI*4000.))*(3./4.));
-            double SD = 2*Math.PI*r*r;
+            double r = Math.cbrt((PDS.m1 / (Math.PI * 4000.)) * (3. / 4.));
+            double SD = 2 * Math.PI * r * r;
             double v = 0;
-            while (PDS.t < PDS.real_t)
-            {
-                v = PDS.d_phi*r;
-                PDS.d2_phi = (PDS.g * Math.sin(PDS.phi) + force * Math.cos(PDS.phi) - Math.signum(PDS.d_phi)*dragCooefficient*SD*ro*v*v/2.) / PDS.l1;
+            while (PDS.t < PDS.real_t) {
+                v = PDS.d_phi * r;
+                PDS.d2_phi = (PDS.g * Math.sin(PDS.phi) + force * Math.cos(PDS.phi) - Math.signum(PDS.d_phi) * dragCooefficient * SD * ro * v * v / 2.) / PDS.l1;
                 //PDS.d2_phi = (-PDS.g * Math.sin(phi) + force * Math.cos(phi))/PDS.l1;
                 PDS.d_phi += PDS.d2_phi * dt;
                 PDS.phi += PDS.d_phi * dt;

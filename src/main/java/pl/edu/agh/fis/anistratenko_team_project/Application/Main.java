@@ -20,7 +20,7 @@ public class Main extends Application {
 
 
     @Override
-    public void start(Stage primaryStage_arg) throws Exception{
+    public void start(Stage primaryStage_arg) throws Exception {
         primaryStage = primaryStage_arg;
 
         Locale currLocale = new Locale("pl");
