@@ -187,13 +187,20 @@ public class Controller {
     }
 
     private void changeLocale(Locale locale) throws Exception{
+        ResourceBundle bundle = ResourceBundle.getBundle("language.Locale", locale);
+
+        Main.controller.gravityController.stopAnimation();
+        Main.controller.pendulumController.stopAnimation();
+
         Main.fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/application.fxml"));
-        Main.fxmlLoader.setResources(ResourceBundle.getBundle("language.Locale", locale));
+        Main.fxmlLoader.setResources(bundle);
 
         GridPane newNode = Main.fxmlLoader.load();
         Main.controller = Main.fxmlLoader.getController();
         Main.primaryStage.setTitle(Main.fxmlLoader.getResources().getString("window_title"));
         Main.root.getChildren().setAll(newNode.getChildren());
+
+
     }
 }
 
