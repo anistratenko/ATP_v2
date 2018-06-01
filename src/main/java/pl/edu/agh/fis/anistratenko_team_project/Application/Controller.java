@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 public class Controller {
     boolean darkMode = false;
+    private PDS pDS = new PDS();
 
     private boolean initEvent = false;
     private double xOffset = 0;
@@ -71,17 +72,17 @@ public class Controller {
         });
 
         if (PanePendulum != null) {
-            pendulumController.initialize(PanePendulum);
+            pendulumController.initialize(PanePendulum, pDS);
             System.out.println("Initialized");
         } else {
             System.out.println("Not initialized");
         }
 
         PanePendulum.widthProperty().addListener((obs, oldVal, newVal) -> {
-            pendulumController.setPaneSize(PanePendulum.getWidth(), PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
+            pendulumController.setPaneSize(PanePendulum.getWidth(), PanePendulum.getHeight(), pDS.xreal, pDS.yreal);
         });
         PanePendulum.heightProperty().addListener((obs, oldVal, newVal) -> {
-            pendulumController.setPaneSize(PanePendulum.getWidth(), PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
+            pendulumController.setPaneSize(PanePendulum.getWidth(), PanePendulum.getHeight(), pDS.xreal, pDS.yreal);
 
         });
 
