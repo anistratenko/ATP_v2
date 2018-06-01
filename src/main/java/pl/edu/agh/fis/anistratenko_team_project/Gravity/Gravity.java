@@ -3,12 +3,11 @@ package pl.edu.agh.fis.anistratenko_team_project.Gravity;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.lang.Math;
-
 public class Gravity {
     public Body getBody(int index) {
         return GDS.bodies.get(index);
     }
+
     String externalForm = getClass().getResource("/sound/peww.mp3").toExternalForm();
     Media sound = new Media(externalForm);
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
@@ -23,24 +22,25 @@ public class Gravity {
 
     public Gravity(int numOfBodies) {
         GDS.numOfBodies = numOfBodies;
-        for (int i = 0; i < GDS.numOfBodies; i++){
-            GDS.bodies.add(new Body(GDS.rnd.nextDouble()*1000. - 500., GDS.rnd.nextDouble()*1000. - 500.,
-                                10, GDS.m,
-                                   GDS.rnd.nextDouble()*500 - 250, GDS.rnd.nextDouble()*500 - 250));
+        for (int i = 0; i < GDS.numOfBodies; i++) {
+            GDS.bodies.add(new Body(GDS.rnd.nextDouble() * 1000. - 500., GDS.rnd.nextDouble() * 1000. - 500.,
+                    10, GDS.m,
+                    GDS.rnd.nextDouble() * 500 - 250, GDS.rnd.nextDouble() * 500 - 250));
         }
     }
 
-    public void resetGravity(int numOfBodies){
+    public void resetGravity(int numOfBodies) {
         GDS.numOfBodies = numOfBodies;
         GDS.bodies.clear();
-        for (int i = 0; i < GDS.numOfBodies; i++){
-            GDS.bodies.add(new Body(GDS.rnd.nextDouble()*1000. - 500., GDS.rnd.nextDouble()*1000. - 500.,
+        for (int i = 0; i < GDS.numOfBodies; i++) {
+            GDS.bodies.add(new Body(GDS.rnd.nextDouble() * 1000. - 500., GDS.rnd.nextDouble() * 1000. - 500.,
                     10, GDS.m,
-                    GDS.rnd.nextDouble()*500 - 250, GDS.rnd.nextDouble()*500 - 250));
+                    GDS.rnd.nextDouble() * 500 - 250, GDS.rnd.nextDouble() * 500 - 250));
         }
 
 
     }
+
     public void simulate(double time) {
         double dt = 1e-3;
         GDS.real_t += time;
@@ -72,7 +72,7 @@ public class Gravity {
                 if (i != cur) {  // ignore the current body
                     double dist = calcDistance(cur, i);
 
-                    if (dist > (GDS.bodies.get(cur).r + GDS.bodies.get(i).r) ) {
+                    if (dist > (GDS.bodies.get(cur).r + GDS.bodies.get(i).r)) {
                         calcNewAcceleration(cur, i, dist); // calculate new acceleration
                     } else {
 //                            System.out.println(GDS.bodies.size());
@@ -104,13 +104,14 @@ public class Gravity {
                 GDS.bodies.get(cur).r = GDS.bodies.get(i).r + Math.pow(GDS.bodies.get(cur).r, 1 / 3);
         }
 
-        GDS.bodies.get(cur).vx = (GDS.bodies.get(cur).vx * GDS.bodies.get(cur).m + GDS.bodies.get(i).vx*GDS.bodies.get(i).m)/(GDS.bodies.get(i).m+GDS.bodies.get(cur).m);
-        GDS.bodies.get(cur).vy = (GDS.bodies.get(cur).vy * GDS.bodies.get(cur).m + GDS.bodies.get(i).vy*GDS.bodies.get(i).m)/(GDS.bodies.get(i).m+GDS.bodies.get(cur).m);
-        GDS.bodies.get(cur).x = (GDS.bodies.get(cur).x + GDS.bodies.get(i).x)/2.;
-        GDS.bodies.get(cur).y = (GDS.bodies.get(cur).y + GDS.bodies.get(i).y)/2.;
+        GDS.bodies.get(cur).vx = (GDS.bodies.get(cur).vx * GDS.bodies.get(cur).m + GDS.bodies.get(i).vx * GDS.bodies.get(i).m) / (GDS.bodies.get(i).m + GDS.bodies.get(cur).m);
+        GDS.bodies.get(cur).vy = (GDS.bodies.get(cur).vy * GDS.bodies.get(cur).m + GDS.bodies.get(i).vy * GDS.bodies.get(i).m) / (GDS.bodies.get(i).m + GDS.bodies.get(cur).m);
+        GDS.bodies.get(cur).x = (GDS.bodies.get(cur).x + GDS.bodies.get(i).x) / 2.;
+        GDS.bodies.get(cur).y = (GDS.bodies.get(cur).y + GDS.bodies.get(i).y) / 2.;
         GDS.bodies.remove(i);
     }
-    void playSound(){
+
+    void playSound() {
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }

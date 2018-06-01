@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GDS {
-    private GDS(){}
+    private GDS() {
+    }
 
     public static boolean running = false;
-    public static double FrameTime = 1./60.;
+    public static double FrameTime = 1. / 60.;
 
-    public static double G=1e3;
+    public static double G = 1e3;
     public static int numOfBodies = 20;
-    public static double m=1000.;
+    public static double m = 1000.;
 
 
     public static double xreal = 900.;
@@ -32,14 +33,26 @@ class Body {
     double ax, ay;          //m/s^2
     double vx, vy;          //m/s
 
-    public double getX()  { return x; }
-    public double getY()  { return y; }
-    public double getVx() { return vx;}
-    public double getVy() { return vy; }
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getVx() {
+        return vx;
+    }
+
+    public double getVy() {
+        return vy;
+    }
 
     public double getR() {
         return r;
     }
+
     public double getM() {
         return m;
     }
@@ -59,9 +72,9 @@ class Body {
     }
 
     void updatePosition(double dt) {
-        this.vx += this.ax*dt;
-        this.vy += this.ay*dt;
-        this.x += this.vx*dt;
-        this.y += this.vy*dt;
+        this.vx += this.ax * dt;
+        this.vy += this.ay * dt;
+        this.x += this.vx * dt;
+        this.y += this.vy * dt;
     }
 }

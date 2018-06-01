@@ -50,10 +50,10 @@ public class Controller {
 
     @FXML
     private PendulumGuiController pendulumController;
-//
+
+    //
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
 
         menuBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -70,45 +70,50 @@ public class Controller {
             }
         });
 
-        if (PanePendulum != null) {pendulumController.initialize(PanePendulum);  System.out.println("Initialized");}
-        else {System.out.println("Not initialized");}
+        if (PanePendulum != null) {
+            pendulumController.initialize(PanePendulum);
+            System.out.println("Initialized");
+        } else {
+            System.out.println("Not initialized");
+        }
 
         PanePendulum.widthProperty().addListener((obs, oldVal, newVal) -> {
-            pendulumController.setPaneSize(PanePendulum.getWidth(),PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
+            pendulumController.setPaneSize(PanePendulum.getWidth(), PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
         });
         PanePendulum.heightProperty().addListener((obs, oldVal, newVal) -> {
-            pendulumController.setPaneSize(PanePendulum.getWidth(),PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
+            pendulumController.setPaneSize(PanePendulum.getWidth(), PanePendulum.getHeight(), PDS.xreal, PDS.yreal);
 
         });
 
-        if (PaneGravity != null) {gravityController.initialize(PaneGravity);  System.out.println("Initialized Gravity"); }
+        if (PaneGravity != null) {
+            gravityController.initialize(PaneGravity);
+            System.out.println("Initialized Gravity");
+        }
 
         assert PaneGravity != null;
         PaneGravity.widthProperty().addListener((obs, oldVal, newVal) -> {
-            gravityController.setPaneSize(newVal.doubleValue(),PaneGravity.getHeight(), GDS.xreal, GDS.yreal);
+            gravityController.setPaneSize(newVal.doubleValue(), PaneGravity.getHeight(), GDS.xreal, GDS.yreal);
         });
         PaneGravity.heightProperty().addListener((obs, oldVal, newVal) -> {
-            gravityController.setPaneSize(PaneGravity.getWidth(),newVal.doubleValue(), GDS.xreal, GDS.yreal);
+            gravityController.setPaneSize(PaneGravity.getWidth(), newVal.doubleValue(), GDS.xreal, GDS.yreal);
         });
     }
 
 
-
     @FXML
-    private void ChangeGui(Event event) throws Exception
-    {
+    private void ChangeGui(Event event) throws Exception {
         if (initEvent) {
             if (TabPendulum.isSelected()) {
-				gravityController.stopAnimation();
-				gravityController.GUIPane.setVisible(false);
-				gravityController.GUIPane.setManaged(false);
+                gravityController.stopAnimation();
+                gravityController.GUIPane.setVisible(false);
+                gravityController.GUIPane.setManaged(false);
                 pendulumController.GUIPane.setVisible(true);
                 pendulumController.GUIPane.setManaged(true);
 
 
 //                pendulumController.startAnimation();
             } else if (TabGravity.isSelected()) {
-				pendulumController.stopAnimation();
+                pendulumController.stopAnimation();
                 pendulumController.GUIPane.setVisible(false);
                 pendulumController.GUIPane.setManaged(false);
                 gravityController.GUIPane.setVisible(true);
@@ -116,10 +121,10 @@ public class Controller {
 
 //                gravityController.startAnimation();
             }
-        }
-        else initEvent = true;
+        } else initEvent = true;
     }
-//        if (initEvent) {
+
+    //        if (initEvent) {
 //        	gravityController.checkAnimation();
 //        	pendulumController.checkAnimation();
 //            if (TabPendulum.isSelected()) {
@@ -158,35 +163,46 @@ public class Controller {
     private MenuItem langSelectPL;
 
     @FXML
-    private void changeLanguageEN(Event event) throws Exception{
+    private MenuItem closeButton;
+
+    @FXML
+    private void changeLanguageEN(Event event) throws Exception {
         Locale currLocale = new Locale("en");
         changeLocale(currLocale);
     }
 
     @FXML
-    private void changeLanguagePL(Event event) throws Exception{
+    private void changeLanguagePL(Event event) throws Exception {
         Locale currLocale = new Locale("pl");
         changeLocale(currLocale);
     }
 
 
-
-
     @FXML
-    private void changeModeDark(Event event) throws Exception{
+    private void changeModeDark(Event event) throws Exception {
         Main.root.getStylesheets().clear();
         Main.root.getStylesheets().add("/stylesheets/nightStyle.css");
         darkMode = false;
     }
 
     @FXML
-    private void changeModeLight(Event event) throws Exception{
+    private void changeModeLight(Event event) throws Exception {
         Main.root.getStylesheets().clear();
         Main.root.getStylesheets().add("/stylesheets/dayStyle.css");
         darkMode = true;
     }
 
-    private void changeLocale(Locale locale) throws Exception{
+    @FXML
+    private void exit(Event event) {
+
+        gravityController.stopAnimation();
+        pendulumController.stopAnimation();
+
+        Main.primaryStage.close();
+
+    }
+
+    private void changeLocale(Locale locale) throws Exception {
         ResourceBundle bundle = ResourceBundle.getBundle("language.Locale", locale);
 
         Main.controller.gravityController.stopAnimation();

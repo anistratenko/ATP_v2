@@ -19,19 +19,19 @@ public class GravityView implements SimulationView {
     private Gravity gravity;
     int k = 0;
     private static int[] offset = {250, 250};
-    public static double xsize ;
+    public static double xsize;
     public static double ysize;
     public static double xreal;
     public static double yreal;
     public static double scale;
     private static Random rnd = new Random();
 
-    public GravityView(int numOfBodies){
+    public GravityView(int numOfBodies) {
         gravity = new Gravity(numOfBodies);
-        for (int i = 0; i < numOfBodies; i++){
+        for (int i = 0; i < numOfBodies; i++) {
             elements.add(new Circle(gravity.getBody(i).getX(),
-                                    gravity.getBody(i).getY(),
-                                    gravity.getBody(i).getR()));
+                    gravity.getBody(i).getY(),
+                    gravity.getBody(i).getR()));
         }
     }
 
@@ -48,28 +48,28 @@ public class GravityView implements SimulationView {
         return elements;
     }
 
-    public boolean refresh(){
-        double xcenter = xsize/2.;
-        double ycenter = ysize/2.;
-        double xscale = xsize/xreal;
-        double yscale = ysize/yreal;
+    public boolean refresh() {
+        double xcenter = xsize / 2.;
+        double ycenter = ysize / 2.;
+        double xscale = xsize / xreal;
+        double yscale = ysize / yreal;
         scale = xscale;
         double scale = Math.min(xscale, yscale);
-        if (elements.size() != gravity.getNumOfBodies()){
+        if (elements.size() != gravity.getNumOfBodies()) {
             elements.clear();
-            for (int i = 0; i < gravity.getNumOfBodies(); i++){
-                Circle newCircle =  new Circle(xcenter + gravity.getBody(i).getX() * scale,
-                                                ycenter + gravity.getBody(i).getY() * scale,
-                        						gravity.getBody(i).getR());
+            for (int i = 0; i < gravity.getNumOfBodies(); i++) {
+                Circle newCircle = new Circle(xcenter + gravity.getBody(i).getX() * scale,
+                        ycenter + gravity.getBody(i).getY() * scale,
+                        gravity.getBody(i).getR());
                 newCircle.setFill(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
                 elements.add(newCircle);
             }
             return true;
         } else
-            for (int i = 0; i < elements.size(); i++){
-                ((Circle)elements.get(i)).setCenterX(xcenter  + gravity.getBody(i).getX() * scale);
-                ((Circle)elements.get(i)).setCenterY(ycenter  + gravity.getBody(i).getY() * scale);
-                ((Circle)elements.get(i)).setRadius(gravity.getBody(i).getR());
+            for (int i = 0; i < elements.size(); i++) {
+                ((Circle) elements.get(i)).setCenterX(xcenter + gravity.getBody(i).getX() * scale);
+                ((Circle) elements.get(i)).setCenterY(ycenter + gravity.getBody(i).getY() * scale);
+                ((Circle) elements.get(i)).setRadius(gravity.getBody(i).getR());
             }
         return false;
     }
@@ -81,13 +81,14 @@ public class GravityView implements SimulationView {
     }
 
     public static void setOffsetWidth(int x) {
-        offset[0] = x/2;
-    }
-    public static void setOffsetHeight(int y) {
-        offset[1] = y/2;
+        offset[0] = x / 2;
     }
 
-    public void resetGravityView(int numOfBodies){
+    public static void setOffsetHeight(int y) {
+        offset[1] = y / 2;
+    }
+
+    public void resetGravityView(int numOfBodies) {
         gravity.resetGravity(numOfBodies);
     }
 

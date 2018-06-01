@@ -67,12 +67,11 @@ public class PendulumView implements SimulationView {
         return false;
     }
 
-    public void refresh()
-    {
-        double xcenter = xsize/2;
-        double ycenter = ysize/2;
-        double xscale = xsize/PDS.xreal;
-        double yscale = ysize/PDS.yreal;
+    public void refresh() {
+        double xcenter = xsize / 2;
+        double ycenter = ysize / 2;
+        double xscale = xsize / PDS.xreal;
+        double yscale = ysize / PDS.yreal;
         double scale = Math.min(xscale, yscale);
         firstBob.setCenterX(xcenter + PDS.x1 * scale);
         firstBob.setCenterY(ycenter - PDS.y1 * scale);
@@ -89,8 +88,7 @@ public class PendulumView implements SimulationView {
     }
 
     @Override
-    public void setPaneSize(double px_x, double px_y, double re_x, double re_y)
-    {
+    public void setPaneSize(double px_x, double px_y, double re_x, double re_y) {
         xsize = px_x;
         ysize = px_y;
         PDS.xreal = re_x;
