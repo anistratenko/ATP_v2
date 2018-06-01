@@ -9,9 +9,7 @@ public class Gravity {
     public Body getBody(int index) {
         return GDS.bodies.get(index);
     }
-    String externalForm = getClass().getResource("/sound/peww.mp3").toExternalForm();
-    Media sound = new Media(externalForm);
-    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+
 
     public int getNumOfBodies() {
         return GDS.bodies.size();
@@ -76,7 +74,6 @@ public class Gravity {
                         calcNewAcceleration(cur, i, dist); // calculate new acceleration
                     } else {
 //                            System.out.println(GDS.bodies.size());
-                        playSound();
                         removeBodyOnCollision(cur, i);    // removes body with i index (!) if collision detected
                     }
                 }
@@ -110,8 +107,5 @@ public class Gravity {
         GDS.bodies.get(cur).y = (GDS.bodies.get(cur).y + GDS.bodies.get(i).y)/2.;
         GDS.bodies.remove(i);
     }
-    void playSound(){
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
-    }
+
 }

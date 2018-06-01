@@ -1,6 +1,8 @@
 package pl.edu.agh.fis.anistratenko_team_project.Gravity;
 
 import javafx.scene.Node;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import pl.edu.agh.fis.anistratenko_team_project.Application.SimulationView;
@@ -10,6 +12,9 @@ import java.util.Random;
 
 
 public class GravityView implements SimulationView {
+    String externalForm = getClass().getResource("/sound/peww.mp3").toExternalForm();
+    Media sound = new Media(externalForm);
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
     public int getNumElements() {
         return elements.size();
     }
@@ -57,6 +62,7 @@ public class GravityView implements SimulationView {
         double scale = Math.min(xscale, yscale);
         if (elements.size() != gravity.getNumOfBodies()){
             elements.clear();
+            playSound();
             for (int i = 0; i < gravity.getNumOfBodies(); i++){
                 Circle newCircle =  new Circle(xcenter + gravity.getBody(i).getX() * scale,
                                                 ycenter + gravity.getBody(i).getY() * scale,
@@ -89,6 +95,11 @@ public class GravityView implements SimulationView {
 
     public void resetGravityView(int numOfBodies){
         gravity.resetGravity(numOfBodies);
+    }
+
+    void playSound(){
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
 }
