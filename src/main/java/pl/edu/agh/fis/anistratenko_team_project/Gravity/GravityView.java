@@ -30,9 +30,11 @@ public class GravityView implements SimulationView {
     public static double yreal;
     public static double scale;
     private static Random rnd = new Random();
+    private GDS gDS;
 
-    public GravityView(int numOfBodies) {
-        gravity = new Gravity(numOfBodies);
+    public GravityView(int numOfBodies, GDS gds) {
+        gDS = gds;
+        gravity = new Gravity(numOfBodies, gDS);
         for (int i = 0; i < numOfBodies; i++) {
             elements.add(new Circle(gravity.getBody(i).getX(),
                     gravity.getBody(i).getY(),
@@ -82,7 +84,7 @@ public class GravityView implements SimulationView {
 
     @Override
     public boolean performSimulationStep() {
-        gravity.simulate(GDS.FrameTime);
+        gravity.simulate(gDS.FrameTime);
         return refresh();
     }
 
