@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -38,6 +39,8 @@ public class Main extends Application {
         primaryStage.setMinWidth(600.);
         primaryStage.setHeight(600.);
         primaryStage.setMinHeight(500.);
+        primaryStage.initStyle(StageStyle.DECORATED);
+//        primaryStage.setFullScreen(true); // may be useful
         primaryStage.show();
     }
 
@@ -52,6 +55,7 @@ public class Main extends Application {
 
         try {
             node = fxmlLoader.load();
+            node.getStylesheets().add("/stylesheets/dayStyle.css");
 
             controller = fxmlLoader.getController();
             primaryStage.setTitle(fxmlLoader.getResources().getString("window_title"));

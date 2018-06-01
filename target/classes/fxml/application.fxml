@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" gridLinesVisible="true" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Application.Controller">
+<GridPane alignment="center" gridLinesVisible="true" styleClass="background" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Application.Controller">
 
     <columnConstraints>
         <ColumnConstraints prefWidth="277.0" />
@@ -36,10 +36,16 @@
             <fx:include fx:id="pendulum" source="pendulumGui.fxml" />
             <!--<Button layoutX="69.0" layoutY="75.0" mnemonicParsing="false" text="Pendulum" />-->
       </Pane>
-      <MenuBar GridPane.columnSpan="2">
+      <MenuBar fx:id="menuBar" styleClass="background" GridPane.columnSpan="2">
           <Menu mnemonicParsing="false" text="Actions">
               <MenuItem fx:id="langSelectEN" mnemonicParsing="false" onAction="#changeLanguageEN" text="EN" />
                   <MenuItem fx:id="langSelectPL" mnemonicParsing="false" onAction="#changeLanguagePL" text="PL" />
           </Menu>
+      <Menu mnemonicParsing="false" text="Appearance">
+         <items>
+            <MenuItem fx:id="modeLight" mnemonicParsing="false" onAction="#changeModeLight" text="Light" />
+            <MenuItem fx:id="modeDark" mnemonicParsing="false" onAction="#changeModeDark" text="Dark" />
+         </items>
+      </Menu>
       </MenuBar>
 </GridPane>

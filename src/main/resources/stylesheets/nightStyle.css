@@ -1,0 +1,74 @@
+/* colors aliases */
+*{
+    -fx-SpaceGrey: rgb(52,61,70);
+    -fx-ButtonDark: rgb(34,43,50);
+    -fx-ButtonDarkText: rgb(200,200,200);
+
+}
+
+.button {
+    -fx-background-color:  -fx-ButtonDark;
+    -fx-text-fill: -fx-ButtonDarkText;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-padding: 1 10 1 10;
+}
+
+.button:hover{
+    -fx-background-color: -fx-ButtonDark;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-color: #a9a9a9 , white , white;
+}
+
+.text-field:focused {
+    -fx-background-color: #a9a9a9 , white , white;
+}
+
+.background{
+    -fx-background-color: -fx-SpaceGrey;
+}
+
+.tab-pane *.tab-header-background {
+    -fx-background-color: -fx-SpaceGrey;
+}
+
+.tab{
+    -fx-background-color: black;
+}
+
+.tab-label{
+    -fx-text-fill: -fx-ButtonDarkText;
+    -fx-font-weight: bold;
+}
+
+.toggle-button{
+    -fx-background-color:  black;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 5 30 5 30;
+}
+
+.slider .thumb {
+    -fx-background-color: -fx-ButtonDark;
+    -fx-pref-height: 10;
+    -fx-pref-width: 10;
+}
+
+.menu .label{
+-fx-text-fill: -fx-ButtonDarkText;
+}
+
+.menu-item .label {
+    -fx-text-fill: -fx-ButtonDarkText;
+}
+
+.menu-item{
+    -fx-background-color: -fx-SpaceGrey;
+}
+.menu-item: focused{
+    -fx-background-color: -fx-ButtonDark;
+}
