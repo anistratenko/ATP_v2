@@ -102,4 +102,8 @@ public class GravityView implements SimulationView {
         mediaPlayer.play();
     }
 
+    void addBlackHoleView(int x, int y){
+        gravity.addBlackHole(x, y);
+    }
+
 }

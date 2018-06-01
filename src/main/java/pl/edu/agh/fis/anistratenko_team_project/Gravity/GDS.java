@@ -44,6 +44,8 @@ class Body {
         return m;
     }
 
+    public boolean isBlackHole = false;
+
     public Body(double newX, double newY, double newR, double newM, double newVx, double newVy) {
         this.x = newX;
         this.y = newY;

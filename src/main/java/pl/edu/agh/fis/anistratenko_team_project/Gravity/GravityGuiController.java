@@ -25,6 +25,9 @@ public class GravityGuiController {
     @FXML
     private Button Start;
 
+    @FXML
+    private Button blackHoleButton;
+
 	@FXML
 	public Pane GUIPane;
 
@@ -93,6 +96,12 @@ public class GravityGuiController {
         }
     }
 
+    @FXML
+    private void createBlackHole(Event event) throws Exception{
+        System.out.println("BLAAAACK HOOOOOOLE WOWOWOWO ");
+        gravityView.addBlackHoleView(50, 50);
+    }
+
     private void checkAnimation() {
 		System.out.println("Gravity: " + this);
 		if(gravityAnimation != null ) System.out.println("All OK");
@@ -133,5 +142,7 @@ public class GravityGuiController {
         else
             return defaultValue;
     }
+
+
 
 }
