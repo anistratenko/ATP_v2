@@ -1,7 +1,7 @@
 package pl.edu.agh.fis.anistratenko_team_project.Pendulum;
 
 public class Pendulum {
-
+    private PDS pDS;
 
     public void setXY(double X1, double Y1) {
         setXY(X1, Y1, X1, Y1);
@@ -12,68 +12,69 @@ public class Pendulum {
     }
 
     public void setLMF(double L1, double M1, double PHI, double L2, double M2, double THETA) {
-        PDS.l1 = L1;
-        PDS.m1 = M1;
-        PDS.phi = PHI;
+        pDS.l1 = L1;
+        pDS.m1 = M1;
+        pDS.phi = PHI;
 
-        PDS.l2 = L2;
-        PDS.m2 = M2;
-        PDS.theta = THETA;
+        pDS.l2 = L2;
+        pDS.m2 = M2;
+        pDS.theta = THETA;
 
-        PDS.d_phi = 0.;
-        PDS.d2_phi = 0.;
-        PDS.d_theta = 0.;
-        PDS.d2_theta = 0.;
+        pDS.d_phi = 0.;
+        pDS.d2_phi = 0.;
+        pDS.d_theta = 0.;
+        pDS.d2_theta = 0.;
 
-        PDS.real_t = 0.;
-        PDS.t = 0.;
+        pDS.real_t = 0.;
+        pDS.t = 0.;
     }
 
     public void setXY(double X1, double Y1, double X2, double Y2) {
         //Double operations are safe, because overflow evaluates to Inf. statement ( 1.0/0.0 )
-        PDS.l1 = Math.sqrt(X1 * X1 + Y1 * Y1);
-        PDS.phi = Math.acos(X1 / PDS.l1);
+        pDS.l1 = Math.sqrt(X1 * X1 + Y1 * Y1);
+        pDS.phi = Math.acos(X1 / pDS.l1);
         if (Y1 >= 0) {
-            PDS.phi += Math.PI / 2.;
+            pDS.phi += Math.PI / 2.;
         } else {
-            PDS.phi = Math.PI / 2. - PDS.phi;
+            pDS.phi = Math.PI / 2. - pDS.phi;
         }
 
-        if (PDS.doublependulum) {
-            PDS.l2 = Math.sqrt(((X2 - X1) * (X2 - X1)) + ((Y2 - Y1) * (Y2 - Y1)));
-            double arg = (X2 - X1) / PDS.l2;
+        if (pDS.doublependulum) {
+            pDS.l2 = Math.sqrt(((X2 - X1) * (X2 - X1)) + ((Y2 - Y1) * (Y2 - Y1)));
+            double arg = (X2 - X1) / pDS.l2;
             if (arg > 1)
                 arg = 1.0;
             if (arg < -1)
                 arg = -1.0;
-            PDS.theta = Math.acos(arg);
+            pDS.theta = Math.acos(arg);
             if (Y2 >= Y1) {
-                PDS.theta += Math.PI / 2.;
+                pDS.theta += Math.PI / 2.;
             } else {
-                PDS.theta = Math.PI / 2. - PDS.theta;
+                pDS.theta = Math.PI / 2. - pDS.theta;
             }
-            PDS.d_theta = 0;
-            PDS.d2_theta = 0;
+            pDS.d_theta = 0;
+            pDS.d2_theta = 0;
         }
 
-        PDS.d_phi = 0;
-        PDS.d2_phi = 0;
-        PDS.d_theta = 0;
-        PDS.d2_theta = 0;
-        PDS.real_t = 0.;
-        PDS.t = 0.;
+        pDS.d_phi = 0;
+        pDS.d2_phi = 0;
+        pDS.d_theta = 0;
+        pDS.d2_theta = 0;
+        pDS.real_t = 0.;
+        pDS.t = 0.;
     }
 
     //constructor for double pendulum
-    public Pendulum(double l_1, double m_1, double l_2, double m_2) {
-        PDS.l1 = l_1;
-        PDS.m1 = m_1;
-        if (PDS.doublependulum) {
-            PDS.l2 = l_2;
-            PDS.m2 = m_2;
+    public Pendulum(double l_1, double m_1, double l_2, double m_2, PDS pds) {
+    	pDS = pds;
+        pDS.l1 = l_1;
+        pDS.m1 = m_1;
+        if (pDS.doublependulum) {
+            pDS.l2 = l_2;
+            pDS.m2 = m_2;
         } else {
-            PDS.l2 = 10;
-            PDS.m2 = 0;
+            pDS.l2 = 10;
+            pDS.m2 = 0;
         }
     }
 
@@ -87,62 +88,62 @@ public class Pendulum {
         //internal time-step for computations
         double dt = 5e-6;
         //time measuring
-        PDS.real_t += time;
-        if (PDS.doublependulum) {
-            while (PDS.t < PDS.real_t) {
-                PDS.d2_phi = (
-                        -PDS.m2 * PDS.l1 * PDS.d_theta * PDS.d_theta * Math.sin(PDS.phi - PDS.theta) * Math.cos(PDS.phi - PDS.theta)
-                                - PDS.g * PDS.m2 * Math.sin(PDS.theta) * Math.cos(PDS.phi - PDS.theta)
-                                - PDS.m2 * PDS.l2 * PDS.d_theta * PDS.d_theta * Math.sin(PDS.phi - PDS.theta)
-                                + (PDS.m1 + PDS.m2) * PDS.g * Math.sin(PDS.phi)
+        pDS.real_t += time;
+        if (pDS.doublependulum) {
+            while (pDS.t < pDS.real_t) {
+                pDS.d2_phi = (
+                        -pDS.m2 * pDS.l1 * pDS.d_theta * pDS.d_theta * Math.sin(pDS.phi - pDS.theta) * Math.cos(pDS.phi - pDS.theta)
+                                - pDS.g * pDS.m2 * Math.sin(pDS.theta) * Math.cos(pDS.phi - pDS.theta)
+                                - pDS.m2 * pDS.l2 * pDS.d_theta * pDS.d_theta * Math.sin(pDS.phi - pDS.theta)
+                                + (pDS.m1 + pDS.m2) * pDS.g * Math.sin(pDS.phi)
                 )
                         /
                         (
-                                PDS.l1 * (PDS.m1 + PDS.m2) - PDS.m2 * PDS.l1 * Math.cos(PDS.phi - PDS.theta) * Math.cos(PDS.phi - PDS.theta)
+                                pDS.l1 * (pDS.m1 + pDS.m2) - pDS.m2 * pDS.l1 * Math.cos(pDS.phi - pDS.theta) * Math.cos(pDS.phi - pDS.theta)
                         );
 
-                PDS.d2_theta = (PDS.m2 * PDS.l2 * PDS.d_theta * PDS.d_theta * Math.sin(PDS.phi - PDS.theta) * Math.cos(PDS.phi - PDS.theta)
-                        - PDS.g * Math.sin(PDS.phi) * Math.cos(PDS.phi - PDS.theta) * (PDS.m1 + PDS.m2)
-                        + PDS.l1 * PDS.d_phi * PDS.d_phi * Math.sin(PDS.phi - PDS.theta) * (PDS.m1 + PDS.m2)
-                        + PDS.g * Math.sin(PDS.theta) * (PDS.m1 + PDS.m2)
+                pDS.d2_theta = (pDS.m2 * pDS.l2 * pDS.d_theta * pDS.d_theta * Math.sin(pDS.phi - pDS.theta) * Math.cos(pDS.phi - pDS.theta)
+                        - pDS.g * Math.sin(pDS.phi) * Math.cos(pDS.phi - pDS.theta) * (pDS.m1 + pDS.m2)
+                        + pDS.l1 * pDS.d_phi * pDS.d_phi * Math.sin(pDS.phi - pDS.theta) * (pDS.m1 + pDS.m2)
+                        + pDS.g * Math.sin(pDS.theta) * (pDS.m1 + pDS.m2)
                 )
                         /
                         (
-                                PDS.l2 * (PDS.m1 + PDS.m2) - PDS.m2 * PDS.l2 * Math.cos(PDS.phi - PDS.theta) * Math.cos(PDS.phi - PDS.theta)
+                                pDS.l2 * (pDS.m1 + pDS.m2) - pDS.m2 * pDS.l2 * Math.cos(pDS.phi - pDS.theta) * Math.cos(pDS.phi - pDS.theta)
                         );
 
-                PDS.d_phi += PDS.d2_phi * dt;
-                PDS.d_theta += PDS.d2_theta * dt;
-                PDS.phi += PDS.d_phi * dt;
-                PDS.theta += PDS.d_theta * dt;
-                PDS.t += dt;
+                pDS.d_phi += pDS.d2_phi * dt;
+                pDS.d_theta += pDS.d2_theta * dt;
+                pDS.phi += pDS.d_phi * dt;
+                pDS.theta += pDS.d_theta * dt;
+                pDS.t += dt;
             }
         } else {
             double ro = 1000; //[kg/m^3] - water density
-            double r = Math.cbrt((PDS.m1 / (Math.PI * 4000.)) * (3. / 4.));
+            double r = Math.cbrt((pDS.m1 / (Math.PI * 4000.)) * (3. / 4.));
             double SD = 2 * Math.PI * r * r;
             double v = 0;
-            while (PDS.t < PDS.real_t) {
-                v = PDS.d_phi * r;
-                PDS.d2_phi = (PDS.g * Math.sin(PDS.phi) + force * Math.cos(PDS.phi) - Math.signum(PDS.d_phi) * dragCooefficient * SD * ro * v * v / 2.) / PDS.l1;
-                //PDS.d2_phi = (-PDS.g * Math.sin(phi) + force * Math.cos(phi))/PDS.l1;
-                PDS.d_phi += PDS.d2_phi * dt;
-                PDS.phi += PDS.d_phi * dt;
-                PDS.t += dt;
+            while (pDS.t < pDS.real_t) {
+                v = pDS.d_phi * r;
+                pDS.d2_phi = (pDS.g * Math.sin(pDS.phi) + force * Math.cos(pDS.phi) - Math.signum(pDS.d_phi) * dragCooefficient * SD * ro * v * v / 2.) / pDS.l1;
+                //pDS.d2_phi = (-pDS.g * Math.sin(phi) + force * Math.cos(phi))/pDS.l1;
+                pDS.d_phi += pDS.d2_phi * dt;
+                pDS.phi += pDS.d_phi * dt;
+                pDS.t += dt;
             }
         }
         definePositions();
     }
 
     private void definePositions() {
-        PDS.x1 = PDS.l1 * Math.sin(PDS.phi);
-        PDS.y1 = -PDS.l1 * Math.cos(PDS.phi);
-        if (PDS.doublependulum) {
-            PDS.x2 = PDS.x1 + PDS.l2 * Math.sin(PDS.theta);
-            PDS.y2 = PDS.y1 - PDS.l2 * Math.cos(PDS.theta);
+        pDS.x1 = pDS.l1 * Math.sin(pDS.phi);
+        pDS.y1 = -pDS.l1 * Math.cos(pDS.phi);
+        if (pDS.doublependulum) {
+            pDS.x2 = pDS.x1 + pDS.l2 * Math.sin(pDS.theta);
+            pDS.y2 = pDS.y1 - pDS.l2 * Math.cos(pDS.theta);
         } else {
-            PDS.x2 = PDS.x1;
-            PDS.y2 = PDS.y1;
+            pDS.x2 = pDS.x1;
+            pDS.y2 = pDS.y1;
         }
     }
 
