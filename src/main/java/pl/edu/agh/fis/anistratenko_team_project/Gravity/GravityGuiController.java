@@ -1,21 +1,24 @@
 package pl.edu.agh.fis.anistratenko_team_project.Gravity;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import pl.edu.agh.fis.anistratenko_team_project.Pendulum.PDS;
 
-
-/**
- * Created by yevhenii on 5/8/18.
- */
 public class GravityGuiController {
     private AnimationTimer gravityAnimation;
     private GravityView gravityView = new GravityView(GDS.numOfBodies);
 
+
+    @FXML
+    private Slider Speed;
     @FXML
     private Button gravityButton;
 
@@ -45,6 +48,8 @@ public class GravityGuiController {
 
         });
 
+        Speed.valueProperty().addListener((observableValue, old_val, new_val) -> GDS.FrameTime = new_val.doubleValue()/60.);
+
         gravityAnimation = new AnimationTimer() {
             long lastUpdate = 0;
             public void handle(long now) {
@@ -64,37 +69,7 @@ public class GravityGuiController {
     }
 
 
-    public void reinitialize()
-    {
-        drawPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            if (!GDS.running) gravityView.refresh();
-        });
 
-        drawPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            if (!GDS.running) gravityView.refresh();
-
-        });
-
-        for (Node i : gravityView.getNodes())
-            drawPane.getChildren().add(i);
-
-//        gravityAnimation = new AnimationTimer() {
-//            long lastUpdate = 0;
-//            public void handle(long now) {
-//                if (now - lastUpdate >= 16_666_666) {
-//                    if (GDS.running) {
-//                        if (gravityView.performSimulationStep()) {
-//                            drawPane.getChildren().clear();
-//                            for (Node i : gravityView.getNodes())
-//                                drawPane.getChildren().add(i);
-//                        }
-//                    }
-//                    lastUpdate = now;
-//                }
-//            }
-//        };
-        checkAnimation();
-    }
 
     @FXML
     private void onClickGravity(Event event) throws Exception{
@@ -118,13 +93,13 @@ public class GravityGuiController {
         }
     }
 
-    public void checkAnimation() {
+    private void checkAnimation() {
 		System.out.println("Gravity: " + this);
 		if(gravityAnimation != null ) System.out.println("All OK");
 		else System.out.println("Not too good");
 	}
 
-    public void setPane(Pane p) {
+    private void setPane(Pane p) {
         drawPane = p;
         for (Node i : gravityView.getNodes())
             drawPane.getChildren().add(i);
