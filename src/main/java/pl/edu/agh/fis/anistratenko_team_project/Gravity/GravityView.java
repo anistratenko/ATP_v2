@@ -14,7 +14,7 @@ import java.util.Random;
 public class GravityView implements SimulationView {
     String externalForm = getClass().getResource("/sound/peww.mp3").toExternalForm();
     Media sound = new Media(externalForm);
-//    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
     public int getNumElements() {
         return elements.size();
     }
