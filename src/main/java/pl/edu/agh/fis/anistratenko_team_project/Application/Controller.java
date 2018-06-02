@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 public class Controller {
     boolean darkMode = false;
     private PDS pDS = new PDS();
+    private GDS gDS = new GDS();
 
     private boolean initEvent = false;
     private double xOffset = 0;
@@ -87,16 +88,16 @@ public class Controller {
         });
 
         if (PaneGravity != null) {
-            gravityController.initialize(PaneGravity);
+            gravityController.initialize(PaneGravity, gDS);
             System.out.println("Initialized Gravity");
         }
 
         assert PaneGravity != null;
         PaneGravity.widthProperty().addListener((obs, oldVal, newVal) -> {
-            gravityController.setPaneSize(newVal.doubleValue(), PaneGravity.getHeight(), GDS.xreal, GDS.yreal);
+            gravityController.setPaneSize(newVal.doubleValue(), PaneGravity.getHeight(), gDS.xreal, gDS.yreal);
         });
         PaneGravity.heightProperty().addListener((obs, oldVal, newVal) -> {
-            gravityController.setPaneSize(PaneGravity.getWidth(), newVal.doubleValue(), GDS.xreal, GDS.yreal);
+            gravityController.setPaneSize(PaneGravity.getWidth(), newVal.doubleValue(), gDS.xreal, gDS.yreal);
         });
     }
 
@@ -146,7 +147,7 @@ public class Controller {
 //				PaneGravity.getChildren().clear();
 //				gravityController.initialize(PaneGravity);
 ////                //To nie miejsce na takie rzeczy, od tego jest przycisk reset, wewnątrz GUIcontroller
-////                gravityController.gravityView = new GravityView(GDS.numOfBodies);
+////                gravityController.gravityView = new GravityView(gDS.numOfBodies);
 ////                for (Node i : gravityController.gravityView.getNodes())
 ////                    PaneGravity.getChildren().add(i);
 ////				//Od tego przycisk start, ja dałem takie coś wyżej(w pendulum)?

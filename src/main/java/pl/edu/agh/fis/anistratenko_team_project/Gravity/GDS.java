@@ -4,25 +4,25 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GDS {
-    private GDS() {
+    public GDS() {
     }
 
-    public static boolean running = false;
-    public static double FrameTime = 1. / 60.;
+    public boolean running = false;
+    public double FrameTime = 1. / 60.;
 
-    public static double G = 1e3;
-    public static int numOfBodies = 20;
-    public static double m = 1000.;
-
-
-    public static double xreal = 900.;
-    public static double yreal = 900.;
+    public double G = 1e3;
+    public int numOfBodies = 20;
+    public double m = 1000.;
 
 
-    public static ArrayList<Body> bodies = new ArrayList<>();
-    public static double real_t = 0.;
-    public static double t = 0.;
-    public static Random rnd = new Random();
+    public double xreal = 900.;
+    public double yreal = 900.;
+
+
+    public ArrayList<Body> bodies = new ArrayList<>();
+    public double real_t = 0.;
+    public double t = 0.;
+    public Random rnd = new Random();
 }
 
 class Body {

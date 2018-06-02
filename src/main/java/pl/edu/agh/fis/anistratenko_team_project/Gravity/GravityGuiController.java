@@ -10,8 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 public class GravityGuiController {
+    GDS gDS;
     private AnimationTimer gravityAnimation;
-    private GravityView gravityView = new GravityView(GDS.numOfBodies);
+    private GravityView gravityView;
 
 
     @FXML
@@ -34,25 +35,27 @@ public class GravityGuiController {
     public GravityGuiController() {
     }
 
-    public void initialize(Pane p) {
+    public void initialize(Pane p, GDS gds) {
+        gDS = gds;
+        gravityView = new GravityView(gDS.numOfBodies, gDS);
         setPane(p);
         drawPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            if (!GDS.running) gravityView.refresh();
+            if (!gDS.running) gravityView.refresh();
         });
 
         drawPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            if (!GDS.running) gravityView.refresh();
+            if (!gDS.running) gravityView.refresh();
 
         });
 
-        Speed.valueProperty().addListener((observableValue, old_val, new_val) -> GDS.FrameTime = new_val.doubleValue() / 60.);
+        Speed.valueProperty().addListener((observableValue, old_val, new_val) -> gDS.FrameTime = new_val.doubleValue() / 60.);
 
         gravityAnimation = new AnimationTimer() {
             long lastUpdate = 0;
 
             public void handle(long now) {
                 if (now - lastUpdate >= 16_666_666) {
-                    if (GDS.running) {
+                    if (gDS.running) {
                         if (gravityView.performSimulationStep()) {
                             drawPane.getChildren().clear();
                             for (Node i : gravityView.getNodes())
@@ -77,8 +80,8 @@ public class GravityGuiController {
 
     @FXML
     private void onClickStart(Event event) throws Exception {
-        GDS.running = !GDS.running;
-        if (GDS.running) {
+        gDS.running = !gDS.running;
+        if (gDS.running) {
             Start.setText("Stop");
             startAnimation();
         } else {
