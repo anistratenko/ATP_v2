@@ -73,7 +73,7 @@ public class Pendulum {
             pDS.l2 = l_2;
             pDS.m2 = m_2;
         } else {
-            pDS.l2 = 10;  // What purpose of this magic number is ? maybe it should be 0, or defined ?
+            pDS.l2 = 10;
             pDS.m2 = 0;
         }
     }
@@ -82,6 +82,9 @@ public class Pendulum {
     public void simulate(double time) {
         simulate(time, 0., 0.55);
     }
+    // 'dragCooefficient' parameter of method simulate is magic number. It could be defined in PDS
+    // 'force' is also one of the parameters that could change during the simulation, therefore it could fit in PDS.
+    // This could decrease number of arguments in function 'simulate', and it would make function overloading unnecessary
 
     //function for simulation with additional horizontal force, works only for single pendulum, time >= 0, force [m/s^2] in (-inf;inf)
     public void simulate(double time, double force, double dragCooefficient) {
