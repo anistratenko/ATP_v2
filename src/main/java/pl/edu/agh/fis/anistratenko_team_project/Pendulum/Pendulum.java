@@ -27,6 +27,8 @@ public class Pendulum {
 
         pDS.real_t = 0.;
         pDS.t = 0.;
+        //Code repetition:
+        //in this function and in 'setXY' assigning 0 to multiple fields of pDS is repeated, it could be extracted.
     }
 
     public void setXY(double X1, double Y1, double X2, double Y2) {
