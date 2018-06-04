@@ -122,6 +122,7 @@ public class PendulumTest {
 
     @Test
     public void setXY1() {
+        pds.doublependulum = true;
 
         //Y2 << Y1
         double l2 = Math.sqrt(0 + Math.pow(Double.MAX_VALUE - 0, 2));
