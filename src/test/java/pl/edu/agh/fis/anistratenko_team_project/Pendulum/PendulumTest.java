@@ -1,12 +1,14 @@
 package pl.edu.agh.fis.anistratenko_team_project.Pendulum;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PendulumTest {
@@ -101,10 +103,65 @@ public class PendulumTest {
 
     @Test
     public void setLMF1() {
+        double[] LMF_args = {Double.MIN_VALUE, Double.MAX_VALUE, Double.MAX_VALUE*-1, 0, 12, 15};
+        pendulum.setLMF(LMF_args[0],LMF_args[1],LMF_args[2],LMF_args[3],LMF_args[4],LMF_args[5]);
+        assertEquals(LMF_args[0], pds.l1, 1e-15);
+        assertEquals(LMF_args[1], pds.m1, 1e-15);
+        assertEquals(LMF_args[2], pds.phi, 1e-15);
+        assertEquals(LMF_args[3], pds.l2, 1e-15);
+        assertEquals(LMF_args[4], pds.m2, 1e-15);
+        assertEquals(LMF_args[5], pds.theta, 1e-15);
+
+        assertEquals(0, pds.d_phi, 1e-15);
+        assertEquals(0, pds.d2_phi, 1e-15);
+        assertEquals(0, pds.d_theta, 1e-15);
+        assertEquals(0, pds.d2_theta, 1e-15);
+        assertEquals(0, pds.real_t, 1e-15);
+        assertEquals(0, pds.t, 1e-15);
     }
 
     @Test
     public void setXY1() {
+
+        //Y2 << Y1
+        double l2 = Math.sqrt(0 + Math.pow(Double.MAX_VALUE - 0, 2));
+        double theta = Math.acos(1 / l2);
+        pendulum.setXY(1, 0, 1, -1 * Double.MAX_VALUE);
+        assertTrue("Y2 is minimum value of its type, Y1 is zero",
+                (pds.theta- (Math.PI / 2. - theta)) < 1e-15);
+
+        //Y2 >> Y1
+        theta = Math.acos(0);
+        pendulum.setXY(1, 0, 1, Double.MAX_VALUE);
+        assertTrue("Y2 is maximum value of its type, Y1 is zero",
+                (pds.theta - (Math.PI / 2. + theta)) < 1e-15);
+
+        //Y2 < Y1
+        pendulum.setXY(1, 0, 2, Double.MIN_VALUE);
+        theta = Math.acos(1);
+        assertTrue("Y2 is minimum positive value of its type, Y1 is zero",
+                (pds.theta - (Math.PI / 2. + theta)) < 1e-15);
+
+        //Y2 > Y1
+        pendulum.setXY(1, 0, 2, -1 * Double.MIN_VALUE);
+        assertTrue("Y2 is maximum negative value ( close to 0 ) of its type, Y1 is zero",
+                (pds.theta - (Math.PI / 2. + theta)) < 1e-15);
+
+
+        //Y2 = Y1
+        double rand = (Math.random() - 0.5) * Double.MAX_VALUE;
+        pendulum.setXY(1, rand, 2, rand);
+        theta = Math.acos(1);
+        assertTrue("Y2 = Y1 and it is equal to" + Double.toString(rand) + " expected result is "
+                        + Double.toString(theta + Math.PI / 2.) + " actual result is " + pds.theta,
+                (pds.theta - (theta + Math.PI / 2.)) < 1e-15);
+
+        assertEquals(0, pds.d_phi, 1e-15);
+        assertEquals(0, pds.d2_phi, 1e-15);
+        assertEquals(0, pds.d_theta, 1e-15);
+        assertEquals(0, pds.d2_theta, 1e-15);
+        assertEquals(0, pds.real_t, 1e-15);
+        assertEquals(0, pds.t, 1e-15);
     }
 
     @Test
@@ -129,8 +186,9 @@ public class PendulumTest {
         pendulum.simulate(simulate_arg);
     }
 
-    @Test
+    @Test @Ignore
     public void simulate1() {
+        //numerical calculations do not require testing
     }
 }
 
