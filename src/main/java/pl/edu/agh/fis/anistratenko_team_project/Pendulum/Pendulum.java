@@ -75,7 +75,7 @@ public class Pendulum {
             pDS.l2 = l_2;
             pDS.m2 = m_2;
         } else {
-            pDS.l2 = 10;
+            pDS.l2 = 10; // magic number should be replaced by define ( why 10 ?  did you mean 0 ?)
             pDS.m2 = 0;
         }
     }
