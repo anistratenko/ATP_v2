@@ -93,12 +93,12 @@ public class Controller {
         }
 
         assert PaneGravity != null;
-        PaneGravity.widthProperty().addListener((obs, oldVal, newVal) -> {
-            gravityController.setPaneSize(newVal.doubleValue(), PaneGravity.getHeight(), gDS.xreal, gDS.yreal);
-        });
-        PaneGravity.heightProperty().addListener((obs, oldVal, newVal) -> {
-            gravityController.setPaneSize(PaneGravity.getWidth(), newVal.doubleValue(), gDS.xreal, gDS.yreal);
-        });
+//        PaneGravity.widthProperty().addListener((obs, oldVal, newVal) -> {
+//            gravityController.setPaneSize(newVal.doubleValue(), PaneGravity.getHeight(), gDS.xreal, gDS.yreal);
+//        });
+//        PaneGravity.heightProperty().addListener((obs, oldVal, newVal) -> {
+//            gravityController.setPaneSize(PaneGravity.getWidth(), newVal.doubleValue(), gDS.xreal, gDS.yreal);
+//        });
     }
 
 

@@ -73,7 +73,7 @@ public class GravityView implements SimulationView {
 //                    newCircle.setCenterX(gravity.getBody(i).getX());
 //                    newCircle.setCenterY(gravity.getBody(i).getY());
                     newCircle.setFill(Color.rgb(0, 0,0));
-//                    System.out.println("BHV: " + newCircle.getX() + " " + gravity.getBody(i).getY());
+                    System.out.println("BHV: " + newCircle.getCenterX() + " " + newCircle.getCenterY());
                 }
                 else
                     newCircle.setFill(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
@@ -119,8 +119,11 @@ public class GravityView implements SimulationView {
         mediaPlayer.play();
     }
 
-    void addBlackHoleView(int x, int y){
-        gravity.addBlackHole(x, y);
+    void addBlackHoleView(double x, double y){
+        double properX = (x  - xsize / 2.   ) / scale ;
+        double properY = (y  - ysize / 2. - 60 ) / scale ;
+        System.out.println("DIM:" + xsize + " " + ysize + " " +scale);
+        gravity.addBlackHole(properX, properY);
     }
 
 }

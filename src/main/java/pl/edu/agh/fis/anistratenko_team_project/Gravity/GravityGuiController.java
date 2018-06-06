@@ -77,11 +77,18 @@ public class GravityGuiController {
             }
         };
 
+        drawPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            setPaneSize(newVal.doubleValue(), drawPane.getHeight(), gDS.xreal, gDS.yreal);
+        });
+        drawPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            setPaneSize(drawPane.getWidth(), newVal.doubleValue(), gDS.xreal, gDS.yreal);
+        });
+
         drawPane.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (placeBlackHole){
-                    gravityView.addBlackHoleView((int)mouseEvent.getSceneX(), (int)mouseEvent.getSceneY());
+                    gravityView.addBlackHoleView(mouseEvent.getSceneX(), mouseEvent.getSceneY());
                     placeBlackHole = false;
                 }
                 System.out.println("EVT: " + (int)mouseEvent.getSceneX() + " " + (int)mouseEvent.getSceneY());

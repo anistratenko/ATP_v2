@@ -117,7 +117,7 @@ public class Gravity {
         gDS.bodies.remove(i);
     }
 
-    void addBlackHole(int x, int y){
+    void addBlackHole(double x, double y){
         Body blackHole = new Body(x, y, 10, 100000, 0, 0);
         System.out.println("BH: " + x + " " + y);
         blackHole.isBlackHole = true;
