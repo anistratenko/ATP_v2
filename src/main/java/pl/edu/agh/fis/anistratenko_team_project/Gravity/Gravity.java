@@ -68,14 +68,14 @@ public class Gravity {
                     continue;
                 }
 
-                if (i != cur) {  // ignore the current body
+                if (i != cur && !gDS.bodies.get(cur).isBlackHole) {  // ignore the current body and black holes
                     double dist = calcDistance(cur, i);
 
                     if (dist > (gDS.bodies.get(cur).r + gDS.bodies.get(i).r)) {
                         calcNewAcceleration(cur, i, dist); // calculate new acceleration
                     } else {
 //                            System.out.println(gDS.bodies.size());
-                        removeBodyOnCollision(cur, i);    // removes body with i index (!) if collision detected
+                        removeBodyOnCollision(i, cur);    // removes body with i index (!) if collision detected
                     }
                 }
             }
@@ -102,11 +102,26 @@ public class Gravity {
                 gDS.bodies.get(cur).r = gDS.bodies.get(i).r + Math.pow(gDS.bodies.get(cur).r, 1 / 3);
         }
 
-        gDS.bodies.get(cur).vx = (gDS.bodies.get(cur).vx * gDS.bodies.get(cur).m + gDS.bodies.get(i).vx * gDS.bodies.get(i).m) / (gDS.bodies.get(i).m + gDS.bodies.get(cur).m);
-        gDS.bodies.get(cur).vy = (gDS.bodies.get(cur).vy * gDS.bodies.get(cur).m + gDS.bodies.get(i).vy * gDS.bodies.get(i).m) / (gDS.bodies.get(i).m + gDS.bodies.get(cur).m);
-        gDS.bodies.get(cur).x = (gDS.bodies.get(cur).x + gDS.bodies.get(i).x) / 2.;
-        gDS.bodies.get(cur).y = (gDS.bodies.get(cur).y + gDS.bodies.get(i).y) / 2.;
+        if (!gDS.bodies.get(cur).isBlackHole){
+            gDS.bodies.get(cur).vx = (gDS.bodies.get(cur).vx * gDS.bodies.get(cur).m + gDS.bodies.get(i).vx * gDS.bodies.get(i).m) / (gDS.bodies.get(i).m+gDS.bodies.get(cur).m);
+            gDS.bodies.get(cur).vy = (gDS.bodies.get(cur).vy * gDS.bodies.get(cur).m + gDS.bodies.get(i).vy * gDS.bodies.get(i).m) / (gDS.bodies.get(i).m+gDS.bodies.get(cur).m);
+            gDS.bodies.get(cur).x = (gDS.bodies.get(cur).x + gDS.bodies.get(i).x)/2.;
+            gDS.bodies.get(cur).y = (gDS.bodies.get(cur).y + gDS.bodies.get(i).y)/2.;
+        } else {
+            gDS.bodies.get(cur).vx = 0.;
+            gDS.bodies.get(cur).vy = 0.;
+            gDS.bodies.get(cur).isBlackHole = true;
+//            gDS.bodies.get(cur).x  = 0.;
+//            gDS.bodies.get(cur).y  = 0.;
+        }
         gDS.bodies.remove(i);
+    }
+
+    void addBlackHole(int x, int y){
+        Body blackHole = new Body(x, y, 10, 100000, 0, 0);
+        System.out.println("BH: " + x + " " + y);
+        blackHole.isBlackHole = true;
+        gDS.bodies.add(blackHole);
     }
 
 }
