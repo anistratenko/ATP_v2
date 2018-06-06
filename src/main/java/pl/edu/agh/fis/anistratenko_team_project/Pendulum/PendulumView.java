@@ -15,6 +15,7 @@ public class PendulumView implements SimulationView {
     private static int[] offset = {250, 250};
     private double xsize;
     private double ysize;
+    private PDS pDS;
     /**
      * Constructor for single pendulum
      *
@@ -41,9 +42,10 @@ public class PendulumView implements SimulationView {
      * @param length2 - length of second pendulum ( which is attached to the previous one )
      * @param mass2   - mass of second pendulum
      */
-    public PendulumView(double length1, double mass1, double length2, double mass2) {
-        pendulum = new Pendulum(length1, mass1, length2, mass2);
-        pendulum.setLMF(PDS.l1, PDS.m1, PDS.phi, PDS.l2, PDS.m2, PDS.theta);
+    public PendulumView(double length1, double mass1, double length2, double mass2, PDS pds) {
+        pDS = pds;
+        pendulum = new Pendulum(length1, mass1, length2, mass2, pDS);
+        pendulum.setLMF(pDS.l1, pDS.m1, pDS.phi, pDS.l2, pDS.m2, pDS.theta);
         firstBob = new Circle(300., 270., 10.);
         secondBob = new Circle(400., 270., 5.);
         elements.add(firstBob);
@@ -62,39 +64,37 @@ public class PendulumView implements SimulationView {
      * Run simulation and move positions of pendulums
      */
     public boolean performSimulationStep() {
-        pendulum.simulate(PDS.FrameTime, PDS.fx, PDS.c);
+        pendulum.simulate(pDS.FrameTime, pDS.fx, pDS.c);
         refresh();
         return false;
     }
 
-    public void refresh()
-    {
-        double xcenter = xsize/2;
-        double ycenter = ysize/2;
-        double xscale = xsize/PDS.xreal;
-        double yscale = ysize/PDS.yreal;
+    public void refresh() {
+        double xcenter = xsize / 2;
+        double ycenter = ysize / 2;
+        double xscale = xsize / pDS.xreal;
+        double yscale = ysize / pDS.yreal;
         double scale = Math.min(xscale, yscale);
-        firstBob.setCenterX(xcenter + PDS.x1 * scale);
-        firstBob.setCenterY(ycenter - PDS.y1 * scale);
-        secondBob.setCenterX(xcenter + PDS.x2 * scale);
-        secondBob.setCenterY(ycenter - PDS.y2 * scale);
+        firstBob.setCenterX(xcenter + pDS.x1 * scale);
+        firstBob.setCenterY(ycenter - pDS.y1 * scale);
+        secondBob.setCenterX(xcenter + pDS.x2 * scale);
+        secondBob.setCenterY(ycenter - pDS.y2 * scale);
         firstCord.setStartX(xcenter);
         firstCord.setStartY(ycenter);
-        firstCord.setEndX(xcenter + PDS.x1 * scale);
-        firstCord.setEndY(ycenter - PDS.y1 * scale);
-        secondCord.setStartX(xcenter + PDS.x1 * scale);
-        secondCord.setStartY(ycenter - PDS.y1 * scale);
-        secondCord.setEndX(xcenter + PDS.x2 * scale);
-        secondCord.setEndY(ycenter - PDS.y2 * scale);
+        firstCord.setEndX(xcenter + pDS.x1 * scale);
+        firstCord.setEndY(ycenter - pDS.y1 * scale);
+        secondCord.setStartX(xcenter + pDS.x1 * scale);
+        secondCord.setStartY(ycenter - pDS.y1 * scale);
+        secondCord.setEndX(xcenter + pDS.x2 * scale);
+        secondCord.setEndY(ycenter - pDS.y2 * scale);
     }
 
     @Override
-    public void setPaneSize(double px_x, double px_y, double re_x, double re_y)
-    {
+    public void setPaneSize(double px_x, double px_y, double re_x, double re_y) {
         xsize = px_x;
         ysize = px_y;
-        PDS.xreal = re_x;
-        PDS.yreal = re_y;
+        pDS.xreal = re_x;
+        pDS.yreal = re_y;
     }
 
     public Circle getFirstBob() {

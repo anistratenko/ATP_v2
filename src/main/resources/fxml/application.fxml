@@ -40,6 +40,7 @@
           <Menu mnemonicParsing="false" text="Actions">
               <MenuItem fx:id="langSelectEN" mnemonicParsing="false" onAction="#changeLanguageEN" text="EN" />
                   <MenuItem fx:id="langSelectPL" mnemonicParsing="false" onAction="#changeLanguagePL" text="PL" />
+              <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#exit" text="Close" />
           </Menu>
       <Menu mnemonicParsing="false" text="Appearance">
          <items>

@@ -1,8 +1,6 @@
 package pl.edu.agh.fis.anistratenko_team_project.Gravity;
 
 import javafx.animation.AnimationTimer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -10,11 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import pl.edu.agh.fis.anistratenko_team_project.Pendulum.PDS;
 
 public class GravityGuiController {
+    GDS gDS;
     private AnimationTimer gravityAnimation;
-    private GravityView gravityView = new GravityView(GDS.numOfBodies);
+    private GravityView gravityView;
 
 
     @FXML
@@ -26,10 +24,14 @@ public class GravityGuiController {
     private Button Start;
 
     @FXML
+<<<<<<< HEAD
     private Button blackHoleButton;
 
 	@FXML
 	public Pane GUIPane;
+=======
+    public Pane GUIPane;
+>>>>>>> master
 
     @FXML
     private TextField numOfBodiesInput;
@@ -37,27 +39,30 @@ public class GravityGuiController {
 
     private Pane drawPane;
 
-    public GravityGuiController(){}
+    public GravityGuiController() {
+    }
 
-    public void initialize(Pane p)
-    {
+    public void initialize(Pane p, GDS gds) {
+        gDS = gds;
+        gravityView = new GravityView(gDS.numOfBodies, gDS);
         setPane(p);
         drawPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            if (!GDS.running) gravityView.refresh();
+            if (!gDS.running) gravityView.refresh();
         });
 
         drawPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            if (!GDS.running) gravityView.refresh();
+            if (!gDS.running) gravityView.refresh();
 
         });
 
-        Speed.valueProperty().addListener((observableValue, old_val, new_val) -> GDS.FrameTime = new_val.doubleValue()/60.);
+        Speed.valueProperty().addListener((observableValue, old_val, new_val) -> gDS.FrameTime = new_val.doubleValue() / 60.);
 
         gravityAnimation = new AnimationTimer() {
             long lastUpdate = 0;
+
             public void handle(long now) {
                 if (now - lastUpdate >= 16_666_666) {
-                    if (GDS.running) {
+                    if (gDS.running) {
                         if (gravityView.performSimulationStep()) {
                             drawPane.getChildren().clear();
                             for (Node i : gravityView.getNodes())
@@ -72,25 +77,21 @@ public class GravityGuiController {
     }
 
 
-
-
     @FXML
-    private void onClickGravity(Event event) throws Exception{
+    private void onClickGravity(Event event) throws Exception {
         System.out.println("CLICK ");
-        int numOfBodies =  parseInput(numOfBodiesInput, 20);
+        int numOfBodies = parseInput(numOfBodiesInput, 20);
         gravityView.resetGravityView(numOfBodies);
         checkAnimation();
     }
 
     @FXML
-    private void onClickStart(Event event) throws Exception
-    {
-        GDS.running = !GDS.running;
-        if ( GDS.running )        {
+    private void onClickStart(Event event) throws Exception {
+        gDS.running = !gDS.running;
+        if (gDS.running) {
             Start.setText("Stop");
             startAnimation();
-        }
-        else {
+        } else {
             Start.setText("Start");
             stopAnimation();
         }
@@ -103,10 +104,10 @@ public class GravityGuiController {
     }
 
     private void checkAnimation() {
-		System.out.println("Gravity: " + this);
-		if(gravityAnimation != null ) System.out.println("All OK");
-		else System.out.println("Not too good");
-	}
+        System.out.println("Gravity: " + this);
+        if (gravityAnimation != null) System.out.println("All OK");
+        else System.out.println("Not too good");
+    }
 
     private void setPane(Pane p) {
         drawPane = p;
@@ -122,13 +123,12 @@ public class GravityGuiController {
     }
 
     public void startAnimation() {
-		if(gravityAnimation != null ) gravityAnimation.start();
+        if (gravityAnimation != null) gravityAnimation.start();
     }
 
     public void stopAnimation() {
-		if(gravityAnimation != null ) gravityAnimation.stop();
+        if (gravityAnimation != null) gravityAnimation.stop();
     }
-
 
 
     public void setPaneSize(double x1, double y1, double x2, double y2) {
@@ -136,7 +136,7 @@ public class GravityGuiController {
 
     }
 
-    private int parseInput(TextField inputText,  int defaultValue) throws NumberFormatException, NullPointerException {
+    private int parseInput(TextField inputText, int defaultValue) throws NumberFormatException, NullPointerException {
         if (!inputText.getText().trim().isEmpty())
             return Integer.parseInt(inputText.getText());
         else
