@@ -14,5 +14,6 @@
       <font>
          <Font size="10.0" />
       </font></TextField>
+   <Button fx:id="blackHoleButton" layoutX="47.0" layoutY="281.0" mnemonicParsing="false" onAction="#createBlackHole" text="Black hole" />
 
 </Pane>

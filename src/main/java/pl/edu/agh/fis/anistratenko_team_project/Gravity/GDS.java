@@ -26,6 +26,7 @@ public class GDS {
 }
 
 class Body {
+
     double x;               //m
     double y;               //m
     double r;               //m
@@ -56,6 +57,8 @@ class Body {
     public double getM() {
         return m;
     }
+
+    public boolean isBlackHole = false;
 
     public Body(double newX, double newY, double newR, double newM, double newVx, double newVy) {
         this.x = newX;
