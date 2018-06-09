@@ -107,8 +107,8 @@ public class Controller {
         if (initEvent) {
             if (TabPendulum.isSelected()) {
                 gravityController.stopAnimation();
-                gravityController.GUIPane.setVisible(false);
-                gravityController.GUIPane.setManaged(false);
+                gravityController.guiPane.setVisible(false);
+                gravityController.guiPane.setManaged(false);
                 pendulumController.GUIPane.setVisible(true);
                 pendulumController.GUIPane.setManaged(true);
 
@@ -118,8 +118,8 @@ public class Controller {
                 pendulumController.stopAnimation();
                 pendulumController.GUIPane.setVisible(false);
                 pendulumController.GUIPane.setManaged(false);
-                gravityController.GUIPane.setVisible(true);
-                gravityController.GUIPane.setManaged(true);
+                gravityController.guiPane.setVisible(true);
+                gravityController.guiPane.setManaged(true);
 
 //                gravityController.startAnimation();
             }

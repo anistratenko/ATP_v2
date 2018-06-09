@@ -11,35 +11,37 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
+import java.util.regex.Pattern;
+
 public class GravityGuiController {
     GDS gDS;
     private AnimationTimer gravityAnimation;
     private GravityView gravityView;
     private boolean placeBlackHole = false;
+    private String regex = "[0-9]+";
+    private Pattern pattern = Pattern.compile(regex);
 
 
     @FXML
-    private Slider Speed;
+    private Slider speed;
+
     @FXML
     private Button gravityButton;
 
     @FXML
-    private Button Start;
+    private Button reset;
+
+    @FXML
+    private Button start;
 
     @FXML
     private Button blackHoleButton;
 
 	@FXML
-	public Pane GUIPane;
+	public Pane guiPane;
 
     @FXML
     private TextField numOfBodiesInput;
-
-    @FXML
-    private TextField blackHoleXInput;
-
-    @FXML
-    private TextField blackHoleYInput;
 
     private Pane drawPane;
 
@@ -59,7 +61,7 @@ public class GravityGuiController {
 
         });
 
-        Speed.valueProperty().addListener((observableValue, old_val, new_val) -> gDS.FrameTime = new_val.doubleValue() / 60.);
+        speed.valueProperty().addListener((observableValue, old_val, new_val) -> gDS.FrameTime = new_val.doubleValue() / 60.);
 
         gravityAnimation = new AnimationTimer() {
             long lastUpdate = 0;
@@ -92,30 +94,53 @@ public class GravityGuiController {
                     placeBlackHole = false;
                 }
                 System.out.println("EVT: " + (int)mouseEvent.getSceneX() + " " + (int)mouseEvent.getSceneY());
-
             }
         });
         checkAnimation();
     }
 
 
-
     @FXML
     private void onClickGravity(Event event) throws Exception {
-        System.out.println("CLICK ");
-        int numOfBodies = parseInput(numOfBodiesInput, 20);
-        gravityView.resetGravityView(numOfBodies);
+        setTextFieldColor(numOfBodiesInput, "white");
+        int numOfBodies = parseInput(numOfBodiesInput);
+        if (numOfBodies > 0) {
+            gravityView.resetGravityView(numOfBodies);
+            checkAnimation();
+        }
+        else{
+            System.out.println("Provide number of bodies less than 25");
+            setTextFieldColor(numOfBodiesInput, "red");
+        }
+    }
+
+    private void setTextFieldColor(TextField field, String color){
+        field.setStyle("-fx-background-color:" + color  + ";");
+    }
+
+    @FXML
+    private void onClickReset(Event event)throws Exception{
+        gravityView.resetGravityView(20);
         checkAnimation();
+    }
+
+    private int parseInput(TextField inputText) throws NumberFormatException, NullPointerException {
+        if (!inputText.getText().trim().isEmpty() && pattern.matcher(inputText.getText()).matches()){
+            int result = Integer.parseInt(inputText.getText());
+            if (result > 0 && result < 25)
+                return result;
+        }
+        return -1;
     }
 
     @FXML
     private void onClickStart(Event event) throws Exception {
         gDS.running = !gDS.running;
         if (gDS.running) {
-            Start.setText("Stop");
+            start.setText("Stop");
             startAnimation();
         } else {
-            Start.setText("Start");
+            start.setText("start");
             stopAnimation();
         }
     }
@@ -141,13 +166,6 @@ public class GravityGuiController {
             drawPane.getChildren().add(i);
     }
 
-    public void setVisible(boolean p) {
-        gravityButton.setVisible(p);
-        Start.setVisible(p);
-        gravityButton.setManaged(p);
-        Start.setManaged(p);
-    }
-
     public void startAnimation() {
         if (gravityAnimation != null) gravityAnimation.start();
     }
@@ -159,17 +177,6 @@ public class GravityGuiController {
 
     public void setPaneSize(double x1, double y1, double x2, double y2) {
         gravityView.setPaneSize(x1, y1, x2, y2);
-
-    }
-
-    private int parseInput(TextField inputText, int defaultValue) throws NumberFormatException, NullPointerException {
-        if (!inputText.getText().trim().isEmpty() && Integer.parseInt(inputText.getText()) < 25){
-            return Integer.parseInt(inputText.getText());
-        }
-        else {
-                System.out.println("Provide number of bodies less than 25");
-                return defaultValue;
-            }
     }
 
 }
