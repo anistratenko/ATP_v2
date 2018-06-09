@@ -28,7 +28,6 @@ public class GravityView implements SimulationView {
     public static double ysize;
     public static double xreal;
     public static double yreal;
-    public static double scale;
     private static Random rnd = new Random();
     private GDS gDS;
 
@@ -60,7 +59,6 @@ public class GravityView implements SimulationView {
         double ycenter = ysize / 2.;
         double xscale = xsize / xreal;
         double yscale = ysize / yreal;
-        scale = xscale;
         double scale = Math.min(xscale, yscale);
         if (elements.size() != gravity.getNumOfBodies()) {
             elements.clear();
@@ -120,9 +118,13 @@ public class GravityView implements SimulationView {
     }
 
     void addBlackHoleView(double x, double y){
-        double properX = (x  - xsize / 2.   ) / scale ;
-        double properY = (y  - ysize / 2. - 60 ) / scale ;
-        System.out.println("DIM:" + xsize + " " + ysize + " " +scale);
+        double xcenter = xsize / 2.;
+        double ycenter = ysize / 2.;
+        double xscale = xsize / xreal;
+        double yscale = ysize / yreal;
+        double scale = Math.min(xscale, yscale);
+        double properX = (x  - xcenter) / scale ;
+        double properY = (y  - ycenter - 60 ) / scale ;
         gravity.addBlackHole(properX, properY);
     }
 

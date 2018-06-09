@@ -93,7 +93,6 @@ public class GravityGuiController {
                     gravityView.addBlackHoleView(mouseEvent.getSceneX(), mouseEvent.getSceneY());
                     placeBlackHole = false;
                 }
-                System.out.println("EVT: " + (int)mouseEvent.getSceneX() + " " + (int)mouseEvent.getSceneY());
             }
         });
         checkAnimation();
