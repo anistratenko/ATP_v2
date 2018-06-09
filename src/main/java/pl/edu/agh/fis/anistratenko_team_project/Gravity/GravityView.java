@@ -69,15 +69,29 @@ public class GravityView implements SimulationView {
                 Circle newCircle =  new Circle(xcenter + gravity.getBody(i).getX() * scale,
                                                 ycenter + gravity.getBody(i).getY() * scale,
                         						gravity.getBody(i).getR());
-                newCircle.setFill(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
+                if (gravity.getBody(i).isBlackHole){
+//                    newCircle.setCenterX(gravity.getBody(i).getX());
+//                    newCircle.setCenterY(gravity.getBody(i).getY());
+                    newCircle.setFill(Color.rgb(0, 0,0));
+                    System.out.println("BHV: " + newCircle.getCenterX() + " " + newCircle.getCenterY());
+                }
+                else
+                    newCircle.setFill(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
                 elements.add(newCircle);
             }
             return true;
         } else
             for (int i = 0; i < elements.size(); i++) {
-                ((Circle) elements.get(i)).setCenterX(xcenter + gravity.getBody(i).getX() * scale);
-                ((Circle) elements.get(i)).setCenterY(ycenter + gravity.getBody(i).getY() * scale);
-                ((Circle) elements.get(i)).setRadius(gravity.getBody(i).getR());
+//                if(!gravity.getBody(i).isBlackHole) {
+                    ((Circle) elements.get(i)).setCenterX(xcenter + gravity.getBody(i).getX() * scale);
+                    ((Circle) elements.get(i)).setCenterY(ycenter + gravity.getBody(i).getY() * scale);
+                    ((Circle) elements.get(i)).setRadius(gravity.getBody(i).getR());
+//                }
+//                else{
+//                    ((Circle) elements.get(i)).setCenterX(gravity.getBody(i).getX());
+//                    ((Circle) elements.get(i)).setCenterY(gravity.getBody(i).getY());
+//                    ((Circle) elements.get(i)).setRadius(gravity.getBody(i).getR());
+//                }
             }
         return false;
     }
@@ -105,8 +119,11 @@ public class GravityView implements SimulationView {
         mediaPlayer.play();
     }
 
-    void addBlackHoleView(int x, int y){
-        gravity.addBlackHole(x, y);
+    void addBlackHoleView(double x, double y){
+        double properX = (x  - xsize / 2.   ) / scale ;
+        double properY = (y  - ysize / 2. - 60 ) / scale ;
+        System.out.println("DIM:" + xsize + " " + ysize + " " +scale);
+        gravity.addBlackHole(properX, properY);
     }
 
 }

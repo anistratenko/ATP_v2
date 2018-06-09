@@ -26,6 +26,7 @@ public class GDS {
 }
 
 class Body {
+
     double x;               //m
     double y;               //m
     double r;               //m

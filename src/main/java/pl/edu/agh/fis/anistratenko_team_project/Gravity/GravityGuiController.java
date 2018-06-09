@@ -2,40 +2,46 @@ package pl.edu.agh.fis.anistratenko_team_project.Gravity;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+
+import java.util.regex.Pattern;
 
 public class GravityGuiController {
     GDS gDS;
     private AnimationTimer gravityAnimation;
     private GravityView gravityView;
+    private boolean placeBlackHole = false;
+    private String regex = "[0-9]+";
+    private Pattern pattern = Pattern.compile(regex);
 
 
     @FXML
-    private Slider Speed;
+    private Slider speed;
+
     @FXML
     private Button gravityButton;
 
     @FXML
-    private Button Start;
+    private Button reset;
 
     @FXML
-<<<<<<< HEAD
+    private Button start;
+
+    @FXML
     private Button blackHoleButton;
 
 	@FXML
-	public Pane GUIPane;
-=======
-    public Pane GUIPane;
->>>>>>> master
+	public Pane guiPane;
 
     @FXML
     private TextField numOfBodiesInput;
-
 
     private Pane drawPane;
 
@@ -55,11 +61,10 @@ public class GravityGuiController {
 
         });
 
-        Speed.valueProperty().addListener((observableValue, old_val, new_val) -> gDS.FrameTime = new_val.doubleValue() / 60.);
+        speed.valueProperty().addListener((observableValue, old_val, new_val) -> gDS.FrameTime = new_val.doubleValue() / 60.);
 
         gravityAnimation = new AnimationTimer() {
             long lastUpdate = 0;
-
             public void handle(long now) {
                 if (now - lastUpdate >= 16_666_666) {
                     if (gDS.running) {
@@ -73,26 +78,69 @@ public class GravityGuiController {
                 }
             }
         };
+
+        drawPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            setPaneSize(newVal.doubleValue(), drawPane.getHeight(), gDS.xreal, gDS.yreal);
+        });
+        drawPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            setPaneSize(drawPane.getWidth(), newVal.doubleValue(), gDS.xreal, gDS.yreal);
+        });
+
+        drawPane.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (placeBlackHole){
+                    gravityView.addBlackHoleView(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+                    placeBlackHole = false;
+                }
+                System.out.println("EVT: " + (int)mouseEvent.getSceneX() + " " + (int)mouseEvent.getSceneY());
+            }
+        });
         checkAnimation();
     }
 
 
     @FXML
     private void onClickGravity(Event event) throws Exception {
-        System.out.println("CLICK ");
-        int numOfBodies = parseInput(numOfBodiesInput, 20);
-        gravityView.resetGravityView(numOfBodies);
+        setTextFieldColor(numOfBodiesInput, "white");
+        int numOfBodies = parseInput(numOfBodiesInput);
+        if (numOfBodies > 0) {
+            gravityView.resetGravityView(numOfBodies);
+            checkAnimation();
+        }
+        else{
+            System.out.println("Provide number of bodies less than 25");
+            setTextFieldColor(numOfBodiesInput, "red");
+        }
+    }
+
+    private void setTextFieldColor(TextField field, String color){
+        field.setStyle("-fx-background-color:" + color  + ";");
+    }
+
+    @FXML
+    private void onClickReset(Event event)throws Exception{
+        gravityView.resetGravityView(20);
         checkAnimation();
+    }
+
+    private int parseInput(TextField inputText) throws NumberFormatException, NullPointerException {
+        if (!inputText.getText().trim().isEmpty() && pattern.matcher(inputText.getText()).matches()){
+            int result = Integer.parseInt(inputText.getText());
+            if (result > 0 && result < 25)
+                return result;
+        }
+        return -1;
     }
 
     @FXML
     private void onClickStart(Event event) throws Exception {
         gDS.running = !gDS.running;
         if (gDS.running) {
-            Start.setText("Stop");
+            start.setText("Stop");
             startAnimation();
         } else {
-            Start.setText("Start");
+            start.setText("start");
             stopAnimation();
         }
     }
@@ -100,7 +148,10 @@ public class GravityGuiController {
     @FXML
     private void createBlackHole(Event event) throws Exception{
         System.out.println("BLAAAACK HOOOOOOLE WOWOWOWO ");
-        gravityView.addBlackHoleView(50, 50);
+        double y = drawPane.getHeight() / 7;
+        double x = drawPane.getWidth() / 7;
+        placeBlackHole = true;
+//        gravityView.addBlackHoleView((int)x, (int)y);
     }
 
     private void checkAnimation() {
@@ -115,13 +166,6 @@ public class GravityGuiController {
             drawPane.getChildren().add(i);
     }
 
-    public void setVisible(boolean p) {
-        gravityButton.setVisible(p);
-        Start.setVisible(p);
-        gravityButton.setManaged(p);
-        Start.setManaged(p);
-    }
-
     public void startAnimation() {
         if (gravityAnimation != null) gravityAnimation.start();
     }
@@ -133,16 +177,6 @@ public class GravityGuiController {
 
     public void setPaneSize(double x1, double y1, double x2, double y2) {
         gravityView.setPaneSize(x1, y1, x2, y2);
-
     }
-
-    private int parseInput(TextField inputText, int defaultValue) throws NumberFormatException, NullPointerException {
-        if (!inputText.getText().trim().isEmpty())
-            return Integer.parseInt(inputText.getText());
-        else
-            return defaultValue;
-    }
-
-
 
 }
