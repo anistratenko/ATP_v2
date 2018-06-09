@@ -20,7 +20,7 @@
         <RowConstraints />
       <RowConstraints />
     </rowConstraints>
-      <TabPane prefHeight="343.0" prefWidth="374.0" tabClosingPolicy="UNAVAILABLE" GridPane.fillHeight="True" GridPane.fillWidth="True" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+      <TabPane fx:id="tabPane" prefHeight="343.0" prefWidth="374.0" tabClosingPolicy="UNAVAILABLE" GridPane.fillHeight="True" GridPane.fillWidth="True" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
             <Tab fx:id="TabPendulum" onSelectionChanged="#ChangeGui" text="%paneTitle_pendulum">
                   <Pane fx:id="PanePendulum" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </Tab>

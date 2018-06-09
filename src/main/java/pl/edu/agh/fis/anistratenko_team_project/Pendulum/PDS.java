@@ -7,6 +7,7 @@ public class PDS {
     public double FrameTime = 1. / 60;//s
 
     public double fx = 0.;
+    public double fx_when_control = 0.;
     public double c = 0.;
 
     public boolean running = false;

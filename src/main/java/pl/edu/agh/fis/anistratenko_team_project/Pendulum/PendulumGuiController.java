@@ -4,12 +4,17 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * Created by yevhenii on 5/9/18.
@@ -18,7 +23,8 @@ public class PendulumGuiController {
     private PDS pDS;
     private AnimationTimer pendulumAnimation;
     private PendulumView pendulumView;
-    ;
+
+
 
     @FXML
     private Button Start;
@@ -26,6 +32,8 @@ public class PendulumGuiController {
     private Button Type;
     @FXML
     private Button Load;
+	@FXML
+	private Button RESET;
 
     @FXML
     public Pane GUIPane;
@@ -42,11 +50,17 @@ public class PendulumGuiController {
     private TextField THETA_input;
     @FXML
     private TextField M2_input;
+	@FXML
+	private TextField G_input;
+	@FXML
+	private TextField F_input;
+	@FXML
+	private TextField C_input;
+
+	private ArrayList<TextField> textFieldsList = new ArrayList<TextField>() ;
+
     @FXML
     private Slider Speed;
-
-
-
 
     private Pane drawPane;
 
@@ -90,6 +104,32 @@ public class PendulumGuiController {
             }
         };
         if (pDS.running) pendulumAnimation.start();
+
+		textFieldsList.add(L1_input);
+		textFieldsList.add(L2_input);
+		textFieldsList.add(M1_input);
+		textFieldsList.add(M2_input);
+		textFieldsList.add(THETA_input);
+		textFieldsList.add(PHI_input);
+		textFieldsList.add(G_input);
+		textFieldsList.add(F_input);
+		textFieldsList.add(C_input);
+
+		drawPane.setFocusTraversable(true);
+		drawPane.setOnKeyPressed(e -> {
+			if (e.getCode() == KeyCode.LEFT) {
+				pDS.fx = pDS.fx_when_control;
+			}
+			else if (e.getCode() == KeyCode.RIGHT) {
+				pDS.fx = -pDS.fx_when_control;
+			}
+		});
+		drawPane.setOnKeyReleased(e -> {
+			if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.RIGHT ) {
+				pDS.fx = 0;
+			}
+		});
+
     }
 
     private void fitPendulum(Double xmin, Double ymin) {
@@ -118,6 +158,16 @@ public class PendulumGuiController {
         }
     }
 
+	@FXML
+	private void onClickReset(Event event) throws Exception {
+		pDS.l1 = 0.25; pDS.l2 = 0.25; pDS.m1 = 0.2; pDS.m2 = 0.2; pDS.phi = Math.PI/2.; pDS.theta = 0.; pDS.d_phi = 0.; pDS.d_theta = 0.; pDS.real_t = 0.; pDS.t = 0.; pDS.d2_phi = 0.; pDS.d2_theta = 0.; pDS.g = -9.81; pDS.fx = 0.; pDS.fx_when_control=0.;
+		for (TextField x : textFieldsList)
+		{
+			x.clear();
+			x.setStyle("-fx-background-color:RGB(255,255,255,1);");
+		}
+	}
+
     public void checkAnimation() {
         System.out.println("Pendulum: " + this);
         if (pendulumAnimation != null) System.out.println("All OK");
@@ -134,34 +184,57 @@ public class PendulumGuiController {
 
     @FXML
     private void onClickLoad(Event event) throws Exception {
-        Double tempL1, tempL2, tempM1, tempM2, tempPHI, tempTHETA;
-        try {
-            tempL1 = parseInput(L1_input, pDS.l1);
-            tempL2 = parseInput(L2_input, pDS.l2);
-            tempM1 = parseInput(M1_input, pDS.m1);
-            tempM2 = parseInput(M2_input, pDS.m2);
-            tempPHI = parseInput(PHI_input, pDS.phi);
-            tempTHETA = parseInput(THETA_input, pDS.theta);
+        Double tempL1, tempL2, tempM1, tempM2, tempPHI, tempTHETA, tempGravity, tempForce, tempDrag;
 
-            if (tempL1 <= 0 || tempL2 <= 0 || tempM1 <= 0 || tempM2 <= 0)
-                throw new IllegalArgumentException("Lengths and masses have to be greater than 0");
+        String regex_signed_double = "^-?[0-9]*\\.?[0-9]+$";
+		String regex_unsigned_double = "^[0-9]*\\.?[0-9]+$";
+		String regex_unsigned_double_not_zero = "^(?!-?0*\\.*0*$)[0-9]*\\.?[0-9]+$";
+
+        Pattern pattern_unsigned = Pattern.compile(regex_unsigned_double_not_zero);
+        Pattern pattern_signed = Pattern.compile(regex_signed_double);
+        Pattern pattern_unsigned_not_zero = Pattern.compile(regex_unsigned_double);
+
+        tempL1 = parseInput(L1_input, pDS.l1, pattern_unsigned);
+        tempL2 = parseInput(L2_input, pDS.l2, pattern_unsigned);
+        tempM1 = parseInput(M1_input, pDS.m1, pattern_unsigned);
+        tempM2 = parseInput(M2_input, pDS.m2, pattern_unsigned);
+        tempPHI = parseInput(PHI_input, pDS.phi, pattern_signed);
+        tempTHETA = parseInput(THETA_input, pDS.theta, pattern_signed);
+        tempGravity = parseInput(G_input, pDS.g, pattern_signed);
+        tempForce = parseInput(F_input, pDS.fx_when_control, pattern_unsigned);
+        tempDrag = parseInput(C_input, pDS.c, pattern_unsigned_not_zero);
 
 
-            pDS.l1 = tempL1;
-            pDS.l2 = tempL2;
-            pDS.m1 = tempM1;
-            pDS.m2 = tempM2;
-            pDS.phi = tempPHI;
-            pDS.theta = tempTHETA;
-        } catch (NumberFormatException e) {
-        } catch (NullPointerException e) {
-        } catch (IllegalArgumentException e) {
-        }
+        pDS.l1 = tempL1;
+        pDS.l2 = tempL2;
+        pDS.m1 = tempM1;
+        pDS.m2 = tempM2;
+        pDS.phi = tempPHI;
+        pDS.theta = tempTHETA;
+        pDS.g = tempGravity;
+        pDS.fx_when_control = tempForce;
+        pDS.c = tempDrag;
     }
 
-    private Double parseInput(TextField inputText, Double defaultInput) throws NumberFormatException, NullPointerException {
-        if (!inputText.getText().trim().isEmpty()) return Double.parseDouble(inputText.getText());
-        else return defaultInput;
+    private Double parseInput(TextField inputText, Double defaultInput, Pattern pattern) throws NumberFormatException, NullPointerException {
+
+        if (!inputText.getText().trim().isEmpty())
+        {
+            if (pattern.matcher(inputText.getText()).matches())
+            {
+                inputText.setStyle("-fx-background-color:RGB(255,255,255,0.6),RGB(0,255,0,0.3);");
+                return Double.parseDouble(inputText.getText());
+            }
+            else
+            {
+                inputText.setStyle("-fx-border-color:RGB(255,0,0,1);-fx-background-color:RGB(255,255,255,0.6),RGB(255,0,0,0.05);");
+            }
+        }
+        else
+        {
+            inputText.setStyle("-fx-border-color:RGB(255,255,255,0.3);-fx-background-color:RGB(0,0,0,0.3);");
+        }
+        return defaultInput;
     }
 
     private void setPane(Pane p) {

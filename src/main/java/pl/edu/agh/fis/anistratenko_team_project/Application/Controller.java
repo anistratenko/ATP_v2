@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -53,6 +54,9 @@ public class Controller {
     @FXML
     private PendulumGuiController pendulumController;
 
+    @FXML
+    private TabPane tabPane;
+
     //
     @FXML
     public void initialize() {
@@ -91,6 +95,7 @@ public class Controller {
             gravityController.initialize(PaneGravity, gDS);
             System.out.println("Initialized Gravity");
         }
+        tabPane.setFocusTraversable(false);
 
         assert PaneGravity != null;
 //        PaneGravity.widthProperty().addListener((obs, oldVal, newVal) -> {
