@@ -4,11 +4,13 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -60,9 +62,6 @@ public class PendulumGuiController {
     @FXML
     private Slider Speed;
 
-
-
-
     private Pane drawPane;
 
     public PendulumGuiController() {
@@ -106,15 +105,30 @@ public class PendulumGuiController {
         };
         if (pDS.running) pendulumAnimation.start();
 
-			textFieldsList.add(L1_input);
-			textFieldsList.add(L2_input);
-			textFieldsList.add(M1_input);
-			textFieldsList.add(M2_input);
-			textFieldsList.add(THETA_input);
-			textFieldsList.add(PHI_input);
-			textFieldsList.add(G_input);
-			textFieldsList.add(F_input);
-			textFieldsList.add(C_input);
+		textFieldsList.add(L1_input);
+		textFieldsList.add(L2_input);
+		textFieldsList.add(M1_input);
+		textFieldsList.add(M2_input);
+		textFieldsList.add(THETA_input);
+		textFieldsList.add(PHI_input);
+		textFieldsList.add(G_input);
+		textFieldsList.add(F_input);
+		textFieldsList.add(C_input);
+
+		drawPane.setFocusTraversable(true);
+		drawPane.setOnKeyPressed(e -> {
+			if (e.getCode() == KeyCode.LEFT) {
+				pDS.fx = pDS.fx_when_control;
+			}
+			else if (e.getCode() == KeyCode.RIGHT) {
+				pDS.fx = -pDS.fx_when_control;
+			}
+		});
+		drawPane.setOnKeyReleased(e -> {
+			if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.RIGHT ) {
+				pDS.fx = 0;
+			}
+		});
 
     }
 
@@ -146,7 +160,7 @@ public class PendulumGuiController {
 
 	@FXML
 	private void onClickReset(Event event) throws Exception {
-		pDS.l1 = 0.25; pDS.l2 = 0.25; pDS.m1 = 0.2; pDS.m2 = 0.2; pDS.phi = Math.PI/2.; pDS.theta = 0.; pDS.d_phi = 0.; pDS.d_theta = 0.; pDS.real_t = 0.; pDS.t = 0.; pDS.d2_phi = 0.; pDS.d2_theta = 0.; pDS.g = -9.81;
+		pDS.l1 = 0.25; pDS.l2 = 0.25; pDS.m1 = 0.2; pDS.m2 = 0.2; pDS.phi = Math.PI/2.; pDS.theta = 0.; pDS.d_phi = 0.; pDS.d_theta = 0.; pDS.real_t = 0.; pDS.t = 0.; pDS.d2_phi = 0.; pDS.d2_theta = 0.; pDS.g = -9.81; pDS.fx = 0.; pDS.fx_when_control=0.;
 		for (TextField x : textFieldsList)
 		{
 			x.clear();
@@ -187,7 +201,7 @@ public class PendulumGuiController {
         tempPHI = parseInput(PHI_input, pDS.phi, pattern_signed);
         tempTHETA = parseInput(THETA_input, pDS.theta, pattern_signed);
         tempGravity = parseInput(G_input, pDS.g, pattern_signed);
-        tempForce = parseInput(F_input, pDS.fx, pattern_signed);
+        tempForce = parseInput(F_input, pDS.fx_when_control, pattern_unsigned);
         tempDrag = parseInput(C_input, pDS.c, pattern_unsigned_not_zero);
 
 
@@ -198,7 +212,7 @@ public class PendulumGuiController {
         pDS.phi = tempPHI;
         pDS.theta = tempTHETA;
         pDS.g = tempGravity;
-        pDS.fx = tempForce;
+        pDS.fx_when_control = tempForce;
         pDS.c = tempDrag;
     }
 
