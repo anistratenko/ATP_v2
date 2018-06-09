@@ -1,8 +1,11 @@
 package pl.edu.agh.fis.anistratenko_team_project.Application;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -42,6 +45,16 @@ public class Main extends Application {
 //        primaryStage.initStyle(StageStyle.UNDECORATED);
 //        primaryStage.setFullScreen(true); // may be useful
         primaryStage.show();
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent)
+            {
+                if (keyEvent.getCode() == KeyCode.F5)
+                {
+                    primaryStage.setFullScreen(true);
+                }
+            }
+        });
     }
 
 

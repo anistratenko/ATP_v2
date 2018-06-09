@@ -115,7 +115,7 @@ public class GravityGuiController {
     }
 
     private void setTextFieldColor(TextField field, String color){
-        field.setStyle("-fx-background-color:" + color  + ";");
+        field.setStyle("-fx-border-color:" + color  + ";");
     }
 
     @FXML
