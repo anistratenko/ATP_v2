@@ -7,32 +7,32 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="GUIPane" prefHeight="450.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Pendulum.PendulumGuiController">
-    <Button fx:id="Start" layoutX="32.0" layoutY="75.0" mnemonicParsing="false" onAction="#onClickStart" prefHeight="25.0" prefWidth="140.0" text="Start">
+<Pane fx:id="GUIPane" prefHeight="450.0" prefWidth="210.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Pendulum.PendulumGuiController">
+    <Button fx:id="Start" layoutX="32.0" layoutY="75.0" mnemonicParsing="false" onAction="#onClickStart" prefHeight="25.0" prefWidth="140.0" text="%button_start">
       <font>
          <Font size="12" />
       </font></Button>
-    <Button fx:id="Type" layoutX="32.0" layoutY="110.0" mnemonicParsing="false" onAction="#onClickType" prefHeight="25.0" prefWidth="140.0" text="Double">
+    <Button fx:id="Type" layoutX="32.0" layoutY="110.0" mnemonicParsing="false" onAction="#onClickType" prefHeight="25.0" prefWidth="140.0" text="%button_double">
       <font>
          <Font size="12" />
       </font></Button>
-    <Button fx:id="Reset" layoutX="32.0" layoutY="145.0" mnemonicParsing="false" onAction="#onClickReset" prefHeight="25.0" prefWidth="140.0" text="RESET">
+    <Button fx:id="Reset" layoutX="32.0" layoutY="145.0" mnemonicParsing="false" onAction="#onClickReset" prefHeight="25.0" prefWidth="140.0" text="%button_reset">
         <font>
             <Font size="12" />
         </font></Button>
 
     <Slider fx:id="Speed" blockIncrement="0.1" layoutX="32.0" layoutY="37.0" majorTickUnit="1.0" max="2.0" min="0.2" minorTickCount="4" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
    <Text layoutX="31.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-    <TextField fx:id="L1_input" layoutX="15.0" layoutY="205.0" prefHeight="20.0" prefWidth="80" promptText="Length 1" />
-    <TextField fx:id="PHI_input" layoutX="15.0" layoutY="240.0" prefHeight="20.0" prefWidth="80" promptText="Angle 1" />
-    <TextField fx:id="M1_input" layoutX="15.0" layoutY="275.0" prefHeight="20.0" prefWidth="80" promptText="Mass 1" />
-    <TextField fx:id="L2_input" layoutX="110.0" layoutY="205.0" prefHeight="26.0" prefWidth="80" promptText="Length 2" />
-    <TextField fx:id="THETA_input" layoutX="110.0" layoutY="240.0" prefHeight="20.0" prefWidth="80" promptText="Angle 2" />
-    <TextField fx:id="M2_input" layoutX="110.0" layoutY="275.0" prefHeight="20.0" prefWidth="80" promptText="Mass 2" />
-    <TextField fx:id="G_input" layoutX="25.0" layoutY="310.0" prefHeight="20.0" prefWidth="158.0" promptText="Gravity force" />
-    <TextField fx:id="F_input" layoutX="25.0" layoutY="345.0" prefHeight="20.0" prefWidth="158.0" promptText="System acceleration" />
-    <TextField fx:id="C_input" layoutX="25.0" layoutY="380.0" prefHeight="20.0" prefWidth="158.0" promptText="Drag coefficient" />
-    <Button fx:id="Load" layoutX="25.0" layoutY="414.0" mnemonicParsing="false" onAction="#onClickLoad" prefHeight="22.0" prefWidth="158.0" text="Load">
+    <TextField fx:id="L1_input" layoutX="15.0" layoutY="205.0" prefHeight="20.0" prefWidth="80" promptText="%textfield_length1" />
+    <TextField fx:id="PHI_input" layoutX="15.0" layoutY="240.0" prefHeight="20.0" prefWidth="80" promptText="%textfield_angle1" />
+    <TextField fx:id="M1_input" layoutX="15.0" layoutY="275.0" prefHeight="20.0" prefWidth="80" promptText="%textfield_mass1" />
+    <TextField fx:id="L2_input" layoutX="110.0" layoutY="205.0" prefHeight="26.0" prefWidth="80" promptText="%textfield_length2" />
+    <TextField fx:id="THETA_input" layoutX="110.0" layoutY="240.0" prefHeight="20.0" prefWidth="80" promptText="%textfield_angle2" />
+    <TextField fx:id="M2_input" layoutX="110.0" layoutY="275.0" prefHeight="20.0" prefWidth="80" promptText="%textfield_mass2" />
+    <TextField fx:id="G_input" layoutX="25.0" layoutY="310.0" prefHeight="20.0" prefWidth="158.0" promptText="%textfield_force" />
+    <TextField fx:id="F_input" layoutX="25.0" layoutY="345.0" prefHeight="20.0" prefWidth="158.0" promptText="%textfield_acceleration" />
+    <TextField fx:id="C_input" layoutX="25.0" layoutY="380.0" prefHeight="20.0" prefWidth="160.0" promptText="%textfield_dragcoef" />
+    <Button fx:id="Load" layoutX="25.0" layoutY="414.0" mnemonicParsing="false" onAction="#onClickLoad" prefHeight="22.0" prefWidth="158.0" text="%button_load">
       <font>
          <Font size="10.0" />
       </font></Button>

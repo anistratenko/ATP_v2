@@ -26,7 +26,10 @@ public class GravityGuiController {
     private Slider speed;
 
     @FXML
-    private Button gravityButton;
+    private Button defaultButton;
+
+    @FXML
+    private Button resetButton;
 
     @FXML
     private Button reset;
@@ -100,7 +103,7 @@ public class GravityGuiController {
 
 
     @FXML
-    private void onClickGravity(Event event) throws Exception {
+    private void onClickReset(Event event) throws Exception {
         setTextFieldColor(numOfBodiesInput, "white");
         int numOfBodies = parseInput(numOfBodiesInput);
         if (numOfBodies > 0) {
@@ -113,15 +116,17 @@ public class GravityGuiController {
         }
     }
 
+    @FXML
+    private void onClickDefault(Event event) throws Exception {
+            gravityView.resetGravityView(20);
+            checkAnimation();
+    }
+
     private void setTextFieldColor(TextField field, String color){
         field.setStyle("-fx-border-color:" + color  + ";");
     }
 
-    @FXML
-    private void onClickReset(Event event)throws Exception{
-        gravityView.resetGravityView(20);
-        checkAnimation();
-    }
+
 
     private int parseInput(TextField inputText) throws NumberFormatException, NullPointerException {
         if (!inputText.getText().trim().isEmpty() && pattern.matcher(inputText.getText()).matches()){

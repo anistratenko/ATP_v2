@@ -37,15 +37,15 @@
             <!--<Button layoutX="69.0" layoutY="75.0" mnemonicParsing="false" text="Pendulum" />-->
       </Pane>
       <MenuBar fx:id="menuBar" styleClass="background" GridPane.columnSpan="2">
-          <Menu mnemonicParsing="false" text="Actions">
+          <Menu mnemonicParsing="false" text="%menu_actions">
               <MenuItem fx:id="langSelectEN" mnemonicParsing="false" onAction="#changeLanguageEN" text="EN" />
                   <MenuItem fx:id="langSelectPL" mnemonicParsing="false" onAction="#changeLanguagePL" text="PL" />
-              <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#exit" text="Close" />
+              <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#exit" text="%menu_close" />
           </Menu>
-      <Menu mnemonicParsing="false" text="Appearance">
+      <Menu mnemonicParsing="false" text="%menu_appearance">
          <items>
-            <MenuItem fx:id="modeLight" mnemonicParsing="false" onAction="#changeModeLight" text="Light" />
-            <MenuItem fx:id="modeDark" mnemonicParsing="false" onAction="#changeModeDark" text="Dark" />
+            <MenuItem fx:id="modeLight" mnemonicParsing="false" onAction="#changeModeLight" text="%menu_light" />
+            <MenuItem fx:id="modeDark" mnemonicParsing="false" onAction="#changeModeDark" text="%menu_dark" />
          </items>
       </Menu>
       </MenuBar>

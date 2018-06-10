@@ -6,14 +6,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="guiPane" prefHeight="400.0" prefWidth="600.0" visible="false" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Gravity.GravityGuiController">
+<Pane fx:id="guiPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Gravity.GravityGuiController">
     <Slider fx:id="speed" blockIncrement="0.1" layoutX="28.0" layoutY="37.0" majorTickUnit="1.0" max="2.0" min="0.2" minorTickCount="4" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
-    <Button fx:id="gravityButton" layoutX="53.0" layoutY="109.0" mnemonicParsing="false" onAction="#onClickGravity" text="Gravity" />
-    <Button fx:id="start" layoutX="62.0" layoutY="218.0" mnemonicParsing="false" onAction="#onClickStart" text="Start" />
-    <TextField fx:id="numOfBodiesInput" layoutX="44.0" layoutY="166.0" prefHeight="26.0" prefWidth="99.0" promptText="Number of Bodies">
+    <Button fx:id="resetButton" layoutX="53.0" layoutY="109.0" mnemonicParsing="false" onAction="#onClickReset" text="%button_reset" />
+    <Button fx:id="start" layoutX="62.0" layoutY="218.0" mnemonicParsing="false" onAction="#onClickStart" text="%button_start" />
+    <TextField fx:id="numOfBodiesInput" layoutX="44.0" layoutY="166.0" prefHeight="26.0" prefWidth="99.0" promptText="%textfield_numofbodies">
       <font>
          <Font size="10.0" />
       </font></TextField>
-   <Button fx:id="blackHoleButton" layoutX="47.0" layoutY="281.0" mnemonicParsing="false" onAction="#createBlackHole" text="Black hole" />
+   <Button fx:id="blackHoleButton" layoutX="47.0" layoutY="281.0" mnemonicParsing="false" onAction="#createBlackHole" text="%button_blackhole" />
+   <Button fx:id="defaultButton" layoutX="53.0" layoutY="75.0" mnemonicParsing="false" onAction="#onClickDefault" text="%button_default" />
 
 </Pane>
