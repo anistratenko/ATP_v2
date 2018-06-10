@@ -14,6 +14,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 /**
@@ -177,8 +179,11 @@ public class PendulumGuiController {
     @FXML
     private void onClickType(Event event) throws Exception {
         pDS.doublependulum = !pDS.doublependulum;
-        if (pDS.doublependulum) Type.setText("Double");
-        else Type.setText("Single");
+        ResourceBundle bundle = ResourceBundle.getBundle("language.Locale", new Locale("pl"));
+        if (pDS.doublependulum)
+            Type.setText(bundle.getString("button_double"));
+        else
+            Type.setText(bundle.getString("button_single"));
 
     }
 
