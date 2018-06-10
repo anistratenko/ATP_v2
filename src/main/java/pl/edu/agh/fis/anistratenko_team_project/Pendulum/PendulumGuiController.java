@@ -223,20 +223,16 @@ public class PendulumGuiController {
 
     private Double parseInput(TextField inputText, Double defaultInput, Pattern pattern) throws NumberFormatException, NullPointerException {
 
-        if (!inputText.getText().trim().isEmpty())
-        {
-            if (pattern.matcher(inputText.getText()).matches())
-            {
+        if (!inputText.getText().trim().isEmpty()) {
+            if (pattern.matcher(inputText.getText()).matches()) {
                 inputText.setStyle("-fx-background-color:RGB(255,255,255,0.6),RGB(0,255,0,0.3);");
                 return Double.parseDouble(inputText.getText());
             }
-            else
-            {
+            else {
                 inputText.setStyle("-fx-border-color:RGB(255,0,0,1);-fx-background-color:RGB(255,255,255,0.6),RGB(255,0,0,0.05);");
             }
         }
-        else
-        {
+        else {
             inputText.setStyle("-fx-border-color:RGB(255,255,255,0.3);-fx-background-color:RGB(0,0,0,0.3);");
         }
         return defaultInput;
