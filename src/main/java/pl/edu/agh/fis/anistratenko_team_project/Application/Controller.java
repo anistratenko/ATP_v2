@@ -4,13 +4,11 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import pl.edu.agh.fis.anistratenko_team_project.Gravity.GDS;
 import pl.edu.agh.fis.anistratenko_team_project.Gravity.GravityGuiController;
 import pl.edu.agh.fis.anistratenko_team_project.Pendulum.PDS;
@@ -32,6 +30,11 @@ public class Controller {
     private double xOffset = 0;
     private double yOffset = 0; // for dragging
 
+
+    @FXML
+    private Button buttonCloseHelp;
+    @FXML
+    private GridPane innerWrapperGrid;
 
     @FXML
     private Pane PanePendulum;
@@ -70,9 +73,19 @@ public class Controller {
     @FXML
     private TabPane tabPane;
 
+    @FXML
+    private Pane tabPaneWrapper;
+
+    @FXML
+    private Text help;
+
     //
     @FXML
     public void initialize() {
+
+        buttonCloseHelp.setVisible(false);
+        help.setVisible(false);
+
 
         menuBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -218,6 +231,9 @@ public class Controller {
     private MenuItem closeButton;
 
     @FXML
+    private MenuItem menuHelp;
+
+    @FXML
     private void changeLanguageEN(Event event) throws Exception {
         Locale currLocale = new Locale("en");
         changeLocale(currLocale);
@@ -267,8 +283,20 @@ public class Controller {
         Main.controller = Main.fxmlLoader.getController();
         Main.primaryStage.setTitle(Main.fxmlLoader.getResources().getString("window_title"));
         Main.root.getChildren().setAll(newNode.getChildren());
+    }
 
+    @FXML
+    private void showHelp(){
+        tabPane.setVisible(false);
+        help.setVisible(true);
+        buttonCloseHelp.setVisible(true);
+    }
 
+    @FXML
+    private void closeHelp(){
+        help.setVisible(false);
+        buttonCloseHelp.setVisible(false);
+        tabPane.setVisible(true);
     }
 }
 
