@@ -127,5 +127,4 @@ public class GravityView implements SimulationView {
         double properY = (y  - ycenter - 60 ) / scale ;
         gravity.addBlackHole(properX, properY);
     }
-
 }
