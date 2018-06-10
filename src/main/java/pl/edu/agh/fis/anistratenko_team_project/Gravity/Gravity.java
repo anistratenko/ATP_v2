@@ -1,9 +1,5 @@
 package pl.edu.agh.fis.anistratenko_team_project.Gravity;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import pl.edu.agh.fis.anistratenko_team_project.Pendulum.PDS;
-
 public class Gravity {
     private GDS gDS;
     public Body getBody(int index) {

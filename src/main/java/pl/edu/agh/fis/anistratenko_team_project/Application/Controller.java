@@ -15,6 +15,8 @@ import pl.edu.agh.fis.anistratenko_team_project.Gravity.GDS;
 import pl.edu.agh.fis.anistratenko_team_project.Gravity.GravityGuiController;
 import pl.edu.agh.fis.anistratenko_team_project.Pendulum.PDS;
 import pl.edu.agh.fis.anistratenko_team_project.Pendulum.PendulumGuiController;
+import pl.edu.agh.fis.anistratenko_team_project.Structure.SDS;
+import pl.edu.agh.fis.anistratenko_team_project.Structure.StructureGuiController;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -24,6 +26,7 @@ public class Controller {
     boolean darkMode = false;
     private PDS pDS = new PDS();
     private GDS gDS = new GDS();
+    private SDS sDS = new SDS();
 
     private boolean initEvent = false;
     private double xOffset = 0;
@@ -37,6 +40,9 @@ public class Controller {
     private Pane PaneGravity;
 
     @FXML
+	private Pane PaneStructure;
+
+    @FXML
     private Pane ContentPane = new Pane(); //nullpointer exception after process starts(appears once)
 
     @FXML
@@ -44,6 +50,10 @@ public class Controller {
 
     @FXML
     private Tab TabPendulum;
+
+	@FXML
+	private Tab TabStructure;
+
 
     @FXML
     private MenuBar menuBar;
@@ -53,6 +63,9 @@ public class Controller {
 
     @FXML
     private PendulumGuiController pendulumController;
+
+	@FXML
+	private StructureGuiController structureController;
 
     @FXML
     private TabPane tabPane;
@@ -88,13 +101,24 @@ public class Controller {
         });
         PanePendulum.heightProperty().addListener((obs, oldVal, newVal) -> {
             pendulumController.setPaneSize(PanePendulum.getWidth(), PanePendulum.getHeight(), pDS.xreal, pDS.yreal);
-
         });
 
         if (PaneGravity != null) {
             gravityController.initialize(PaneGravity, gDS);
             System.out.println("Initialized Gravity");
         }
+
+		if (PaneStructure != null) {
+			structureController.initialize(PaneStructure, sDS);
+			System.out.println("Initialized Structure");
+		}
+		PaneStructure.widthProperty().addListener((obs, oldVal, newVal) -> {
+			structureController.setPaneSize(PaneStructure.getWidth(), PaneStructure.getHeight(), sDS.xreal, sDS.yreal);
+		});
+		PaneStructure.heightProperty().addListener((obs, oldVal, newVal) -> {
+			structureController.setPaneSize(PaneStructure.getWidth(), PaneStructure.getHeight(), sDS.xreal, sDS.yreal);
+		});
+
         tabPane.setFocusTraversable(false);
 
         assert PaneGravity != null;
@@ -114,20 +138,41 @@ public class Controller {
                 gravityController.stopAnimation();
                 gravityController.guiPane.setVisible(false);
                 gravityController.guiPane.setManaged(false);
+				structureController.stopAnimation();
+				structureController.guiPane.setVisible(false);
+				structureController.guiPane.setManaged(false);
                 pendulumController.GUIPane.setVisible(true);
                 pendulumController.GUIPane.setManaged(true);
 
 
 //                pendulumController.startAnimation();
-            } else if (TabGravity.isSelected()) {
+            }
+            else if (TabGravity.isSelected())
+            {
                 pendulumController.stopAnimation();
                 pendulumController.GUIPane.setVisible(false);
                 pendulumController.GUIPane.setManaged(false);
+				structureController.stopAnimation();
+				structureController.guiPane.setVisible(false);
+				structureController.guiPane.setManaged(false);
                 gravityController.guiPane.setVisible(true);
                 gravityController.guiPane.setManaged(true);
 
 //                gravityController.startAnimation();
             }
+			else if (TabStructure.isSelected())
+			{
+				pendulumController.stopAnimation();
+				pendulumController.GUIPane.setVisible(false);
+				pendulumController.GUIPane.setManaged(false);
+				gravityController.stopAnimation();
+				gravityController.guiPane.setVisible(false);
+				gravityController.guiPane.setManaged(false);
+				structureController.guiPane.setVisible(true);
+				structureController.guiPane.setManaged(true);
+
+//                structureController.startAnimation();
+			}
         } else initEvent = true;
     }
 

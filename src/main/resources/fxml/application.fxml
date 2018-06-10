@@ -27,13 +27,14 @@
             <Tab fx:id="TabGravity" onSelectionChanged="#ChangeGui" text="%paneTitle_gravity">
                   <Pane fx:id="PaneGravity" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </Tab>
-            <!--<Tab fx:id="TabStructure" onSelectionChanged="#ChangeGui" text="%paneTitle_structure">-->
-                  <!--<Pane fx:id="PaneGravity1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />-->
-            <!--</Tab>-->
+          <Tab fx:id="TabStructure" onSelectionChanged="#ChangeGui" text="%paneTitle_structure">
+              <Pane fx:id="PaneStructure" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </Tab>
       </TabPane>
       <Pane fx:id="ContentPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <fx:include fx:id="gravity" source="gravityGui.fxml" />
             <fx:include fx:id="pendulum" source="pendulumGui.fxml" />
+            <fx:include fx:id="structure" source="structureGui.fxml" />
             <!--<Button layoutX="69.0" layoutY="75.0" mnemonicParsing="false" text="Pendulum" />-->
       </Pane>
       <MenuBar fx:id="menuBar" styleClass="background" GridPane.columnSpan="2">

@@ -97,26 +97,6 @@ public class PendulumView implements SimulationView {
         pDS.yreal = re_y;
     }
 
-    public Circle getFirstBob() {
-        return firstBob;
-    }
-
-    public Circle getSecondBob() {
-        return secondBob;
-    }
-
-    public Line getFirstCord() {
-        return firstCord;
-    }
-
-    public Line getSecondCord() {
-        return secondCord;
-    }
-
-    public Pendulum getPendulum() {
-        return pendulum;
-    }
-
     /**
      * @return elements to be drawn
      */
