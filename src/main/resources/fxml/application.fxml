@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -9,37 +11,55 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" gridLinesVisible="true" styleClass="background" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Application.Controller">
+<GridPane alignment="center" gridLinesVisible="true" prefHeight="585.0" prefWidth="540.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Application.Controller">
 
     <columnConstraints>
-        <ColumnConstraints prefWidth="277.0" />
+        <ColumnConstraints maxWidth="1.7976931348623157E308" prefWidth="277.0" />
         <ColumnConstraints prefWidth="197.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" />
       <RowConstraints />
     </rowConstraints>
-      <TabPane fx:id="tabPane" prefHeight="343.0" prefWidth="374.0" tabClosingPolicy="UNAVAILABLE" GridPane.fillHeight="True" GridPane.fillWidth="True" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
-            <Tab fx:id="TabPendulum" onSelectionChanged="#ChangeGui" text="%paneTitle_pendulum">
-                  <Pane fx:id="PanePendulum" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </Tab>
-            <Tab fx:id="TabGravity" onSelectionChanged="#ChangeGui" text="%paneTitle_gravity">
-                  <Pane fx:id="PaneGravity" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </Tab>
-            <!--<Tab fx:id="TabStructure" onSelectionChanged="#ChangeGui" text="%paneTitle_structure">-->
-                  <!--<Pane fx:id="PaneGravity1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />-->
-            <!--</Tab>-->
-      </TabPane>
-      <Pane fx:id="ContentPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-            <fx:include fx:id="gravity" source="gravityGui.fxml" />
-            <fx:include fx:id="pendulum" source="pendulumGui.fxml" />
-            <!--<Button layoutX="69.0" layoutY="75.0" mnemonicParsing="false" text="Pendulum" />-->
-      </Pane>
+   <GridPane fx:id="innerWrapperGrid" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+      <columnConstraints>
+         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+      </rowConstraints>
+      <children>
+         <Button fx:id="buttonCloseHelp" mnemonicParsing="false" onAction="#closeHelp" prefHeight="53.0" prefWidth="140.0" text="%button_back" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
+            <GridPane.margin>
+               <Insets bottom="50.0" />
+            </GridPane.margin>
+         </Button>
+         <Text fx:id="help" strokeType="OUTSIDE" strokeWidth="0.0" text="%text_help" wrappingWidth="173.21875" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <GridPane.margin>
+               <Insets top="50.0" />
+            </GridPane.margin>
+         </Text>
+            <TabPane fx:id="tabPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="343.0" tabClosingPolicy="UNAVAILABLE" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                  <Tab fx:id="TabPendulum" closable="false" onSelectionChanged="#ChangeGui" text="%paneTitle_pendulum">
+                        <Pane fx:id="PanePendulum" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="419.0" />
+                  </Tab>
+                  <Tab fx:id="TabGravity" closable="false" onSelectionChanged="#ChangeGui" text="%paneTitle_gravity">
+                        <Pane fx:id="PaneGravity" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </Tab>
+                  <!--<Tab fx:id="TabStructure" onSelectionChanged="#ChangeGui" text="%paneTitle_structure">-->
+                        <!--<Pane fx:id="PaneGravity1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />-->
+                  <!--</Tab>-->
+            </TabPane>
+      </children>
+   </GridPane>
       <MenuBar fx:id="menuBar" styleClass="background" GridPane.columnSpan="2">
           <Menu mnemonicParsing="false" text="%menu_actions">
               <MenuItem fx:id="langSelectEN" mnemonicParsing="false" onAction="#changeLanguageEN" text="EN" />
                   <MenuItem fx:id="langSelectPL" mnemonicParsing="false" onAction="#changeLanguagePL" text="PL" />
+         <MenuItem fx:id="menuHelp" mnemonicParsing="false" onAction="#showHelp" text="%menu_heelp" />
               <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#exit" text="%menu_close" />
           </Menu>
       <Menu mnemonicParsing="false" text="%menu_appearance">
@@ -49,4 +69,9 @@
          </items>
       </Menu>
       </MenuBar>
+      <Pane fx:id="ContentPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <fx:include fx:id="gravity" source="gravityGui.fxml" />
+            <fx:include fx:id="pendulum" source="pendulumGui.fxml" />
+            <!--<Button layoutX="69.0" layoutY="75.0" mnemonicParsing="false" text="Pendulum" />-->
+      </Pane>
 </GridPane>
