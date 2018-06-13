@@ -10,6 +10,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.util.regex.Pattern;
 
@@ -22,6 +24,8 @@ public class GravityGuiController {
     private Pattern pattern = Pattern.compile(regex);
     private int loadedValue;
 
+    @FXML
+    private TextFlow warning;
 
     @FXML
     private Slider speed;
@@ -108,9 +112,12 @@ public class GravityGuiController {
 
     @FXML
     private void onClickLoad(Event event) throws Exception {
+        warning.getChildren().clear();
         setTextFieldColor(numOfBodiesInput, "white");
         int numOfBodies = parseInput(numOfBodiesInput);
         if (numOfBodies < 0){
+            Text text = new Text("Provide number of bodies less than 25");
+            warning.getChildren().add(text);
             System.out.println("Provide number of bodies less than 25");
             setTextFieldColor(numOfBodiesInput, "red");
             return;
