@@ -141,6 +141,10 @@ public class Controller {
 //        PaneGravity.heightProperty().addListener((obs, oldVal, newVal) -> {
 //            gravityController.setPaneSize(PaneGravity.getWidth(), newVal.doubleValue(), gDS.xreal, gDS.yreal);
 //        });
+        gravityController.guiPane.setVisible(false);
+        gravityController.guiPane.setManaged(false);
+        structureController.guiPane.setVisible(false);
+        structureController.guiPane.setManaged(false);
     }
 
 
@@ -286,14 +290,16 @@ public class Controller {
     }
 
     @FXML
-    private void showHelp(){
+    private void showHelp()
+	{
         tabPane.setVisible(false);
         help.setVisible(true);
         buttonCloseHelp.setVisible(true);
     }
 
     @FXML
-    private void closeHelp(){
+    private void closeHelp()
+	{
         help.setVisible(false);
         buttonCloseHelp.setVisible(false);
         tabPane.setVisible(true);

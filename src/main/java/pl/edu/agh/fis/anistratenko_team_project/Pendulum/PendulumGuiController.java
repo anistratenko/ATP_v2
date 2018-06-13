@@ -233,7 +233,7 @@ public class PendulumGuiController {
             }
         }
         else {
-            inputText.setStyle("-fx-border-color:RGB(255,255,255,0.3);-fx-background-color:RGB(0,0,0,0.3);");
+            inputText.setStyle("-fx-border-color:RGB(255,255,255,0.3);-fx-background-color:RGB(0,0,0,0.1);-fx-prompt-text-fill:RGB(255,255,255);");
         }
         return defaultInput;
     }

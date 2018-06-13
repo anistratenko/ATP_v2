@@ -11,10 +11,10 @@ public class SDS {
 	public double FrameTime = 1. / 60.;
 
 	public double g = 0;
-	public double k = 1e2;
-	public int gridSize = 20;
+	public double k = 5;
+	public int gridSize = 15;
 	public double gridSizeReal = 0.5;
-	public double mass = 1;
+	public double mass = 0.02;
 
 	public double xreal = 0.5;
 	public double yreal = 0.5;
@@ -66,11 +66,8 @@ class Body
 	public void randomizePosition(double maxDifference)
 	{
 		Random rnd = new Random();
-		if (rnd.nextDouble() < 0.05)
-		{
-			x += rnd.nextDouble() * maxDifference * 2 - maxDifference;
-			y += rnd.nextDouble() * maxDifference * 2 - maxDifference;
-		}
+		x += rnd.nextDouble() * maxDifference * 2 - maxDifference;
+		y += rnd.nextDouble() * maxDifference * 2 - maxDifference;
 	}
 
 	public void moveY(double dy)

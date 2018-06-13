@@ -8,7 +8,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+
+import java.util.regex.Pattern;
 
 public class StructureGuiController {
 	private SDS sDS;
@@ -45,6 +48,10 @@ public class StructureGuiController {
 	@FXML
 	private Slider Speed;
 
+	@FXML
+	private TextField G_INPUT;
+	@FXML
+	private TextField K_INPUT;
 
 	@FXML
 	public Pane guiPane;
@@ -110,5 +117,46 @@ public class StructureGuiController {
 		structureView.setPaneSize(x1, y1, x2, y2);
 	}
 
+	@FXML
+	private void onClickLoad(Event event) throws Exception {
+		Double tempK, tempG;
+
+		String regex_signed_double = "^-?[0-9]*\\.?[0-9]+$";
+		String regex_unsigned_double = "^[0-9]*\\.?[0-9]+$";
+
+		Pattern pattern_signed = Pattern.compile(regex_signed_double);
+		Pattern pattern_unsigned_not_zero = Pattern.compile(regex_unsigned_double);
+
+		tempG = parseInput(G_INPUT, sDS.g, pattern_signed);
+		tempK = parseInput(K_INPUT, sDS.k, pattern_unsigned_not_zero);
+
+		sDS.g = tempG;
+		sDS.k = tempK;
+	}
+
+	@FXML
+	private void onClickReset(Event event) throws Exception{
+		structureView.callReset();
+		sDS.g = 0; G_INPUT.clear();
+		sDS.k = 5; K_INPUT.clear();
+	}
+
+
+	private Double parseInput(TextField inputText, Double defaultInput, Pattern pattern) throws NumberFormatException, NullPointerException {
+
+		if (!inputText.getText().trim().isEmpty()) {
+			if (pattern.matcher(inputText.getText()).matches()) {
+				inputText.setStyle("-fx-background-color:RGB(255,255,255,0.6),RGB(0,255,0,0.3);");
+				return Double.parseDouble(inputText.getText());
+			}
+			else {
+				inputText.setStyle("-fx-border-color:RGB(255,0,0,1);-fx-background-color:RGB(255,255,255,0.6),RGB(255,0,0,0.05);");
+			}
+		}
+		else {
+			inputText.setStyle("-fx-border-color:RGB(255,255,255,0.3);-fx-background-color:RGB(0,0,0,0.1);-fx-prompt-text-fill:RGB(255,255,255);");
+		}
+		return defaultInput;
+	}
 
 }

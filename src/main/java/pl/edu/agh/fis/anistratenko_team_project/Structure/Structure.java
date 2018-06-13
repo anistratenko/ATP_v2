@@ -1,5 +1,7 @@
 package pl.edu.agh.fis.anistratenko_team_project.Structure;
 
+import java.util.Random;
+
 public class Structure {
 	private SDS sDS;
 
@@ -60,11 +62,15 @@ public class Structure {
 
 	public void randomizeStructure()
 	{
+		Random rnd = new Random();
 		for (int i = 1; i < sDS.gridSize-1; i++)
 		{
 			for (int j = 1; j < sDS.gridSize-1; j++)
 			{
-				sDS.bodies.get(i + sDS.gridSize*j).randomizePosition(0.9*0.5*sDS.gridSizeReal / sDS.gridSize);
+				if (rnd.nextDouble() < 0.03 )
+				{
+					sDS.bodies.get(i + sDS.gridSize * j).randomizePosition(rnd.nextDouble() * 0.5 * sDS.gridSizeReal / sDS.gridSize);
+				}
 			}
 		}
 	}

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -12,6 +13,10 @@
         <Font size="12" />
     </font></Button>
    <Button fx:id="wave" layoutX="32.0" layoutY="111.0" mnemonicParsing="false" onAction="#onClickWave" prefHeight="26.0" prefWidth="140.0" text="Wave" />
-   <Button fx:id="random" layoutX="32.0" layoutY="149.0" mnemonicParsing="false" onAction="#onClickRandom" prefHeight="26.0" prefWidth="140.0" text="Default" />
+   <Button fx:id="random" layoutX="32.0" layoutY="149.0" mnemonicParsing="false" onAction="#onClickRandom" prefHeight="26.0" prefWidth="140.0" text="Random" />
+   <TextField fx:id="K_INPUT" layoutX="17.0" layoutY="187.0" promptText="Wsp. Sprężystości" />
+   <TextField fx:id="G_INPUT" layoutX="17.0" layoutY="225.0" promptText="g " />
+   <Button fx:id="Load" layoutX="30.0" layoutY="259.0" mnemonicParsing="false" onAction="#onClickLoad" prefHeight="26.0" prefWidth="140.0" text="Load" />
+   <Button fx:id="Reset" layoutX="30.0" layoutY="294.0" mnemonicParsing="false" onAction="#onClickReset" prefHeight="26.0" prefWidth="140.0" text="Reset" />
 
 </Pane>

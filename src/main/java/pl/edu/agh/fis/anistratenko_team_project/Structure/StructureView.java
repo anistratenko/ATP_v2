@@ -19,7 +19,7 @@ public class StructureView implements SimulationView {
 		structure = new Structure(sDS);
 
 		double xscale = xsize / sDS.xreal;
-		double yscale = ysize / sDS.yreal;
+		double yscale = (ysize) / sDS.yreal;
 		double scale = Math.min(xscale, yscale);
 		for (int i = 0; i < Math.pow(sDS.gridSize, 2); i++)
 		{
@@ -51,26 +51,32 @@ public class StructureView implements SimulationView {
 
 	public void callWave()
 	{
-		structure.resetStructure();
 		structure.wave();
+		refresh();
 	}
 
 	public void callRandomize()
 	{
-		structure.resetStructure();
 		structure.randomizeStructure();
+		refresh();
+	}
+
+	public void callReset()
+	{
+		structure.resetStructure();
+		refresh();
 	}
 
 	public void refresh()
 	{
 		double xcenter = xsize / 2.;
-		double ycenter = (ysize+60) / 2.;
+		double ycenter = (ysize+30) / 2.;
 		double xscale = xsize / sDS.xreal;
-		double yscale = (ysize) / sDS.yreal;
+		double yscale = ysize / sDS.yreal;
 		double scale = Math.min(xscale, yscale);
 		for (int i = 0; i < elements.size(); i++) {
-			((Circle) elements.get(i)).setCenterX( structure.getXFromBody(i) * scale);
-			((Circle) elements.get(i)).setCenterY( structure.getYFromBody(i) * scale);
+			((Circle) elements.get(i)).setCenterX( -sDS.gridSizeReal*scale/2. + xcenter + structure.getXFromBody(i) * scale);
+			((Circle) elements.get(i)).setCenterY( -sDS.gridSizeReal*scale/2. + ycenter + structure.getYFromBody(i) * scale);
 		}
 	}
 
