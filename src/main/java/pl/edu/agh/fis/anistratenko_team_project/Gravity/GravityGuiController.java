@@ -20,6 +20,7 @@ public class GravityGuiController {
     private boolean placeBlackHole = false;
     private String regex = "[0-9]+";
     private Pattern pattern = Pattern.compile(regex);
+    private int loadedValue;
 
 
     @FXML
@@ -36,6 +37,9 @@ public class GravityGuiController {
 
     @FXML
     private Button start;
+
+    @FXML
+    private Button load;
 
     @FXML
     private Button blackHoleButton;
@@ -103,21 +107,26 @@ public class GravityGuiController {
 
 
     @FXML
-    private void onClickReset(Event event) throws Exception {
+    private void onClickLoad(Event event) throws Exception {
         setTextFieldColor(numOfBodiesInput, "white");
         int numOfBodies = parseInput(numOfBodiesInput);
-        if (numOfBodies > 0) {
-            gravityView.resetGravityView(numOfBodies);
-            checkAnimation();
-        }
-        else{
+        if (numOfBodies < 0){
             System.out.println("Provide number of bodies less than 25");
             setTextFieldColor(numOfBodiesInput, "red");
+            return;
         }
+        loadedValue = numOfBodies;
+    }
+
+
+    @FXML
+    private void onClickReset(Event event) throws Exception {
+        gravityView.resetGravityView(loadedValue);
     }
 
     @FXML
     private void onClickDefault(Event event) throws Exception {
+            numOfBodiesInput.clear();
             gravityView.resetGravityView(20);
             checkAnimation();
     }

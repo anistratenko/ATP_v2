@@ -6,15 +6,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="guiPane" prefHeight="400.0" prefWidth="600.0" visible="false" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Gravity.GravityGuiController">
+<Pane fx:id="guiPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.fis.anistratenko_team_project.Gravity.GravityGuiController">
     <Slider fx:id="speed" blockIncrement="0.1" layoutX="38.0" layoutY="37.0" majorTickUnit="1.0" max="2.0" min="0.2" minorTickCount="4" prefHeight="38.0" prefWidth="118.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
     <Button fx:id="resetButton" layoutX="36.0" layoutY="115.0" mnemonicParsing="false" onAction="#onClickReset" prefHeight="27.0" prefWidth="120.0" text="%button_reset" />
-    <Button fx:id="start" layoutX="36.0" layoutY="193.0" mnemonicParsing="false" onAction="#onClickStart" prefHeight="27.0" prefWidth="120.0" text="%button_start" />
+    <Button fx:id="load" layoutX="36.0" layoutY="193.0" mnemonicParsing="false" onAction="#onClickLoad" prefHeight="27.0" prefWidth="120.0" text="%button_load" />
     <TextField fx:id="numOfBodiesInput" layoutX="36.0" layoutY="157.0" prefHeight="26.0" prefWidth="118.0" promptText="%textfield_numofbodies">
       <font>
          <Font size="10.0" />
       </font></TextField>
-   <Button fx:id="blackHoleButton" layoutX="15.0" layoutY="229.0" mnemonicParsing="false" onAction="#createBlackHole" prefHeight="27.0" prefWidth="160.0" text="%button_blackhole" />
+   <Button fx:id="blackHoleButton" layoutX="15.0" layoutY="266.0" mnemonicParsing="false" onAction="#createBlackHole" prefHeight="27.0" prefWidth="160.0" text="%button_blackhole" />
    <Button fx:id="defaultButton" layoutX="36.0" layoutY="76.0" mnemonicParsing="false" onAction="#onClickDefault" prefWidth="120.0" text="%button_default" />
+   <Button fx:id="start" layoutX="36.0" layoutY="229.0" mnemonicParsing="false" onAction="#onClickStart" prefHeight="27.0" prefWidth="120.0" text="%button_start" />
 
 </Pane>

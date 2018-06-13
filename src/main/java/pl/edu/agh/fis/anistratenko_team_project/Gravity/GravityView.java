@@ -5,6 +5,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 import pl.edu.agh.fis.anistratenko_team_project.Application.SimulationView;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class GravityView implements SimulationView {
         double scale = Math.min(xscale, yscale);
         if (elements.size() != gravity.getNumOfBodies()) {
             elements.clear();
-//            playSound();
+            playSound();
             for (int i = 0; i < gravity.getNumOfBodies(); i++){
                 Circle newCircle =  new Circle(xcenter + gravity.getBody(i).getX() * scale,
                                                 ycenter + gravity.getBody(i).getY() * scale,
@@ -113,8 +114,8 @@ public class GravityView implements SimulationView {
     }
 
     void playSound(){
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
+//        mediaPlayer.play();
+//        mediaPlayer.seek(Duration.ZERO);
     }
 
     void addBlackHoleView(double x, double y){
