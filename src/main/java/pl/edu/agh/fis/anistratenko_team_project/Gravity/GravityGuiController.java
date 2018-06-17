@@ -118,7 +118,7 @@ public class GravityGuiController {
         if (numOfBodies < 0){
             Text text = new Text("Provide number of bodies less than 25");
             warning.getChildren().add(text);
-            System.out.println("Provide number of bodies less than 25");
+//            System.out.println("Provide number of bodies less than 25");
             setTextFieldColor(numOfBodiesInput, "red");
             return;
         }

@@ -12,6 +12,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -26,7 +28,8 @@ public class PendulumGuiController {
     private AnimationTimer pendulumAnimation;
     private PendulumView pendulumView;
 
-
+	@FXML
+	private TextFlow warning;
 
     @FXML
     private Button Start;
@@ -191,6 +194,8 @@ public class PendulumGuiController {
     private void onClickLoad(Event event) throws Exception {
         Double tempL1, tempL2, tempM1, tempM2, tempPHI, tempTHETA, tempGravity, tempForce, tempDrag;
 
+        warning.getChildren().clear();
+		StringBuilder text = new StringBuilder("");
         String regex_signed_double = "^-?[0-9]*\\.?[0-9]+$";
 		String regex_unsigned_double = "^[0-9]*\\.?[0-9]+$";
 		String regex_unsigned_double_not_zero = "^(?!-?0*\\.*0*$)[0-9]*\\.?[0-9]+$";
@@ -199,15 +204,15 @@ public class PendulumGuiController {
         Pattern pattern_signed = Pattern.compile(regex_signed_double);
         Pattern pattern_unsigned_not_zero = Pattern.compile(regex_unsigned_double);
 
-        tempL1 = parseInput(L1_input, pDS.l1, pattern_unsigned);
-        tempL2 = parseInput(L2_input, pDS.l2, pattern_unsigned);
-        tempM1 = parseInput(M1_input, pDS.m1, pattern_unsigned);
-        tempM2 = parseInput(M2_input, pDS.m2, pattern_unsigned);
-        tempPHI = parseInput(PHI_input, pDS.phi, pattern_signed);
-        tempTHETA = parseInput(THETA_input, pDS.theta, pattern_signed);
-        tempGravity = parseInput(G_input, pDS.g, pattern_signed);
-        tempForce = parseInput(F_input, pDS.fx_when_control, pattern_unsigned);
-        tempDrag = parseInput(C_input, pDS.c, pattern_unsigned_not_zero);
+        tempL1 = parseInput(L1_input, pDS.l1, pattern_unsigned, text);
+        tempL2 = parseInput(L2_input, pDS.l2, pattern_unsigned, text);
+        tempM1 = parseInput(M1_input, pDS.m1, pattern_unsigned, text);
+        tempM2 = parseInput(M2_input, pDS.m2, pattern_unsigned, text);
+        tempPHI = parseInput(PHI_input, pDS.phi, pattern_signed, text);
+        tempTHETA = parseInput(THETA_input, pDS.theta, pattern_signed, text);
+        tempGravity = parseInput(G_input, pDS.g, pattern_signed, text);
+        tempForce = parseInput(F_input, pDS.fx_when_control, pattern_unsigned, text);
+        tempDrag = parseInput(C_input, pDS.c, pattern_unsigned_not_zero, text);
 
 
         pDS.l1 = tempL1;
@@ -219,9 +224,16 @@ public class PendulumGuiController {
         pDS.g = tempGravity;
         pDS.fx_when_control = tempForce;
         pDS.c = tempDrag;
+		if (!text.toString().isEmpty())
+		{
+			ResourceBundle bundle = ResourceBundle.getBundle("language.Locale", new Locale("pl"));
+
+			Text message = new Text( bundle.getString("pendulum_wrong_input_begin")+ text.toString() +bundle.getString("pendulum_wrong_input_end"));
+			warning.getChildren().add(message);
+		}
     }
 
-    private Double parseInput(TextField inputText, Double defaultInput, Pattern pattern) throws NumberFormatException, NullPointerException {
+    private Double parseInput(TextField inputText, Double defaultInput, Pattern pattern, StringBuilder text) throws NumberFormatException, NullPointerException {
 
         if (!inputText.getText().trim().isEmpty()) {
             if (pattern.matcher(inputText.getText()).matches()) {
@@ -229,6 +241,8 @@ public class PendulumGuiController {
                 return Double.parseDouble(inputText.getText());
             }
             else {
+
+            	text.append(" "+inputText.getPromptText());
                 inputText.setStyle("-fx-border-color:RGB(255,0,0,1);-fx-background-color:RGB(255,255,255,0.6),RGB(255,0,0,0.05);");
             }
         }
@@ -250,6 +264,8 @@ public class PendulumGuiController {
         Type.setManaged(p);
         Start.setManaged(p);
     }
+
+
 
     public void startAnimation() {
         pendulumAnimation.start();

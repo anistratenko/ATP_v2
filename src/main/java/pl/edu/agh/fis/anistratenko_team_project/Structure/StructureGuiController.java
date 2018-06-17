@@ -10,13 +10,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class StructureGuiController {
 	private SDS sDS;
 	private AnimationTimer structureAnimation;
 	private StructureView structureView;
+
+	@FXML
+	private TextFlow warning;
 
 	@FXML
 	private Button start;
@@ -121,17 +128,27 @@ public class StructureGuiController {
 	private void onClickLoad(Event event) throws Exception {
 		Double tempK, tempG;
 
+		warning.getChildren().clear();
+		StringBuilder text = new StringBuilder("");
+
 		String regex_signed_double = "^-?[0-9]*\\.?[0-9]+$";
 		String regex_unsigned_double = "^[0-9]*\\.?[0-9]+$";
 
 		Pattern pattern_signed = Pattern.compile(regex_signed_double);
 		Pattern pattern_unsigned_not_zero = Pattern.compile(regex_unsigned_double);
 
-		tempG = parseInput(G_INPUT, sDS.g, pattern_signed);
-		tempK = parseInput(K_INPUT, sDS.k, pattern_unsigned_not_zero);
+		tempG = parseInput(G_INPUT, sDS.g, pattern_signed, text);
+		tempK = parseInput(K_INPUT, sDS.k, pattern_unsigned_not_zero, text);
 
 		sDS.g = tempG;
 		sDS.k = tempK;
+		if (!text.toString().isEmpty())
+		{
+			ResourceBundle bundle = ResourceBundle.getBundle("language.Locale", new Locale("pl"));
+
+			Text message = new Text( bundle.getString("pendulum_wrong_input_begin")+ text.toString() +bundle.getString("pendulum_wrong_input_end"));
+			warning.getChildren().add(message);
+		}
 	}
 
 	@FXML
@@ -142,7 +159,7 @@ public class StructureGuiController {
 	}
 
 
-	private Double parseInput(TextField inputText, Double defaultInput, Pattern pattern) throws NumberFormatException, NullPointerException {
+	private Double parseInput(TextField inputText, Double defaultInput, Pattern pattern, StringBuilder text) throws NumberFormatException, NullPointerException {
 
 		if (!inputText.getText().trim().isEmpty()) {
 			if (pattern.matcher(inputText.getText()).matches()) {
@@ -150,6 +167,7 @@ public class StructureGuiController {
 				return Double.parseDouble(inputText.getText());
 			}
 			else {
+				text.append(" "+inputText.getPromptText());
 				inputText.setStyle("-fx-border-color:RGB(255,0,0,1);-fx-background-color:RGB(255,255,255,0.6),RGB(255,0,0,0.05);");
 			}
 		}
