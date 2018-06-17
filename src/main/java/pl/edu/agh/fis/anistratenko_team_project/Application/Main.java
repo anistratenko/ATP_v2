@@ -15,8 +15,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
-    static Stage primaryStage;
-    static FXMLLoader fxmlLoader;
+    public static Stage primaryStage;
+    public static FXMLLoader fxmlLoader;
     static Scene scene;
     static GridPane root;
     static Controller controller;

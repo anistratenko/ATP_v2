@@ -3,7 +3,6 @@ package pl.edu.agh.fis.anistratenko_team_project.Pendulum;
 public class PDS {
     public PDS() {
     }
-
     public double FrameTime = 1. / 60;//s
 
     public double fx = 0.;

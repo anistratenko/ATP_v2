@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import pl.edu.agh.fis.anistratenko_team_project.Application.Main;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -182,7 +183,9 @@ public class PendulumGuiController {
     @FXML
     private void onClickType(Event event) throws Exception {
         pDS.doublependulum = !pDS.doublependulum;
-        ResourceBundle bundle = ResourceBundle.getBundle("language.Locale", new Locale("pl"));
+        ResourceBundle bundle;
+        bundle = ResourceBundle.getBundle("language.Locale", Main.fxmlLoader.getResources().getLocale());
+
         if (pDS.doublependulum)
             Type.setText(bundle.getString("button_double"));
         else
@@ -226,7 +229,7 @@ public class PendulumGuiController {
         pDS.c = tempDrag;
 		if (!text.toString().isEmpty())
 		{
-			ResourceBundle bundle = ResourceBundle.getBundle("language.Locale", new Locale("pl"));
+			ResourceBundle bundle = ResourceBundle.getBundle("language.Locale",  Main.fxmlLoader.getResources().getLocale());
 
 			Text message = new Text( bundle.getString("pendulum_wrong_input_begin")+ text.toString() +bundle.getString("pendulum_wrong_input_end"));
 			warning.getChildren().add(message);
