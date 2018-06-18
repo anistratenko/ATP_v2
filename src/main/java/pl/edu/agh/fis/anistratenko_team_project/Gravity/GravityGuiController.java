@@ -113,22 +113,32 @@ public class GravityGuiController {
     @FXML
     private void onClickLoad(Event event) throws Exception {
         warning.getChildren().clear();
-        setTextFieldColor(numOfBodiesInput, "white");
+//        setTextFieldColor(numOfBodiesInput, "white", "white");
+
         int numOfBodies = parseInput(numOfBodiesInput);
         if (numOfBodies < 0){
             Text text = new Text("Provide number of bodies less than 25");
+
             warning.getChildren().add(text);
 //            System.out.println("Provide number of bodies less than 25");
-            setTextFieldColor(numOfBodiesInput, "red");
+            setTextFieldColor(numOfBodiesInput, "red", "white");
+            if (numOfBodies == -2){
+                System.out.println("EMPTy");
+                setTextFieldColor(numOfBodiesInput, "red", "RGB(0,0,0,0.1)");}
             return;
         }
+
+        setTextFieldColor(numOfBodiesInput, "white", "RGB(255,255,255,0.6),RGB(0,255,0,0.3)");
         loadedValue = numOfBodies;
+
     }
 
 
     @FXML
     private void onClickReset(Event event) throws Exception {
         gravityView.resetGravityView(loadedValue);
+        setTextFieldColor(numOfBodiesInput, "white", "white");
+        numOfBodiesInput.clear();
     }
 
     @FXML
@@ -138,18 +148,24 @@ public class GravityGuiController {
             checkAnimation();
     }
 
-    private void setTextFieldColor(TextField field, String color){
-        field.setStyle("-fx-border-color:" + color  + ";");
+    private void setTextFieldColor(TextField field, String colorBorder, String colorBackground){
+        field.setStyle("-fx-border-color:" + colorBorder  + "; " + "-fx-background-color:" + colorBackground  + ";");
     }
 
 
 
     private int parseInput(TextField inputText) throws NumberFormatException, NullPointerException {
+
+        if(inputText.getText().trim().isEmpty()){
+            return -2; // empty input (yes, that's awkward. <shrug> )
+        }
+
         if (!inputText.getText().trim().isEmpty() && pattern.matcher(inputText.getText()).matches()){
             int result = Integer.parseInt(inputText.getText());
             if (result > 0 && result < 25)
                 return result;
         }
+
         return -1;
     }
 
