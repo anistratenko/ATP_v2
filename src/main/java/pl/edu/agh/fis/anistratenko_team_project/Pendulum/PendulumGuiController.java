@@ -71,6 +71,7 @@ public class PendulumGuiController {
     private Pane drawPane;
 
     public PendulumGuiController() {
+
     }
 
     public void initialize(Pane p, PDS pds) {
@@ -109,6 +110,9 @@ public class PendulumGuiController {
                 }
             }
         };
+        pDS.l1 = 0.25; pDS.l2 = 0.25; pDS.m1 = 0.2; pDS.m2 = 0.2; pDS.phi = Math.PI/2.; pDS.theta = 0.; pDS.d_phi = 0.; pDS.d_theta = 0.; pDS.real_t = 0.; pDS.t = 0.; pDS.d2_phi = 0.; pDS.d2_theta = 0.; pDS.g = -9.81; pDS.fx = 0.; pDS.fx_when_control=0.; pDS.c=0.;
+        pDS.loaded_l1 = 0.25; pDS.loaded_l2 = 0.25; pDS.loaded_m1 = 0.2; pDS.loaded_m2 = 0.2; pDS.loaded_phi = Math.PI/2.; pDS.loaded_theta = 0.; pDS.loaded_g = -9.81;  pDS.loaded_fx_when_control=0.; pDS.loaded_c = 0.;
+
         if (pDS.running) pendulumAnimation.start();
 
 		textFieldsList.add(L1_input);
@@ -165,14 +169,22 @@ public class PendulumGuiController {
     }
 
 	@FXML
-	private void onClickReset(Event event) throws Exception {
-		pDS.l1 = 0.25; pDS.l2 = 0.25; pDS.m1 = 0.2; pDS.m2 = 0.2; pDS.phi = Math.PI/2.; pDS.theta = 0.; pDS.d_phi = 0.; pDS.d_theta = 0.; pDS.real_t = 0.; pDS.t = 0.; pDS.d2_phi = 0.; pDS.d2_theta = 0.; pDS.g = -9.81; pDS.fx = 0.; pDS.fx_when_control=0.;
-		for (TextField x : textFieldsList)
+	private void onClickDefault(Event event) throws Exception {
+		pDS.l1 = 0.25; pDS.l2 = 0.25; pDS.m1 = 0.2; pDS.m2 = 0.2; pDS.phi = Math.PI/2.; pDS.theta = 0.; pDS.d_phi = 0.; pDS.d_theta = 0.; pDS.real_t = 0.; pDS.t = 0.; pDS.d2_phi = 0.; pDS.d2_theta = 0.; pDS.g = -9.81; pDS.fx = 0.; pDS.fx_when_control=0.; pDS.c=0.;
+        pDS.loaded_l1 = 0.25; pDS.loaded_l2 = 0.25; pDS.loaded_m1 = 0.2; pDS.loaded_m2 = 0.2; pDS.loaded_phi = Math.PI/2.; pDS.loaded_theta = 0.; pDS.loaded_g = -9.81;  pDS.loaded_fx_when_control=0.; pDS.loaded_c = 0.;
+
+        for (TextField x : textFieldsList)
 		{
 			x.clear();
 			x.setStyle("-fx-background-color:RGB(255,255,255,1);");
 		}
 	}
+
+	@FXML
+    private void onClickReset(Event event) throws Exception
+    {
+        pDS.l1 = pDS.loaded_l1; pDS.l2 = pDS.loaded_l2; pDS.m1 = pDS.loaded_m1; pDS.m2 = pDS.loaded_m2; pDS.phi = pDS.loaded_phi; pDS.theta = pDS.loaded_theta; pDS.d_phi = 0.; pDS.d_theta = 0.; pDS.real_t = 0.; pDS.t = 0.; pDS.d2_phi = 0.; pDS.d2_theta = 0.; pDS.g = pDS.loaded_g; pDS.fx = 0.; pDS.fx_when_control = pDS.loaded_fx_when_control;
+    }
 
     public void checkAnimation() {
         System.out.println("Pendulum: " + this);
@@ -207,26 +219,25 @@ public class PendulumGuiController {
         Pattern pattern_signed = Pattern.compile(regex_signed_double);
         Pattern pattern_unsigned_not_zero = Pattern.compile(regex_unsigned_double);
 
-        tempL1 = parseInput(L1_input, pDS.l1, pattern_unsigned, text);
-        tempL2 = parseInput(L2_input, pDS.l2, pattern_unsigned, text);
-        tempM1 = parseInput(M1_input, pDS.m1, pattern_unsigned, text);
-        tempM2 = parseInput(M2_input, pDS.m2, pattern_unsigned, text);
-        tempPHI = parseInput(PHI_input, pDS.phi, pattern_signed, text);
-        tempTHETA = parseInput(THETA_input, pDS.theta, pattern_signed, text);
-        tempGravity = parseInput(G_input, pDS.g, pattern_signed, text);
-        tempForce = parseInput(F_input, pDS.fx_when_control, pattern_unsigned, text);
-        tempDrag = parseInput(C_input, pDS.c, pattern_unsigned_not_zero, text);
+        tempL1 = parseInput(L1_input, pDS.loaded_l1, pattern_unsigned, text);
+        tempL2 = parseInput(L2_input, pDS.loaded_l2, pattern_unsigned, text);
+        tempM1 = parseInput(M1_input, pDS.loaded_m1, pattern_unsigned, text);
+        tempM2 = parseInput(M2_input, pDS.loaded_m2, pattern_unsigned, text);
+        tempPHI = parseInput(PHI_input, pDS.loaded_phi, pattern_signed, text);
+        tempTHETA = parseInput(THETA_input, pDS.loaded_theta, pattern_signed, text);
+        tempGravity = parseInput(G_input, pDS.loaded_g, pattern_signed, text);
+        tempForce = parseInput(F_input, pDS.loaded_fx_when_control, pattern_unsigned, text);
+        tempDrag = parseInput(C_input, pDS.loaded_c, pattern_unsigned_not_zero, text);
 
-
-        pDS.l1 = tempL1;
-        pDS.l2 = tempL2;
-        pDS.m1 = tempM1;
-        pDS.m2 = tempM2;
-        pDS.phi = tempPHI;
-        pDS.theta = tempTHETA;
-        pDS.g = tempGravity;
-        pDS.fx_when_control = tempForce;
-        pDS.c = tempDrag;
+        pDS.loaded_l1 = tempL1;
+        pDS.loaded_l2 = tempL2;
+        pDS.loaded_m1 = tempM1;
+        pDS.loaded_m2 = tempM2;
+        pDS.loaded_phi = tempPHI;
+        pDS.loaded_theta = tempTHETA;
+        pDS.loaded_g = tempGravity;
+        pDS.loaded_fx_when_control = tempForce;
+        pDS.loaded_c = tempDrag;
 		if (!text.toString().isEmpty())
 		{
 			ResourceBundle bundle = ResourceBundle.getBundle("language.Locale",  Main.fxmlLoader.getResources().getLocale());

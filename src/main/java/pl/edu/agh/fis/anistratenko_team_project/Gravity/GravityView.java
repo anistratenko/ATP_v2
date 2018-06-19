@@ -67,7 +67,7 @@ public class GravityView implements SimulationView {
             for (int i = 0; i < gravity.getNumOfBodies(); i++){
                 Circle newCircle =  new Circle(xcenter + gravity.getBody(i).getX() * scale,
                                                 ycenter + gravity.getBody(i).getY() * scale,
-                        						gravity.getBody(i).getR());
+                        						gravity.getBody(i).getR() * scale);
                 if (gravity.getBody(i).isBlackHole){
 //                    newCircle.setCenterX(gravity.getBody(i).getX());
 //                    newCircle.setCenterY(gravity.getBody(i).getY());
@@ -84,7 +84,7 @@ public class GravityView implements SimulationView {
 //                if(!gravity.getBody(i).isBlackHole) {
                     ((Circle) elements.get(i)).setCenterX(xcenter + gravity.getBody(i).getX() * scale);
                     ((Circle) elements.get(i)).setCenterY(ycenter + gravity.getBody(i).getY() * scale);
-                    ((Circle) elements.get(i)).setRadius(gravity.getBody(i).getR());
+                    ((Circle) elements.get(i)).setRadius(gravity.getBody(i).getR() * scale);
 //                }
 //                else{
 //                    ((Circle) elements.get(i)).setCenterX(gravity.getBody(i).getX());

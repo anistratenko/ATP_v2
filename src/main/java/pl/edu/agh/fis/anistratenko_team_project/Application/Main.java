@@ -40,8 +40,8 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setWidth(800.);
         primaryStage.setMinWidth(600.);
-        primaryStage.setHeight(600.);
-        primaryStage.setMinHeight(500.);
+        primaryStage.setHeight(800.);
+        primaryStage.setMinHeight(600.);
 //        primaryStage.initStyle(StageStyle.UNDECORATED);
 //        primaryStage.setFullScreen(true); // may be useful
         primaryStage.show();

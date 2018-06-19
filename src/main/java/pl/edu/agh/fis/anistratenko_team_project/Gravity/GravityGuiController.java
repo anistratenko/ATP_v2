@@ -137,8 +137,8 @@ public class GravityGuiController {
     @FXML
     private void onClickReset(Event event) throws Exception {
         gravityView.resetGravityView(loadedValue);
-        setTextFieldColor(numOfBodiesInput, "white", "white");
-        numOfBodiesInput.clear();
+//        setTextFieldColor(numOfBodiesInput, "white", "white");
+//        numOfBodiesInput.clear();
     }
 
     @FXML
