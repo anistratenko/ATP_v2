@@ -24,7 +24,12 @@ public class Gravity {
         }
     }
 
+    /**
+     * @author OLOL OSH
+     */
+
     public void resetGravity(int numOfBodies) {
+
         gDS.numOfBodies = numOfBodies;
         gDS.bodies.clear();
         for (int i = 0; i < gDS.numOfBodies; i++) {

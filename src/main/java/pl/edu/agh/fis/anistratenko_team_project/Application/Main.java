@@ -57,8 +57,7 @@ public class Main extends Application {
         });
     }
 
-
-    private GridPane loadFXML(Locale locale) {
+private GridPane loadFXML(Locale locale) {
         fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/application.fxml"));
 
 //        fxmlLoader.setLocation();

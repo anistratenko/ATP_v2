@@ -145,6 +145,7 @@ public class GravityGuiController {
     private void onClickDefault(Event event) throws Exception {
             numOfBodiesInput.clear();
             gravityView.resetGravityView(20);
+
             setTextFieldColor(numOfBodiesInput, "white", "white");
             loadedValue = 20;
             checkAnimation();
