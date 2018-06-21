@@ -39,7 +39,7 @@
                <Insets bottom="50.0" />
             </GridPane.margin>
          </Button>
-         <Text fx:id="help" strokeType="OUTSIDE" strokeWidth="0.0" text="%text_help" wrappingWidth="173.21875" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+         <Text fx:id="help" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" text="%text_help" wrappingWidth="500" GridPane.halignment="CENTER" GridPane.valignment="TOP">
             <GridPane.margin>
                <Insets top="50.0" />
             </GridPane.margin>

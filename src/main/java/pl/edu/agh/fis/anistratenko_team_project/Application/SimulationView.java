@@ -4,6 +4,9 @@ import javafx.scene.Node;
 
 import java.util.ArrayList;
 
+/**
+ * Interface of SimulationView
+ */
 public interface SimulationView {
     /**
      * @return list of elements to be drawn

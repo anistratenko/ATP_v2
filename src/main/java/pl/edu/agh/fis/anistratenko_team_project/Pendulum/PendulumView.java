@@ -7,6 +7,9 @@ import pl.edu.agh.fis.anistratenko_team_project.Application.SimulationView;
 
 import java.util.ArrayList;
 
+/**
+ * Class for communication between PendulumController and Pednulum
+ */
 public class PendulumView implements SimulationView {
     private ArrayList<Node> elements = new ArrayList<>();
     private Circle firstBob, secondBob;
@@ -16,27 +19,9 @@ public class PendulumView implements SimulationView {
     private double xsize;
     private double ysize;
     private PDS pDS;
-    /**
-     * Constructor for single pendulum
-     *
-     * @param length1 - length of the arm
-     * @param mass1   - mass of the pendulum
-     */
-
-//    public PendulumView(double length1, double mass1) {
-//        pendulum = new Pendulum(length1, mass1);
-//        pendulum.setLMF(PDS.l1, PDS.m1, PDS.phi);
-//        firstBob = new Circle(300., 270., 10.);
-//        secondBob = firstBob;
-//        elements.add(firstBob);
-//        firstCord = new Line(250, 250, firstBob.getCenterX(), firstBob.getCenterY());
-//        secondCord = new Line (250, 250, 250, 250);
-//        elements.add(firstCord);
-//    }
 
     /**
-     * Double pendulum
-     *
+     * Constructor for double pendulum view. Use for single pendulum as well, but change pDS.doublependulum to false
      * @param length1 - length of first pendulum
      * @param mass1   - mass of first pendulum
      * @param length2 - length of second pendulum ( which is attached to the previous one )
@@ -50,10 +35,6 @@ public class PendulumView implements SimulationView {
         secondBob = new Circle(400., 270., 5.);
         elements.add(firstBob);
         elements.add(secondBob);
-//        pendulum.setXY((firstBob.getCenterX() - 250.) / 250.,
-//                (firstBob.getCenterY() - 250.) / 250.,
-//                (secondBob.getCenterX() - 250.) / 250.,
-//                (secondBob.getCenterY() - 250.) / 250.);
         firstCord = new Line(offset[0], offset[1], firstBob.getCenterX(), firstBob.getCenterY());
         secondCord = new Line(firstBob.getCenterX(), firstBob.getCenterY(), secondBob.getCenterX(), secondBob.getCenterY());
         elements.add(firstCord);
@@ -69,6 +50,9 @@ public class PendulumView implements SimulationView {
         return false;
     }
 
+    /**
+     * compute actual position of pendulum in pane's coordinates
+     */
     public void refresh() {
         double xcenter = xsize / 2;
         double ycenter = ysize / 2;
@@ -89,6 +73,13 @@ public class PendulumView implements SimulationView {
         secondCord.setEndY(ycenter - pDS.y2 * scale);
     }
 
+    /**
+     * Set size of pane in which pendulum is drawed in pixels and in physical units
+     * @param px_x - width of pane in pixels
+     * @param px_y - heigth of pane in pixels
+     * @param re_x - width of pane [m]
+     * @param re_y - heigth of pane [m]
+     */
     @Override
     public void setPaneSize(double px_x, double px_y, double re_x, double re_y) {
         xsize = px_x;
@@ -105,7 +96,10 @@ public class PendulumView implements SimulationView {
         return elements;
     }
 
-    @Override
+	/**
+	 * @return "Pendulum" string
+	 */
+	@Override
     public String toString() {
         return "Pendulum";
     }

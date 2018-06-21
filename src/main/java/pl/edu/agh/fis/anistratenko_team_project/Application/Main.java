@@ -21,30 +21,29 @@ public class Main extends Application {
     static GridPane root;
     static Controller controller;
 
-
+	/**
+	 * Overloaded method from application, prepares main window
+	 * @param primaryStage_arg
+	 * @throws Exception
+	 */
     @Override
     public void start(Stage primaryStage_arg) throws Exception {
         primaryStage = primaryStage_arg;
 
         Locale currLocale = new Locale("pl");
 
-//        root = fxmlLoader.load();
         root = loadFXML(currLocale);
         controller = fxmlLoader.getController();
         scene = new Scene(root);
 
-
-//        this.primaryStage.setTitle(fxmlLoader.getResources().getString("window_title"));
-
-
+        //set stage params
         primaryStage.setScene(scene);
         primaryStage.setWidth(800.);
-        primaryStage.setMinWidth(600.);
-        primaryStage.setHeight(800.);
-        primaryStage.setMinHeight(600.);
-//        primaryStage.initStyle(StageStyle.UNDECORATED);
-//        primaryStage.setFullScreen(true); // may be useful
+        primaryStage.setMinWidth(800.);
+        primaryStage.setHeight(701.);
+        primaryStage.setMinHeight(700.);
         primaryStage.show();
+        //add fullscreen hanle
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent)
@@ -57,7 +56,7 @@ public class Main extends Application {
         });
     }
 
-private GridPane loadFXML(Locale locale) {
+		private GridPane loadFXML(Locale locale) {
         fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/application.fxml"));
 
 //        fxmlLoader.setLocation();

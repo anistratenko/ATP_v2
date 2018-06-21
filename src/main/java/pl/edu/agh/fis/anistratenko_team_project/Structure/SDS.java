@@ -3,6 +3,9 @@ package pl.edu.agh.fis.anistratenko_team_project.Structure;
 import java.util.Random;
 import java.util.Vector;
 
+/**
+ * Class for storing data used in structure simulation
+ */
 public class SDS {
 	public SDS() {
 	}
@@ -31,6 +34,9 @@ public class SDS {
 	}
 }
 
+/**
+ * class represinting single body used in Structure class
+ */
 class Body
 {
 	private double x;
@@ -42,16 +48,30 @@ class Body
 	private final double mass;
 	private Vector<Body> neighbours = new Vector<Body>();
 
+	/**
+	 * Get x position of body
+	 * @return x position
+	 */
 	public double getX()
 	{
 		return x;
 	}
 
+	/**
+	 * Get y position of body
+	 * @return y position
+	 */
 	public double getY()
 	{
 		return y;
 	}
 
+	/**
+	 * Constructor for single body
+	 * @param init_x - initial x position
+	 * @param init_y - initial y position
+	 * @param init_mass - mass of body
+	 */
 	Body(double init_x, double init_y, double init_mass)
 	{
 		mass = init_mass;
@@ -63,6 +83,10 @@ class Body
 		vy = 0.;
 	}
 
+	/**
+	 * Method for random position change of body
+	 * @param maxDifference - maximum change of position in every direction
+	 */
 	public void randomizePosition(double maxDifference)
 	{
 		Random rnd = new Random();
@@ -70,16 +94,30 @@ class Body
 		y += rnd.nextDouble() * maxDifference * 2 - maxDifference;
 	}
 
+	/**
+	 * Method used to move body verticlaly
+	 * @param dy - distance to move
+	 */
 	public void moveY(double dy)
 	{
 		y+=dy;
 	}
 
+	/**
+	 * Connect with neighbouring body
+	 * @param N - neighbour to connect
+	 */
 	public void addNeighbour(Body N)
 	{
+		//maximum 4 neighbours
 		if (neighbours.size() < 4) neighbours.add(N);
 	}
 
+	/**
+	 * Method computing effective force acting on body
+	 * @param k - rate [N/m]
+	 * @param g - gravity acceleration [m/s^2]
+	 */
 	public void computeForces(double k, double g)
 	{
 		fx = 0.;
@@ -91,6 +129,10 @@ class Body
 		}
 	}
 
+	/**
+	 * Update position of body applying actual effective force for specified time
+	 * @param dt - time of force applying
+	 */
 	public void updatePositions(double dt)
 	{
 		double ax = fx/mass;
