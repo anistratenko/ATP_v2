@@ -6,6 +6,9 @@ import pl.edu.agh.fis.anistratenko_team_project.Application.SimulationView;
 
 import java.util.ArrayList;
 
+/**
+ * Class for communication between StructureController and Structure
+ */
 public class StructureView implements SimulationView {
 	private Structure structure;
 	private SDS sDS;
@@ -13,6 +16,10 @@ public class StructureView implements SimulationView {
 	private static double xsize;
 	private static double ysize;
 
+	/**
+	 * Constructor for StructureView
+	 * @param sds - SDS instance shared with StructureGUIController
+	 */
 	public StructureView(SDS sds)
 	{
 		sDS = sds;
@@ -28,6 +35,13 @@ public class StructureView implements SimulationView {
 		}
 	}
 
+	/**
+	 * Set size of pane in which pendulum is drawed in pixels and in physical units
+	 * @param px_x - width of pane in pixels
+	 * @param px_y - heigth of pane in pixels
+	 * @param re_x - width of pane [m]
+	 * @param re_y - heigth of pane [m]
+	 */
 	@Override
 	public void setPaneSize(double px_x, double px_y, double re_x, double re_y)
 	{
@@ -37,11 +51,17 @@ public class StructureView implements SimulationView {
 		sDS.yreal = re_y;
 	}
 
+	/**
+	 * @return elements to be drawn
+	 */
 	@Override
 	public ArrayList<Node> getNodes() {
 		return elements;
 	}
 
+	/**
+	 * Run simulation and move positions of pendulums
+	 */
 	@Override
 	public boolean performSimulationStep() {
 		structure.simulate(sDS.FrameTime);
@@ -49,24 +69,36 @@ public class StructureView implements SimulationView {
 		return false;
 	}
 
+	/**
+	 * call Structure's method wave
+	 */
 	public void callWave()
 	{
 		structure.wave();
 		refresh();
 	}
 
+	/**
+	 * call Structure's method randomizeStructure
+	 */
 	public void callRandomize()
 	{
 		structure.randomizeStructure();
 		refresh();
 	}
 
+	/**
+	 * call Structure's method resetStructure
+	 */
 	public void callReset()
 	{
 		structure.resetStructure();
 		refresh();
 	}
 
+	/**
+	 * compute actual position of pendulum in pane's coordinates
+	 */
 	public void refresh()
 	{
 		double xcenter = xsize / 2.;

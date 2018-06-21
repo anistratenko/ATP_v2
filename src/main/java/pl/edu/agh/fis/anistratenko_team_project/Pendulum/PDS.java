@@ -1,5 +1,8 @@
 package pl.edu.agh.fis.anistratenko_team_project.Pendulum;
 
+/**
+ * Class for storing data used in pendulum simulation
+ */
 public class PDS {
     public PDS() {
     }

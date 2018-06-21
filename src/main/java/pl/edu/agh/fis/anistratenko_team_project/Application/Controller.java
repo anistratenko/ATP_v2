@@ -135,12 +135,7 @@ public class Controller {
         tabPane.setFocusTraversable(false);
 
         assert PaneGravity != null;
-//        PaneGravity.widthProperty().addListener((obs, oldVal, newVal) -> {
-//            gravityController.setPaneSize(newVal.doubleValue(), PaneGravity.getHeight(), gDS.xreal, gDS.yreal);
-//        });
-//        PaneGravity.heightProperty().addListener((obs, oldVal, newVal) -> {
-//            gravityController.setPaneSize(PaneGravity.getWidth(), newVal.doubleValue(), gDS.xreal, gDS.yreal);
-//        });
+
         gravityController.guiPane.setVisible(false);
         gravityController.guiPane.setManaged(false);
         structureController.guiPane.setVisible(false);
@@ -160,9 +155,6 @@ public class Controller {
 				structureController.guiPane.setManaged(false);
                 pendulumController.GUIPane.setVisible(true);
                 pendulumController.GUIPane.setManaged(true);
-
-
-//                pendulumController.startAnimation();
             }
             else if (TabGravity.isSelected())
             {
@@ -174,8 +166,6 @@ public class Controller {
 				structureController.guiPane.setManaged(false);
                 gravityController.guiPane.setVisible(true);
                 gravityController.guiPane.setManaged(true);
-
-//                gravityController.startAnimation();
             }
 			else if (TabStructure.isSelected())
 			{
@@ -187,44 +177,11 @@ public class Controller {
 				gravityController.guiPane.setManaged(false);
 				structureController.guiPane.setVisible(true);
 				structureController.guiPane.setManaged(true);
-
-//                structureController.startAnimation();
 			}
         } else initEvent = true;
     }
 
-    //        if (initEvent) {
-//        	gravityController.checkAnimation();
-//        	pendulumController.checkAnimation();
-//            if (TabPendulum.isSelected()) {
-//                gravityController.stopAnimation();
-//                FXMLLoader pendulumLoader = new FXMLLoader(getClass().getResource("pendulumGui.fxml"));
-//                ContentPane.getChildren().clear();
-//                ContentPane.getChildren().add(pendulumLoader.load());
-//                pendulumController = pendulumLoader.getController();
-//                PanePendulum.getChildren().clear();
-//                pendulumController.initialize(PanePendulum);
-////                pendulumController.startAnimation();
-//            } else if (TabGravity.isSelected()) {
-//                pendulumController.stopAnimation();
-//                FXMLLoader gravityLoader = new FXMLLoader(getClass().getResource("gravityGui.fxml"));
-//                ContentPane.getChildren().clear();
-//                ContentPane.getChildren().add(gravityLoader.load());
-//				gravityController = gravityLoader.getController();
-//				PaneGravity.getChildren().clear();
-//				gravityController.initialize(PaneGravity);
-////                //To nie miejsce na takie rzeczy, od tego jest przycisk reset, wewnątrz GUIcontroller
-////                gravityController.gravityView = new GravityView(gDS.numOfBodies);
-////                for (Node i : gravityController.gravityView.getNodes())
-////                    PaneGravity.getChildren().add(i);
-////				//Od tego przycisk start, ja dałem takie coś wyżej(w pendulum)?
-////                gravityController.startAnimation();
-//            }
-//        }
-//        else initEvent = true;
-//    }
-//
-//
+
     @FXML
     private MenuItem langSelectEN;
 

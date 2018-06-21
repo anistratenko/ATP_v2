@@ -33,11 +33,11 @@
     <TextField fx:id="G_input" layoutX="18.0" layoutY="310.0" prefHeight="27.0" prefWidth="170.0" promptText="%textfield_force" />
     <TextField fx:id="F_input" layoutX="18.0" layoutY="341.0" prefHeight="27.0" prefWidth="170.0" promptText="%textfield_acceleration" />
     <TextField fx:id="C_input" layoutX="18.0" layoutY="373.0" prefHeight="27.0" prefWidth="170.0" promptText="%textfield_dragcoef" />
-    <Button fx:id="Load" layoutX="15.0" layoutY="409.0" mnemonicParsing="false" onAction="#onClickLoad" prefHeight="22.0" prefWidth="174.0" text="%button_load">
+    <Button fx:id="Load" layoutX="32.0" layoutY="410.0" mnemonicParsing="false" onAction="#onClickLoad" prefHeight="25.0" prefWidth="140.0" text="%button_load">
       <font>
          <Font size="10.0" />
       </font></Button>
-    <TextFlow fx:id="warning" layoutX="25.0" layoutY="425.0" prefHeight="27.0" prefWidth="160.0" />
+    <TextFlow fx:id="warning" layoutX="25.0" layoutY="445.0" prefHeight="27.0" prefWidth="160.0" />
    <Button fx:id="DEFAULT" layoutX="33.0" layoutY="141.0" mnemonicParsing="false" onAction="#onClickDefault" prefHeight="27.0" prefWidth="139.0" text="%button_default">
       <font>
          <Font size="12.0" />

@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 /**
- * Created by yevhenii on 5/9/18.
+ * Class for controlling pendulum simulaton
  */
 public class PendulumGuiController {
     private PDS pDS;
@@ -70,11 +70,20 @@ public class PendulumGuiController {
 
     private Pane drawPane;
 
-    public PendulumGuiController() {
+	/**
+	 * Constructor that does nothing
+	 */
+	public PendulumGuiController() {
 
     }
 
-    public void initialize(Pane p, PDS pds) {
+	/**
+	 * Method that needs to be called before simulation can be performed
+	 * It is not constructor for technical reasons
+	 * @param p - pane in which pendulum will be drawed
+	 * @param pds - PDS instance shared withbController
+	 */
+	public void initialize(Pane p, PDS pds) {
         pDS = pds;
 		pendulumView = new PendulumView(0.15, 0.2, 0.2, 0.1, pDS);
         setPane(p);
@@ -115,6 +124,7 @@ public class PendulumGuiController {
 
         if (pDS.running) pendulumAnimation.start();
 
+        //add textfields to collection
 		textFieldsList.add(L1_input);
 		textFieldsList.add(L2_input);
 		textFieldsList.add(M1_input);
@@ -125,6 +135,7 @@ public class PendulumGuiController {
 		textFieldsList.add(F_input);
 		textFieldsList.add(C_input);
 
+		//set key controll of horizontal force
 		drawPane.setFocusTraversable(true);
 		drawPane.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.LEFT) {
@@ -142,7 +153,12 @@ public class PendulumGuiController {
 
     }
 
-    private void fitPendulum(Double xmin, Double ymin) {
+	/**
+	 * change size of pane in physical units, so whole pendulum can be seen
+	 * @param xmin - minimum width of pane in physial units
+	 * @param ymin - minimum heigth of pane in physial units
+	 */
+	private void fitPendulum(Double xmin, Double ymin) {
 
         Double temp = (pDS.l1 + pDS.l2) * 2.;
         if (temp > pDS.xreal || temp > pDS.yreal) {
@@ -155,9 +171,13 @@ public class PendulumGuiController {
         }
     }
 
-    @FXML
+	/**
+	 * Event when Start button is clicked, starts or stop animation
+	 * @param event
+	 * @throws Exception
+	 */
+	@FXML
     private void onClickStart(Event event) throws Exception {
-        checkAnimation();
         pDS.running = !pDS.running;
         if (pDS.running) {
             Start.setText("Stop");
@@ -168,11 +188,18 @@ public class PendulumGuiController {
         }
     }
 
+	/**
+	 * Event when Defaut button is clicked, resets pendulums gui and simulation to default state
+	 * @param event
+	 * @throws Exception
+	 */
 	@FXML
 	private void onClickDefault(Event event) throws Exception {
+		//change data stored in pDS
 		pDS.l1 = 0.25; pDS.l2 = 0.25; pDS.m1 = 0.2; pDS.m2 = 0.2; pDS.phi = Math.PI/2.; pDS.theta = 0.; pDS.d_phi = 0.; pDS.d_theta = 0.; pDS.real_t = 0.; pDS.t = 0.; pDS.d2_phi = 0.; pDS.d2_theta = 0.; pDS.g = -9.81; pDS.fx = 0.; pDS.fx_when_control=0.; pDS.c=0.;
         pDS.loaded_l1 = 0.25; pDS.loaded_l2 = 0.25; pDS.loaded_m1 = 0.2; pDS.loaded_m2 = 0.2; pDS.loaded_phi = Math.PI/2.; pDS.loaded_theta = 0.; pDS.loaded_g = -9.81;  pDS.loaded_fx_when_control=0.; pDS.loaded_c = 0.;
 
+        //clear input fields
         for (TextField x : textFieldsList)
 		{
 			x.clear();
@@ -180,19 +207,23 @@ public class PendulumGuiController {
 		}
 	}
 
+	/**
+	 * Event when Reset button is clicked, reloads simulation with latest loaded data
+	 * @param event
+	 * @throws Exception
+	 */
 	@FXML
     private void onClickReset(Event event) throws Exception
     {
         pDS.l1 = pDS.loaded_l1; pDS.l2 = pDS.loaded_l2; pDS.m1 = pDS.loaded_m1; pDS.m2 = pDS.loaded_m2; pDS.phi = pDS.loaded_phi; pDS.theta = pDS.loaded_theta; pDS.d_phi = 0.; pDS.d_theta = 0.; pDS.real_t = 0.; pDS.t = 0.; pDS.d2_phi = 0.; pDS.d2_theta = 0.; pDS.g = pDS.loaded_g; pDS.fx = 0.; pDS.fx_when_control = pDS.loaded_fx_when_control;
     }
 
-    public void checkAnimation() {
-        System.out.println("Pendulum: " + this);
-        if (pendulumAnimation != null) System.out.println("All OK");
-        else System.out.println("Not too good");
-    }
-
-    @FXML
+	/**
+	 * Event when Type button is clicked, change pendulum type between double and single
+	 * @param event
+	 * @throws Exception
+	 */
+	@FXML
     private void onClickType(Event event) throws Exception {
         pDS.doublependulum = !pDS.doublependulum;
         ResourceBundle bundle;
@@ -205,7 +236,12 @@ public class PendulumGuiController {
 
     }
 
-    @FXML
+	/**
+	 * Event when Load button is clicked, checks input fields and loads correct input to pDS
+	 * @param event
+	 * @throws Exception
+	 */
+	@FXML
     private void onClickLoad(Event event) throws Exception {
         Double tempL1, tempL2, tempM1, tempM2, tempPHI, tempTHETA, tempGravity, tempForce, tempDrag;
 
@@ -247,6 +283,16 @@ public class PendulumGuiController {
 		}
     }
 
+	/**
+	 * Method used to parse input form input field
+	 * @param inputText - input field
+	 * @param defaultInput - default value if string in inputText is invalid
+	 * @param pattern - correct pattern of input
+	 * @param text - StringBuilder instance to which textfield name will be appended is wrong input
+	 * @return - parsed or default value
+	 * @throws NumberFormatException
+	 * @throws NullPointerException
+	 */
     private Double parseInput(TextField inputText, Double defaultInput, Pattern pattern, StringBuilder text) throws NumberFormatException, NullPointerException {
 
         if (!inputText.getText().trim().isEmpty()) {
@@ -266,29 +312,37 @@ public class PendulumGuiController {
         return defaultInput;
     }
 
-    private void setPane(Pane p) {
+	/**
+	 * Sets pane in which pendulum will be drawed
+	 * @param p - pane to dra on
+	 */
+	private void setPane(Pane p) {
         drawPane = p;
         for (Node i : pendulumView.getNodes())
             drawPane.getChildren().add(i);
     }
 
-    public void setVisible(boolean p) {
-        Type.setVisible(p);
-        Start.setVisible(p);
-        Type.setManaged(p);
-        Start.setManaged(p);
-    }
-
-
-
-    public void startAnimation() {
+	/**
+	 * Method used to start animation
+	 */
+	public void startAnimation() {
         pendulumAnimation.start();
     }
 
+    /**
+	 * Method used to stop animation
+	 */
     public void stopAnimation() {
         pendulumAnimation.stop();
     }
 
+	/**
+	 * Set size of pane in which pendulum is drawed in pixels and in physical units
+	 * @param x1 - width of pane in pixels
+	 * @param y1 - heigth of pane in pixels
+	 * @param x2 - width of pane [m]
+	 * @param y2 - heigth of pane [m]
+	 */
     public void setPaneSize(double x1, double y1, double x2, double y2) {
         pendulumView.setPaneSize(x1, y1, x2, y2);
     }
