@@ -34,7 +34,7 @@
          <RowConstraints />
       </rowConstraints>
       <children>
-         <Button fx:id="buttonCloseHelp" mnemonicParsing="false" onAction="#closeHelp" prefHeight="53.0" prefWidth="140.0" text="%button_back" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
+         <Button fx:id="buttonCloseHelp" mnemonicParsing="false" onAction="#closeHelp" prefHeight="53.0" prefWidth="240.0" text="%button_back" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
             <GridPane.margin>
                <Insets bottom="50.0" />
             </GridPane.margin>
