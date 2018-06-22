@@ -60,6 +60,7 @@ class Body {
 
     public boolean isBlackHole = false;
 
+
     public Body(double newX, double newY, double newR, double newM, double newVx, double newVy) {
         this.x = newX;
         this.y = newY;
@@ -69,7 +70,9 @@ class Body {
         this.vx = newVx;
         this.vy = newVy;
     }
-
+    /**
+     * Prevents tracking bodies that are too far away from the observable area.
+     */
     boolean beyondTheCanvas() {
         return Math.abs(this.getX()) > 5000 || Math.abs(this.getY()) > 5000;
     }

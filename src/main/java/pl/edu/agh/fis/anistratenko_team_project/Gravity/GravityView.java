@@ -42,6 +42,13 @@ public class GravityView implements SimulationView {
         }
     }
 
+    /**
+     * Set size of pane in which pendulum is drawed in pixels and in physical units
+     * @param px_x - width of pane in pixels
+     * @param px_y - heigth of pane in pixels
+     * @param re_x - width of pane [m]
+     * @param re_y - heigth of pane [m]
+     */
     @Override
     public void setPaneSize(double px_x, double px_y, double re_x, double re_y) {
         xsize = px_x;
@@ -50,11 +57,18 @@ public class GravityView implements SimulationView {
         yreal = re_y;
     }
 
+    /**
+     * @return elements to be drawn
+     */
     @Override
     public ArrayList<Node> getNodes() {
         return elements;
     }
 
+
+    /**
+     * Computes actual bodies' positions in pane's coordinates
+     */
     public boolean refresh() {
         double xcenter = xsize / 2.;
         double ycenter = ysize / 2.;
@@ -69,32 +83,26 @@ public class GravityView implements SimulationView {
                                                 ycenter + gravity.getBody(i).getY() * scale,
                         						gravity.getBody(i).getR() * scale);
                 if (gravity.getBody(i).isBlackHole){
-//                    newCircle.setCenterX(gravity.getBody(i).getX());
-//                    newCircle.setCenterY(gravity.getBody(i).getY());
                     newCircle.setFill(Color.rgb(0, 0,0));
-                    System.out.println("BHV: " + newCircle.getCenterX() + " " + newCircle.getCenterY());
                 }
-                else
+                else{
                     newCircle.setFill(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
+                }
                 elements.add(newCircle);
             }
             return true;
         } else
             for (int i = 0; i < elements.size(); i++) {
-//                if(!gravity.getBody(i).isBlackHole) {
                     ((Circle) elements.get(i)).setCenterX(xcenter + gravity.getBody(i).getX() * scale);
                     ((Circle) elements.get(i)).setCenterY(ycenter + gravity.getBody(i).getY() * scale);
                     ((Circle) elements.get(i)).setRadius(gravity.getBody(i).getR() * scale);
-//                }
-//                else{
-//                    ((Circle) elements.get(i)).setCenterX(gravity.getBody(i).getX());
-//                    ((Circle) elements.get(i)).setCenterY(gravity.getBody(i).getY());
-//                    ((Circle) elements.get(i)).setRadius(gravity.getBody(i).getR());
-//                }
             }
         return false;
     }
 
+    /**
+     * Runs simulation.
+     */
     @Override
     public boolean performSimulationStep() {
         gravity.simulate(gDS.FrameTime);
@@ -117,6 +125,7 @@ public class GravityView implements SimulationView {
 //        mediaPlayer.play();
 //        mediaPlayer.seek(Duration.ZERO);
     }
+
 
     void addBlackHoleView(double x, double y){
         double xcenter = xsize / 2.;

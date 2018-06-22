@@ -15,6 +15,9 @@ import javafx.scene.text.TextFlow;
 
 import java.util.regex.Pattern;
 
+/**
+ * Class for controlling gravity simulation
+ */
 public class GravityGuiController {
     GDS gDS;
     private AnimationTimer gravityAnimation;
@@ -56,9 +59,19 @@ public class GravityGuiController {
 
     private Pane drawPane;
 
+    /**
+     * Constructor that does nothing
+     */
     public GravityGuiController() {
     }
 
+    /**
+     * Should be called before starting the simulation
+     * It is not constructor for framework's internal reasons
+     * Initializes Animation, adds event listeners
+     * @param p - pane in which gravity will be drawed
+     * @param gds - GDS instance shared with Controller
+     */
     public void initialize(Pane p, GDS gds) {
         gDS = gds;
         gravityView = new GravityView(gDS.numOfBodies, gDS);
@@ -106,21 +119,22 @@ public class GravityGuiController {
                 }
             }
         });
-        checkAnimation();
     }
 
-
+    /**
+     * When Load button is clicked, checks the input field and loads correct input to gDS
+     * @param event
+     * @throws Exception
+     */
     @FXML
     private void onClickLoad(Event event) throws Exception {
         warning.getChildren().clear();
-//        setTextFieldColor(numOfBodiesInput, "white", "white");
 
         int numOfBodies = parseInput(numOfBodiesInput);
         if (numOfBodies < 0){
             Text text = new Text("Provide number of bodies less than 25");
 
             warning.getChildren().add(text);
-//            System.out.println("Provide number of bodies less than 25");
             setTextFieldColor(numOfBodiesInput, "red", "white");
             if (numOfBodies == -2){
                 System.out.println("EMPTy");
@@ -133,7 +147,11 @@ public class GravityGuiController {
 
     }
 
-
+    /**
+     * When the Reset button is clicked, reloads simulation with latest loaded data
+     * @param event - event passed to handler by framework to ... handle
+     * @throws Exception
+     */
     @FXML
     private void onClickReset(Event event) throws Exception {
         gravityView.resetGravityView(loadedValue);
@@ -141,6 +159,11 @@ public class GravityGuiController {
 //        numOfBodiesInput.clear();
     }
 
+    /**
+     * When the Defaut button is clicked, resets gravity's gui and simulation to default state(20 init bodies)
+     * @param event - event passed to handler by framework to ... handle
+     * @throws Exception
+     */
     @FXML
     private void onClickDefault(Event event) throws Exception {
             numOfBodiesInput.clear();
@@ -148,15 +171,29 @@ public class GravityGuiController {
 
             setTextFieldColor(numOfBodiesInput, "white", "white");
             loadedValue = 20;
-            checkAnimation();
     }
 
+
+    /**
+     * Set colors of borders and background for given text field
+     * @param field - text field to color
+     * @param colorBorder - new border color
+     * @param colorBackground - new background color
+     * @throws Exception
+     */
     private void setTextFieldColor(TextField field, String colorBorder, String colorBackground){
         field.setStyle("-fx-border-color:" + colorBorder  + "; " + "-fx-background-color:" + colorBackground  + ";");
     }
 
 
 
+    /**
+     * Parses input data from the input text field
+     * @param inputText - input field
+     * @return - parsed or default value
+     * @throws NumberFormatException
+     * @throws NullPointerException
+     */
     private int parseInput(TextField inputText) throws NumberFormatException, NullPointerException {
 
         if(inputText.getText().trim().isEmpty()){
@@ -172,6 +209,11 @@ public class GravityGuiController {
         return -1;
     }
 
+    /**
+     * When Start button is clicked, starts or stops the animation
+     * @param event - event passed by the framework to handler to ... handle
+     * @throws Exception
+     */
     @FXML
     private void onClickStart(Event event) throws Exception {
         gDS.running = !gDS.running;
@@ -184,6 +226,11 @@ public class GravityGuiController {
         }
     }
 
+    /**
+     * When Create Black Hole button is clicked, creates a black hole in cursor's position
+     * @param event - event passed by the framework to handler to ... handle
+     * @throws Exception
+     */
     @FXML
     private void createBlackHole(Event event) throws Exception{
         System.out.println("BLAAAACK HOOOOOOLE WOWOWOWO ");
@@ -193,17 +240,6 @@ public class GravityGuiController {
 //        gravityView.addBlackHoleView((int)x, (int)y);
     }
 
-    private void checkAnimation() {
-        System.out.println("Gravity: " + this);
-        if (gravityAnimation != null) System.out.println("All OK");
-        else System.out.println("Not too good");
-    }
-
-    private void setPane(Pane p) {
-        drawPane = p;
-        for (Node i : gravityView.getNodes())
-            drawPane.getChildren().add(i);
-    }
 
     public void startAnimation() {
         if (gravityAnimation != null) gravityAnimation.start();
@@ -213,9 +249,25 @@ public class GravityGuiController {
         if (gravityAnimation != null) gravityAnimation.stop();
     }
 
-
+    /**
+     * Sets pane's size in which the simulation will be visualised in pixels and in physical units
+     * @param x1 - width of pane in pixels
+     * @param y1 - heigth of pane in pixels
+     * @param x2 - width of pane [m]
+     * @param y2 - heigth of pane [m]
+     */
     public void setPaneSize(double x1, double y1, double x2, double y2) {
         gravityView.setPaneSize(x1, y1, x2, y2);
+    }
+
+    /**
+     * Sets pane in which pendulum will be drawed
+     * @param p - pane to dra on
+     */
+    private void setPane(Pane p) {
+        drawPane = p;
+        for (Node i : gravityView.getNodes())
+            drawPane.getChildren().add(i);
     }
 
 }

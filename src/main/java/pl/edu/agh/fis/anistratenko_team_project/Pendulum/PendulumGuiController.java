@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 /**
- * Class for controlling pendulum simulaton
+ * Class for controlling pendulum simulation
  */
 public class PendulumGuiController {
     private PDS pDS;
@@ -81,7 +81,7 @@ public class PendulumGuiController {
 	 * Method that needs to be called before simulation can be performed
 	 * It is not constructor for technical reasons
 	 * @param p - pane in which pendulum will be drawed
-	 * @param pds - PDS instance shared withbController
+	 * @param pds - PDS instance shared with Controller
 	 */
 	public void initialize(Pane p, PDS pds) {
         pDS = pds;
@@ -172,7 +172,7 @@ public class PendulumGuiController {
     }
 
 	/**
-	 * Event when Start button is clicked, starts or stop animation
+	 * Event when Start button is clicked, starts or stops animation
 	 * @param event
 	 * @throws Exception
 	 */
@@ -189,7 +189,7 @@ public class PendulumGuiController {
     }
 
 	/**
-	 * Event when Defaut button is clicked, resets pendulums gui and simulation to default state
+	 * Event when the Defaut button is clicked, resets pendulums gui and simulation to default state
 	 * @param event
 	 * @throws Exception
 	 */
@@ -208,7 +208,7 @@ public class PendulumGuiController {
 	}
 
 	/**
-	 * Event when Reset button is clicked, reloads simulation with latest loaded data
+	 * Event when the Reset button is clicked, reloads simulation with latest loaded data
 	 * @param event
 	 * @throws Exception
 	 */
