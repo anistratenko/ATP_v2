@@ -43,7 +43,7 @@ public class GravityView implements SimulationView {
     }
 
     /**
-     * Set size of pane in which pendulum is drawed in pixels and in physical units
+     * Set size of pane in which bodies are displayed in pixels and units
      * @param px_x - width of pane in pixels
      * @param px_y - heigth of pane in pixels
      * @param re_x - width of pane [m]
